@@ -1,0 +1,10 @@
+.checkout{
+ width: inherit;
+ position: fixed;
+ bottom: 0px;
+}
+
+h3{
+  color: black;
+  text-align: center;
+}

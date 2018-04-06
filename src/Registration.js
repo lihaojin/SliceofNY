@@ -49,7 +49,7 @@ handleChange = (event, index, value) => this.setState({value});
     <Paper style={style.formStyle} zDepth={3}>
     <div className = "firstname">
     <TextField
-    floatingLabelText="Enter your full name"
+    floatingLabelText="Enter your first name"
     floatingLabelStyle ={style.floatingLabelStyle}
     floatingLabelFocusStyle={style.floatingLabelFocusStyle}
     inputStyle={style.inputStyle}
@@ -84,7 +84,8 @@ handleChange = (event, index, value) => this.setState({value});
     inputStyle={style.inputStyle}
     /><br />
 
-    <h3>Select user type</h3>
+
+    <h4>Select user type</h4>
     <div className = "dropdownmenu">
     <DropDownMenu value={this.state.value} onChange={this.handleChange} style={style.customWidth} labelStyle={style.labelStyle}>
           <MenuItem value={1} primaryText="Customer" />
@@ -93,7 +94,7 @@ handleChange = (event, index, value) => this.setState({value});
           <MenuItem value={4} primaryText="Manager" />
         </DropDownMenu>
     </div>
-        <br /><br />
+        <br/><br />
 
     <RaisedButton label="Submit"/>
     </Paper>

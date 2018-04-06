@@ -8,12 +8,16 @@
   display:inline-block;
 }
 
+
 .dropdownmenu {
+  display: inline;
   padding-left: 0px;
   color: white;
 }
 
-h3 {
+h4 {
+  display: inline;
   color: white;
-  padding-left: 20px;
+  padding-left: 0px;
+  margin-top: 25px;
 }
