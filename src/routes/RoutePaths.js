@@ -5,7 +5,7 @@ import {Router, Route,Switch} from 'react-router-dom';
 import History from '../Utils/History';
 import Manager from '../Managerpage';
 import Delivery from '../Delivery';
-
+import Chef from '../Chef'
 const RoutePaths= () => (
   <Router history = {History}>
 
@@ -14,6 +14,7 @@ const RoutePaths= () => (
   <Route path = '/Registration' component = {Registration}/>
   <Route path = '/Manager' component = {Manager}/>
   <Route path = '/Delivery' component = {Delivery}/>
+  <Route path = '/Chef' component = {Chef}/>
   </Switch>
   </Router>
 )
