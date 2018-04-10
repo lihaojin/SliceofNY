@@ -6,6 +6,7 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import MapPage from './components/MapPage'
 import './App.css'
 
 class App extends Component {
@@ -52,7 +53,7 @@ class App extends Component {
       </div>
       </Drawer>
 
-
+      <MapPage />
 
 
       <RoutePaths/>
