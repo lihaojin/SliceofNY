@@ -5,6 +5,8 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
 import './Registration.css'
+import {Tabs, Tab} from 'material-ui/Tabs';
+
 
 const style = {
   formStyle: {
@@ -44,6 +46,8 @@ handleChange = (event, index, value) => this.setState({value});
 
   render() {
     return (
+      <Tabs>
+      <Tab label = "User Registration">
     <div className = "container" >
     <center>
     <Paper style={style.formStyle} zDepth={3}>
@@ -84,22 +88,213 @@ handleChange = (event, index, value) => this.setState({value});
     inputStyle={style.inputStyle}
     /><br />
 
-
-    <h4>Select user type</h4>
-    <div className = "dropdownmenu">
-    <DropDownMenu value={this.state.value} onChange={this.handleChange} style={style.customWidth} labelStyle={style.labelStyle}>
-          <MenuItem value={1} primaryText="Customer" />
-          <MenuItem value={2} primaryText="Delivery" />
-          <MenuItem value={3} primaryText="Cook" />
-          <MenuItem value={4} primaryText="Manager" />
-        </DropDownMenu>
-    </div>
+    <TextField
+    floatingLabelText="Credit Card Number"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
         <br/><br />
 
     <RaisedButton label="Submit"/>
     </Paper>
     </center>
     </div>
+    </Tab>
+
+    <Tab label = "Manager Registration">
+    <div className = "container" >
+    <center>
+    <Paper style={style.formStyle} zDepth={3}>
+    <div className = "firstname">
+    <TextField
+    floatingLabelText="Enter your first name"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    />
+    </div>
+
+    <TextField
+    floatingLabelText="Enter your last name"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Create a username"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Create a password"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Enter your E-mail Address"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Store Name"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Store Location"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Store Phone #"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+        <br/><br />
+
+    <RaisedButton label="Submit"/>
+    </Paper>
+    </center>
+    </div>
+    </Tab>
+
+    <Tab label = "Chef Registration">
+    <div className = "container" >
+    <center>
+    <Paper style={style.formStyle} zDepth={3}>
+    <div className = "firstname">
+    <TextField
+    floatingLabelText="Enter your first name"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    />
+    </div>
+
+    <TextField
+    floatingLabelText="Enter your last name"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Create a username"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Create a password"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Enter your E-mail Address"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Store Name"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Store Location"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+        <br/><br />
+
+    <RaisedButton label="Submit"/>
+    </Paper>
+    </center>
+    </div>
+    </Tab>
+
+    <Tab label = "Delivery Registration">
+    <div className = "container" >
+    <center>
+    <Paper style={style.formStyle} zDepth={3}>
+    <div className = "firstname">
+    <TextField
+    floatingLabelText="Enter your first name"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    />
+    </div>
+
+    <TextField
+    floatingLabelText="Enter your last name"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Create a username"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Create a password"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Enter your E-mail Address"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Store Name"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
+    <TextField
+    floatingLabelText="Personal Phone #"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+        <br/><br />
+
+    <RaisedButton label="Submit"/>
+    </Paper>
+    </center>
+    </div>
+    </Tab>
+    </Tabs>
     );
   }
 }

@@ -6,7 +6,6 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import MapPage from './components/MapPage'
 import './App.css'
 
 class App extends Component {
@@ -37,6 +36,7 @@ class App extends Component {
         width={200}
         open={this.state.open}
         onRequestChange={(open) => this.setState({open})}>
+        <MenuItem onClick={this.handleClose} href="/Homepage">Home</MenuItem>
         <MenuItem onClick={this.handleClose} href="/Login">Log In</MenuItem>
         <MenuItem onClick={this.handleClose} href="/Registration">Sign Up</MenuItem>
       </Drawer>
@@ -52,10 +52,6 @@ class App extends Component {
       <RaisedButton label="Checkout" primary={true} fullWidth={true}/>
       </div>
       </Drawer>
-
-      <MapPage />
-
-
       <RoutePaths/>
       </MuiThemeProvider>
     );
