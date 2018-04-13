@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
 import './Registration.css'
 import {Tabs, Tab} from 'material-ui/Tabs';
-
+import {signUp} from './Utils/Requests/auth';
 
 const style = {
   formStyle: {
@@ -39,11 +39,31 @@ class Registration extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {value: 1};
+    this.state = {
+      name: "",
+      email: "",
+      password : "",
+      typeOfUser : "Customer",
+      store_affiliated_with : "XYZ",
+      value: 1};
+      this.handleFormChange = this.handleFormChange.bind(this);
+      this.onSignUp = this.onSignUp.bind(this);
   }
 
-handleChange = (event, index, value) => this.setState({value});
-
+  handleFormChange(e){
+          const value = e.target.value;
+          const name = e.target.name;
+          this.setState({[name]: value})
+      }
+onSignUp(){
+  signUp(this.state.email,this.state.password, this.state.typeOfUser, this.state.store_affiliated_with)
+  .then(response => {
+    alert("Success" + response.data)
+  })
+  .catch(error => {
+    alert("Error " + error);
+  })
+}
   render() {
     return (
       <Tabs>
@@ -53,50 +73,44 @@ handleChange = (event, index, value) => this.setState({value});
     <Paper style={style.formStyle} zDepth={3}>
     <div className = "firstname">
     <TextField
-    floatingLabelText="Enter your first name"
+    name="name"
+    value={this.state.name}
+    onChange={this.handleFormChange}
+    floatingLabelText="Name"
     floatingLabelStyle ={style.floatingLabelStyle}
     floatingLabelFocusStyle={style.floatingLabelFocusStyle}
     inputStyle={style.inputStyle}
     />
     </div>
 
+
+    <br/>
+
     <TextField
-    floatingLabelText="Enter your last name"
+    value={this.state.email}
+    name="email"
+    onChange={this.handleFormChange}
+    floatingLabelText="Enter your E-mail Address"
     floatingLabelStyle ={style.floatingLabelStyle}
     floatingLabelFocusStyle={style.floatingLabelFocusStyle}
     inputStyle={style.inputStyle}
     /><br />
-
     <TextField
-    floatingLabelText="Create a username"
-    floatingLabelStyle ={style.floatingLabelStyle}
-    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
-    inputStyle={style.inputStyle}
-    /><br />
-
-    <TextField
+    value={this.state.password}
+    name="password"
+    onChange={this.handleFormChange}
     floatingLabelText="Create a password"
     floatingLabelStyle ={style.floatingLabelStyle}
     floatingLabelFocusStyle={style.floatingLabelFocusStyle}
     inputStyle={style.inputStyle}
     /><br />
 
-    <TextField
-    floatingLabelText="Enter your E-mail Address"
-    floatingLabelStyle ={style.floatingLabelStyle}
-    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
-    inputStyle={style.inputStyle}
-    /><br />
 
-    <TextField
-    floatingLabelText="Credit Card Number"
-    floatingLabelStyle ={style.floatingLabelStyle}
-    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
-    inputStyle={style.inputStyle}
-    /><br />
+
+
         <br/><br />
 
-    <RaisedButton label="Submit"/>
+    <RaisedButton onClick={this.onSignUp} label="Submit"/>
     </Paper>
     </center>
     </div>
