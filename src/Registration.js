@@ -51,7 +51,6 @@ class Registration extends Component {
   }
 
   handleFormChange(e){
-<<<<<<< HEAD
           const value = e.target.value;
           const name = e.target.name;
           this.setState({typeOfUser:name,[name]: value})
@@ -59,15 +58,8 @@ class Registration extends Component {
 
  handleChange = (event, index, value) => this.setState({value,typeOfUser:event.target.name});
 
-=======
-    const target = e.target;
-    const value = target.value
-    const name = target.name
-        this.setState({[name]: value})
-    }
->>>>>>> 437d14495a3637cfa3bc6e7e4b33440e97dc3118
 onSignUp(){
-  signUp(this.state.email,this.state.password, this.state.typeOfUser,this.state.name, this.state.store_affiliated_with)
+  signUp(this.state.email,this.state.password, this.state.typeOfUser, this.state.store_affiliated_with)
   .then(response => {
     alert("Success" + response.data)
   })
@@ -120,31 +112,7 @@ onSignUp(){
     floatingLabelFocusStyle={style.floatingLabelFocusStyle}
     inputStyle={style.inputStyle}
     /><br />
-        <TextField
-    value={this.state.typeOfUser}
-    name="typeOfUser"
-    onChange={this.handleFormChange}
-    floatingLabelText="Type Of User"
-    floatingLabelStyle ={style.floatingLabelStyle}
-    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
-    inputStyle={style.inputStyle}
-    /><br />
 
-<<<<<<< HEAD
-=======
-            <TextField
-    value={this.state.store_affiliated_with}
-    name="store_affiliated_with"
-    onChange={this.handleFormChange}
-    floatingLabelText="Store Afilliated With"
-    floatingLabelStyle ={style.floatingLabelStyle}
-    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
-    inputStyle={style.inputStyle}
-    /><br />
-
-
-
->>>>>>> 437d14495a3637cfa3bc6e7e4b33440e97dc3118
         <br/><br />
 
     <RaisedButton onClick={this.onSignUp} label="Submit"/>
