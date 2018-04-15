@@ -50,14 +50,17 @@ class Registration extends Component {
       this.onSignUp = this.onSignUp.bind(this);
   }
 
+//Set state for textfields
   handleFormChange(e){
           const value = e.target.value;
           const name = e.target.name;
-          this.setState({typeOfUser:name,[name]: value})
+          this.setState({[name]: value})
       }
 
+//Set state for typeOfUser in dropdown & change dropdown selections
  handleChange = (event, index, value) => this.setState({value,typeOfUser:event.target.name});
 
+//Handles post req for signup
 onSignUp(){
   signUp(this.state.email,this.state.password, this.state.typeOfUser, this.state.store_affiliated_with)
   .then(response => {
@@ -112,6 +115,17 @@ onSignUp(){
     floatingLabelFocusStyle={style.floatingLabelFocusStyle}
     inputStyle={style.inputStyle}
     /><br />
+
+    <TextField
+    value={this.state.password}
+    name="store_affiliated_with"
+    onChange={this.handleFormChange}
+    floatingLabelText="Store Name"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
+
 
         <br/><br />
 

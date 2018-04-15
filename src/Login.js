@@ -2,14 +2,45 @@ import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import {loginUser} from './Utils/Requests/auth';
 import './Login.css'
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password : "",
+      typeOfUser : "",
+      value: 1};
+      this.handleFormChange = this.handleFormChange.bind(this);
+      this.onLogin = this.onLogin.bind(this);
+  }
 
   state = {
     username:'',
     password:''
   }
+
+  handleFormChange(e){
+    const value = e.target.value;
+    const name = e.target.name;
+    this.setState({[name]: value})
+  }
+
+  onLogin(){
+    loginUser(this.state.email,this.state.password, this.state.typeOfUser)
+    .then(response => {
+      alert("Success" + response.data)
+    })
+    .catch(error => {
+      alert("Error " + error);
+    })
+  }
+
+ handleChange = (event, index, value) => this.setState({value,typeOfUser:event.target.name});
 
   onChange = (e) => {
     this.setState({
@@ -40,19 +71,34 @@ class Login extends Component {
       <center>
       <Paper style={style} zDepth={3}>
       <h2>LOG IN</h2>
+
       <TextField
-      floatingLabelText="Username"
+      value={this.state.email}
+      name="email"
+      onChange={this.handleFormChange}
+      floatingLabelText="E-mail"
       floatingLabelStyle ={style.floatingLabelStyle}
       floatingLabelFocusStyle={style.floatingLabelFocusStyle}
       inputStyle={style.inputStyle}
     /><br />
+
       <TextField
+      value={this.state.password}
+      name="password"
+      onChange={this.handleFormChange}
       floatingLabelText="Password"
       type="password"
       floatingLabelStyle ={style.floatingLabelStyle}
       floatingLabelFocusStyle={style.floatingLabelFocusStyle}
       inputStyle={style.inputStyle}
     /><br />
+
+    <DropDownMenu value={this.state.value} onChange={this.handleChange} style={style.labelStyle}>
+    <MenuItem name="Customer" value={1} primaryText="Customer" />
+    <MenuItem name="Manager" value={2} primaryText="Manager" />
+    <MenuItem name="Chef"  value={3} primaryText="Chef" />
+    <MenuItem name="Delivery" value={4} primaryText="Delivery" />
+    </DropDownMenu><br />
 
       <RaisedButton label="Log In"/>
       </Paper>

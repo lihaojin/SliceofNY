@@ -12,3 +12,12 @@ export {signUp}
       store_affiliated_with: store_affiliated_with
     })
   }
+
+  export {loginUser}
+    function loginUser(email,password,typeOfUser){
+      return axios.post(baseUrl + '/login',{
+        email: email,
+        password: password,
+        typeOfUser: typeOfUser
+      })
+    }
