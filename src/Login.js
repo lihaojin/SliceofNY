@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {loginUser} from './Utils/Requests/auth';
-import './Login.css'
+import './Styles/Login.css'
 
 class Login extends Component {
   constructor(props) {
@@ -19,10 +19,7 @@ class Login extends Component {
       this.onLogin = this.onLogin.bind(this);
   }
 
-  state = {
-    username:'',
-    password:''
-  }
+
 
   handleFormChange(e){
     const value = e.target.value;
@@ -40,7 +37,7 @@ class Login extends Component {
     })
   }
 
- handleChange = (event, index, value) => this.setState({value,typeOfUser:event.target.name});
+ //handleChange = (event, index, value) => this.setState({value,typeOfUser:event.target.name});
 
   onChange = (e) => {
     this.setState({
@@ -93,14 +90,18 @@ class Login extends Component {
       inputStyle={style.inputStyle}
     /><br />
 
-    <DropDownMenu value={this.state.value} onChange={this.handleChange} style={style.labelStyle}>
-    <MenuItem name="Customer" value={1} primaryText="Customer" />
-    <MenuItem name="Manager" value={2} primaryText="Manager" />
-    <MenuItem name="Chef"  value={3} primaryText="Chef" />
-    <MenuItem name="Delivery" value={4} primaryText="Delivery" />
-    </DropDownMenu><br />
+    <TextField
+    value={this.state.typeOfUser}
+    name="typeOfUser"
+    onChange={this.handleFormChange}
+    floatingLabelText="Type of User"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+  /><br />
 
-      <RaisedButton label="Log In"/>
+
+      <RaisedButton onClick = {this.onLogin} label="Log In"/>
       </Paper>
       </center>
       </div>

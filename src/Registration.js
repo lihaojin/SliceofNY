@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
-import './Registration.css'
+import './Styles/Registration.css'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {signUp} from './Utils/Requests/auth';
 
@@ -57,8 +57,6 @@ class Registration extends Component {
           this.setState({[name]: value})
       }
 
-//Set state for typeOfUser in dropdown & change dropdown selections
- handleChange = (event, index, value) => this.setState({value,typeOfUser:event.target.name});
 
 //Handles post req for signup
 onSignUp(){
@@ -78,13 +76,6 @@ onSignUp(){
     <div className = "container" >
     <center>
     <Paper style={style.formStyle} zDepth={3}>
-
-    <DropDownMenu value={this.state.value} onChange={this.handleChange} style={style.labelStyle}>
-    <MenuItem name="Customer" value={1} primaryText="Customer" />
-    <MenuItem name="Manager" value={2} primaryText="Manager" />
-    <MenuItem name="Chef"  value={3} primaryText="Chef" />
-    <MenuItem name="Delivery" value={4} primaryText="Delivery" />
-    </DropDownMenu><br />
 
     <TextField
     name="name"
@@ -109,6 +100,7 @@ onSignUp(){
     <TextField
     value={this.state.password}
     name="password"
+    type="password"
     onChange={this.handleFormChange}
     floatingLabelText="Create a password"
     floatingLabelStyle ={style.floatingLabelStyle}
@@ -117,7 +109,7 @@ onSignUp(){
     /><br />
 
     <TextField
-    value={this.state.password}
+    value={this.state.store_affiliated_with}
     name="store_affiliated_with"
     onChange={this.handleFormChange}
     floatingLabelText="Store Name"
@@ -126,7 +118,15 @@ onSignUp(){
     inputStyle={style.inputStyle}
     /><br />
 
-
+    <TextField
+    value={this.state.typeOfUser}
+    name="typeOfUser"
+    onChange={this.handleFormChange}
+    floatingLabelText="User Type"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+    /><br />
         <br/><br />
 
     <RaisedButton onClick={this.onSignUp} label="Submit"/>

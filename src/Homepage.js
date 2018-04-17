@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import MapPage from './components/MapPage'
+import MapPage from './Map components/MapPage'
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
 
 class App extends Component {
 
