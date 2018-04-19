@@ -60,7 +60,7 @@ class Registration extends Component {
 
 //Handles post req for signup
 onSignUp(){
-  signUp(this.state.email,this.state.password, this.state.typeOfUser, this.state.store_affiliated_with)
+  signUp(this.state.email,this.state.password, this.state.typeOfUser,this.state.name, this.state.store_affiliated_with)
   .then(response => {
     alert("Success" + response.data)
   })
@@ -72,6 +72,18 @@ onSignUp(){
 
 
   render() {
+    const storeName = (this.state.typeOfUser==="Manager" || this.state.typeOfUser==="Chef") ? 
+                           <TextField
+                          value={this.state.store_affiliated_with}
+                          name="store_affiliated_with"
+                          onChange={this.handleFormChange}
+                          floatingLabelText="Store Name"
+                          floatingLabelStyle ={style.floatingLabelStyle}
+                          floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+                          inputStyle={style.inputStyle}/>: null;
+
+                        
+
     return (
     <div className = "container" >
     <center>
@@ -109,16 +121,6 @@ onSignUp(){
     /><br />
 
     <TextField
-    value={this.state.store_affiliated_with}
-    name="store_affiliated_with"
-    onChange={this.handleFormChange}
-    floatingLabelText="Store Name"
-    floatingLabelStyle ={style.floatingLabelStyle}
-    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
-    inputStyle={style.inputStyle}
-    /><br />
-
-    <TextField
     value={this.state.typeOfUser}
     name="typeOfUser"
     onChange={this.handleFormChange}
@@ -127,6 +129,10 @@ onSignUp(){
     floatingLabelFocusStyle={style.floatingLabelFocusStyle}
     inputStyle={style.inputStyle}
     /><br />
+
+    {storeName}
+    <br />
+
         <br/><br />
 
     <RaisedButton onClick={this.onSignUp} label="Submit"/>
