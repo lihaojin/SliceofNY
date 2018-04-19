@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import MapPage from './Map components/MapPage'
+import MapPage from '../Map components/MapPage'
+import TopThreeTable from './TopThreeTable'
 import {
   Table,
   TableBody,
@@ -14,7 +15,10 @@ class App extends Component {
   render() {
 
     return (
+      <div>
     <MapPage />
+    <TopThreeTable/>
+    </div>
     );
   }
 }
