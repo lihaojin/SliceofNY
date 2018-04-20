@@ -58,8 +58,17 @@ class Registration extends Component {
       }
 
 
-//Handles post req for signup
+setTypeLower(){
+  var update = this.state.typeOfUser;
+  var char = update.substring(0,1).toUpperCase();
+  var rest = update.substring(1,update.length).toLowerCase();
+  this.setState({typeOfUser: char + rest});
+
+}
+
+//Handles post req for signu
 onSignUp(){
+  this.setTypeLower();
   signUp(this.state.email,this.state.password, this.state.typeOfUser,this.state.name, this.state.store_affiliated_with)
   .then(response => {
     alert("Success" + response.data)

@@ -78,16 +78,11 @@ export default class MapContainer extends Component {
   returnRelevantMarker(){
     var x = this.state.markers
     var update, coord;
+    console.log('hello');
     axios.get('http://localhost:3001/store/getAllStore').then(response => {
       for(var i = 0; i < response.data.length; i++){
           var update = this.state.markers
-          if(i != 1){
-            update = update.concat({lat: 40.73, lng: -73.8, img_src: pizza, storeName: response.data[i].name, currentLocation: false});
-          }
-          else{
-            update = update.concat({lat: 0, lng: 0, img_src: pizza, storeName: response.data[i].name, currentLocation: false});
-            this.getAddress(update.length - 1);
-          }
+          update = update.concat({lat: 40.73, lng: -73.8, img_src: pizza, storeName: response.data[i].name, currentLocation: false});
           this.setState({markers:update})
         
       }
@@ -125,6 +120,7 @@ export default class MapContainer extends Component {
                   lng={marker.lng}
                   img_src={marker.img_src}
                   onClick={() => this.handleToggleClose()}
+                  name = {marker.storeName}
                 >
 
                 </PizzaMarker>
