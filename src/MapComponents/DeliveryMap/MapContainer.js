@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import Polyline from 'google-map-react';
 import PizzaMarker from './marker'
-import pizza from './images/pizza.png'
-import pink_circle from './images/pink-circle.png'
+import pizzaBox from './images/pizza-box-clipart-1.png'
+import bike from './images/bike.jpg'
 import Geocode from "react-geocode";
 import axios from 'axios'
 
@@ -12,17 +13,19 @@ export default class MapContainer extends Component {
   constructor(props){
     super(props);
     this.state = {
-        markers: [],
+        markers: [] ,
+        pathCoordinates:[ 
+          {lat: 40.758896, lng:-73.985130},
+          {lat:50.1, lng:1.1},
+        ] 
     }
   }
 
   //creates marker array and other state variables
   componentDidMount(){
     this.setState({
-      markers: [{lat: 40.758896, lng: -73.985130,img_src: pizza, storeName: "Hello Pizza", currentLocation: false}],
-      currentLocationMarkerIndex: -1,
-      addedCurrent: false,
-      showPrompt: true
+      markers: [{lat: 40.758896, lng: -73.985130,img_src: pizzaBox, storeName: "Hello Pizza", currentLocation: true}],
+      currentLocationMarkerIndex: 0,
     });
   }
 
@@ -30,7 +33,7 @@ export default class MapContainer extends Component {
   addMarker(lati,long){
     if(!this.state.addedCurrent){
       this.setState({currentLocationMarkerIndex: this.state.markers.length});
-      var joined = this.state.markers.concat({lat: lati, lng: long,img_src:pink_circle , currentLocation: true});
+      var joined = this.state.markers.concat({lat: lati, lng: long,img_src: bike, currentLocation: true});
       this.setState({
         markers: joined
       });  
@@ -54,48 +57,30 @@ export default class MapContainer extends Component {
     }
   }
 
-  //Gets lat and lng from address using geocode library
-  getAddress(index){
-    Geocode.enableDebug();
-    var coords, update;
-    Geocode.fromAddress("Empire State Building").then ( response => {
-        coords = response.results[0].geometry.location;
-        update = this.state.markers;
-
-        update[index].lat = coords[0];
-        update[index].lng = coords[1]
-        this.setState({markers: update});
-        
-      },
-      error => {
-        console.error(error);
-      }
-    );
-  }
-
-
-  //In development should eventually return three best matches
-  returnRelevantMarker(){
-    var x = this.state.markers
-    var update, coord;
-    console.log('hello');
-    axios.get('http://localhost:3001/store/getAllStore').then(response => {
-      for(var i = 0; i < response.data.length; i++){
-          var update = this.state.markers
-          update = update.concat({lat: 40.73, lng: -73.8, img_src: pizza, storeName: response.data[i].name, currentLocation: false});
-          this.setState({markers:update})
-        
-      }
-      
-    })
-    .catch(error => {
-      console.log('Error fetching and parsing data', error);
-    });
-    this.forceUpdate()
-  }
+  apiIsLoaded = (map, maps) => {
+  if (map) {
+    const directionsService = new maps.DirectionsService();
+    const directionsDisplay = new maps.DirectionsRenderer();
+    directionsService.route({
+        origin: 'Boston, MA',
+        destination: 'Vancouver, BC',
+        travelMode: 'DRIVING'
+      }, (response, status) => {
+        if (status === 'OK') {
+          directionsDisplay.setDirections(response);
+          //this.setState({polyline: response.routes});
+          console.log(response.routes[0])
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
+    }
   
 
+  }
 
+
+  
   static defaultProps = {
     center: {lat: 40.758896, lng: -73.985130},
     zoom: 11
@@ -110,8 +95,22 @@ export default class MapContainer extends Component {
         defaultCenter={this.props.center}
         defaultZoom={this.props.zoom}
         onClick = {({x, y, lat, lng, event}) => this.addMarker(lat,lng)}
+        onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps)}
+        yesIWantToUseGoogleMapApiInternals = {true}
       >
-
+        <Polyline
+          path = {this.state.polyline}
+          options={{ 
+          strokeColor: '#00ffff',
+          strokeOpacity: 1,
+          strokeWeight: 2,
+          icons: [{ 
+          icon: "hello",
+          offset: '0',
+          repeat: '10px'
+          }],
+          }}
+          />
         {this.state.markers.map((marker, i) =>{
               return(
                 <PizzaMarker
@@ -130,13 +129,12 @@ export default class MapContainer extends Component {
         
       </GoogleMapReact>
       <div className="text-center">
-        <button className="button" onClick = {this.returnRelevantMarker.bind(this)}> Show All </button>
-        <button className="button"> Show Relevant </button>
+        <button className="button"> Next Order </button>
+        <button className="button"> Show Route </button>
         <button className="button" onClick = {this.removeCurrent.bind(this)}> Reset Current </button>
         </div>
-        {this.state.showPrompt && (<div className="InitialPrompt">Please Click Your Current Location </div>)}
       </div>
 
     );
-  }x
+  }
 }
