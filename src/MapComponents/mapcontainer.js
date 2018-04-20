@@ -3,6 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import PizzaMarker from './marker'
 import pizza from './images/pizza.png'
 import pink_circle from './images/pink-circle.png'
+import Geocode from "react-geocode";
 import axios from 'axios'
 
 
@@ -53,15 +54,41 @@ export default class MapContainer extends Component {
     }
   }
 
+  //Gets lat and lng from address using geocode library
+  getAddress(index){
+    Geocode.enableDebug();
+    var coords, update;
+    Geocode.fromAddress("Empire State Building").then ( response => {
+        coords = response.results[0].geometry.location;
+        update = this.state.markers;
+
+        update[index].lat = coords[0];
+        update[index].lng = coords[1]
+        this.setState({markers: update});
+        
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+
+  //In development should eventually return three best matches
   returnRelevantMarker(){
     var x = this.state.markers
-    var update;
+    var update, coord;
     axios.get('http://localhost:3001/store/getAllStore').then(response => {
       for(var i = 0; i < response.data.length; i++){
           var update = this.state.markers
-          update = update.concat({lat: 40.73, lng: -73.8, img_src: pizza, storeName: response.data[i].name, currentLocation: false});
+          if(i != 1){
+            update = update.concat({lat: 40.73, lng: -73.8, img_src: pizza, storeName: response.data[i].name, currentLocation: false});
+          }
+          else{
+            update = update.concat({lat: 0, lng: 0, img_src: pizza, storeName: response.data[i].name, currentLocation: false});
+            this.getAddress(update.length - 1);
+          }
           this.setState({markers:update})
-          console.log(update);
         
       }
       
@@ -69,14 +96,7 @@ export default class MapContainer extends Component {
     .catch(error => {
       console.log('Error fetching and parsing data', error);
     });
-    /*
-    var response = axios.get('http://localhost:3001/store/getAllStore')
-    console.log(response.PromiseValue.data)
-    
-      */
-    console.log(this.state.markers)
     this.forceUpdate()
-
   }
   
 
