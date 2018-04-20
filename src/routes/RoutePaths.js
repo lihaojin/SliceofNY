@@ -7,6 +7,7 @@ import History from '../Utils/History';
 import Manager from '../Users/Managerpage';
 import Delivery from '../Users/Delivery';
 import Chef from '../Users/Chef'
+import MapPage from '../MapComponents/MapPage'
 
 
 const RoutePaths= () => (
@@ -19,6 +20,7 @@ const RoutePaths= () => (
   <Route path = '/Manager' component = {Manager}/>
   <Route path = '/Delivery' component = {Delivery}/>
   <Route path = '/Chef' component = {Chef}/>
+  <Route path = '/MapPage' component = {MapPage}/>
   </Switch>
   </Router>
 )
