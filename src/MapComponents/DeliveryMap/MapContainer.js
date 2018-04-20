@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import GoogleMap from 'googlemaps'
 import Polyline from 'google-map-react';
 import PizzaMarker from './marker'
 import pizzaBox from './images/pizza-box-clipart-1.png'
@@ -95,9 +96,11 @@ export default class MapContainer extends Component {
         defaultCenter={this.props.center}
         defaultZoom={this.props.zoom}
         onClick = {({x, y, lat, lng, event}) => this.addMarker(lat,lng)}
-        onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps)}
-        yesIWantToUseGoogleMapApiInternals = {true}
       >
+      <GoogleMap  onGoogleApiLoaded={({map, maps}) => console.log(map, maps)}
+                       yesIWantToUseGoogleMapApiInternals
+      />
+
         <Polyline
           path = {this.state.polyline}
           options={{ 

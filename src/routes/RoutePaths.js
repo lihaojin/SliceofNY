@@ -6,8 +6,9 @@ import {Router, Route,Switch} from 'react-router-dom';
 import History from '../Utils/History';
 import Manager from '../Users/Managerpage';
 import Delivery from '../Users/Delivery';
-import Chef from '../Users/Chef'
-import MapPage from '../MapComponents/MapPage'
+import Chef from '../Users/Chef';
+import MapPage from '../MapComponents/CustomerMap/MapPage';
+import MapDelivery from '../MapComponents/DeliveryMap/MapDelivery';
 
 
 const RoutePaths= () => (
@@ -21,6 +22,7 @@ const RoutePaths= () => (
   <Route path = '/Delivery' component = {Delivery}/>
   <Route path = '/Chef' component = {Chef}/>
   <Route path = '/MapPage' component = {MapPage}/>
+  <Route path = '/MapDelivery' component ={MapDelivery}/>
   </Switch>
   </Router>
 )

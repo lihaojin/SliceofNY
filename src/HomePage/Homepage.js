@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MapPage from '../MapComponents/MapPage'
+import MapPage from '../MapComponents/CustomerMap/MapPage'
 import TopThreeTable from './TopThreeTable'
 import {
   Table,
