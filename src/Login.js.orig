@@ -35,9 +35,12 @@ class Login extends Component {
   }
 
   onLogin(){
-
-    this.setTypeLower();
+<<<<<<< HEAD
     loginUser(this.state.email,this.state.password)
+=======
+    this.setTypeLower();
+    loginUser(this.state.email,this.state.password, this.state.typeOfUser)
+>>>>>>> 2a4e107059610a5211cea07a86a9c788b1ad7894
     .then(response => {
       alert("Success" + response.data)
       console.log(response)

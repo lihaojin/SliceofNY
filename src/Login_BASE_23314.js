@@ -13,6 +13,7 @@ class Login extends Component {
     this.state = {
       email: "",
       password : "",
+      typeOfUser : "",
       value: 1};
       this.handleFormChange = this.handleFormChange.bind(this);
       this.onLogin = this.onLogin.bind(this);
@@ -26,27 +27,13 @@ class Login extends Component {
     this.setState({[name]: value})
   }
 
-  setTypeLower(){
-    var update = this.state.typeOfUser;
-    var char = update.substring(0,1).toUpperCase();
-    var rest = update.substring(1,update.length).toLowerCase();
-    this.setState({typeOfUser: char + rest});
-
-  }
-
   onLogin(){
-
-    this.setTypeLower();
-    loginUser(this.state.email,this.state.password)
+    loginUser(this.state.email,this.state.password, this.state.typeOfUser)
     .then(response => {
       alert("Success" + response.data)
-      console.log(response)
-      let token = response.data.token;
-      localStorage.setItem("token",token);
-      this.props.history.push('/chef');
     })
     .catch(error => {
-      alert("Error " + error.toString());
+      alert("Error " + error);
     })
   }
 
@@ -102,6 +89,16 @@ class Login extends Component {
       floatingLabelFocusStyle={style.floatingLabelFocusStyle}
       inputStyle={style.inputStyle}
     /><br />
+
+    <TextField
+    value={this.state.typeOfUser}
+    name="typeOfUser"
+    onChange={this.handleFormChange}
+    floatingLabelText="Type of User"
+    floatingLabelStyle ={style.floatingLabelStyle}
+    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+    inputStyle={style.inputStyle}
+  /><br />
 
 
       <RaisedButton onClick = {this.onLogin} label="Log In"/>
