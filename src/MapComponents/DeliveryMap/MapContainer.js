@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
-import GoogleMap from 'googlemaps'
-import Polyline from 'google-map-react';
-import PizzaMarker from './marker'
+import {Google,GoogleMap,withGoogleMap,withScriptjs,Map,DirectionsRenderer,Marker, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
 import pizzaBox from './images/pizza-box-clipart-1.png'
 import bike from './images/bike.jpg'
 import Geocode from "react-geocode";
 import axios from 'axios'
-
+import App from './Map-Vehicles-React/src/index'
 
 
 export default class MapContainer extends Component {
@@ -15,6 +12,7 @@ export default class MapContainer extends Component {
     super(props);
     this.state = {
         markers: [] ,
+        directions: [],
         pathCoordinates:[ 
           {lat: 40.758896, lng:-73.985130},
           {lat:50.1, lng:1.1},
@@ -69,7 +67,7 @@ export default class MapContainer extends Component {
       }, (response, status) => {
         if (status === 'OK') {
           directionsDisplay.setDirections(response);
-          //this.setState({polyline: response.routes});
+          this.setState({directions: response.routes});
           console.log(response.routes[0])
         } else {
           window.alert('Directions request failed due to ' + status);
@@ -84,59 +82,17 @@ export default class MapContainer extends Component {
   
   static defaultProps = {
     center: {lat: 40.758896, lng: -73.985130},
-    zoom: 11
+    zoom: 11,
+    style: {width: '50%', height: '50%'}
   };
 
  
   render() {
     return (
-      <div style={{width: '100%', height: '400px'}}>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyAIQZMVYWhDwlR9mqBRL-dOGxW3LwLV-ds' }}
-        defaultCenter={this.props.center}
-        defaultZoom={this.props.zoom}
-        onClick = {({x, y, lat, lng, event}) => this.addMarker(lat,lng)}
-      >
-      <GoogleMap  onGoogleApiLoaded={({map, maps}) => console.log(map, maps)}
-                       yesIWantToUseGoogleMapApiInternals
-      />
-
-        <Polyline
-          path = {this.state.polyline}
-          options={{ 
-          strokeColor: '#00ffff',
-          strokeOpacity: 1,
-          strokeWeight: 2,
-          icons: [{ 
-          icon: "hello",
-          offset: '0',
-          repeat: '10px'
-          }],
-          }}
-          />
-        {this.state.markers.map((marker, i) =>{
-              return(
-                <PizzaMarker
-                  key={i}
-                  lat={marker.lat}
-                  lng={marker.lng}
-                  img_src={marker.img_src}
-                  onClick={() => this.handleToggleClose()}
-                  name = {marker.storeName}
-                >
-
-                </PizzaMarker>
-
-              )
-            })}
-        
-      </GoogleMapReact>
-      <div className="text-center">
-        <button className="button"> Next Order </button>
-        <button className="button"> Show Route </button>
-        <button className="button" onClick = {this.removeCurrent.bind(this)}> Reset Current </button>
-        </div>
+      <div>
+       <App />
       </div>
+      
 
     );
   }
