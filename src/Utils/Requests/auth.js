@@ -17,7 +17,6 @@ export {signUp}
     function loginUser(email,password,typeOfUser){
       return axios.post(baseUrl + '/login',{
         email: email,
-        password: password,
-        typeOfUser: typeOfUser
+        password: password
       })
     }
