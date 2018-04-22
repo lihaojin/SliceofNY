@@ -40,6 +40,8 @@ class App extends Component {
         <MenuItem onClick={this.handleClose} href="/Homepage">Home</MenuItem>
         <MenuItem onClick={this.handleClose} href="/Login">Log In</MenuItem>
         <MenuItem onClick={this.handleClose} href="/Registration">Sign Up</MenuItem>
+        <MenuItem onClick={this.handleClose} href="/MapPage">Map </MenuItem>
+        <MenuItem onClick={this.handleClose} href="/MapDelivery">Delivery Map</MenuItem>
       </Drawer>
 
 
