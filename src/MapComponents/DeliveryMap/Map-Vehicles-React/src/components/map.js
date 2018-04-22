@@ -114,8 +114,7 @@ class Map extends Component {
               <a className="navbar-brand" href="#">Map Vehicles</a>
           </nav><br />
           <div className="alert alert-secondary" role="alert">
-            *Add a vehicle navigation on the map by submitting the source and destination addresses.<br />
-            *Click on the Vehilce Buttons for information of that vehicle and to locate its current position on the map.
+            Select the order that you'd like to deliver first.<br />
           </div>
           <Input pSubmit={this.pSubmit}/><br />
           <div>
