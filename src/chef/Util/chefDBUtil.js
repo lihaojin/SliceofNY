@@ -28,4 +28,12 @@ async function addRecipe(name,price,description)
   })
 
 }
+
+export {getMenu}
+function getMenu(name,price,description)
+{
+  
+  return axios.get(baseUrl+'/store/Batman/getAllMenu')
+
+}
   

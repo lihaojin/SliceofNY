@@ -26,17 +26,9 @@ class Login extends Component {
     this.setState({[name]: value})
   }
 
-  setTypeLower(){
-    var update = this.state.typeOfUser;
-    var char = update.substring(0,1).toUpperCase();
-    var rest = update.substring(1,update.length).toLowerCase();
-    this.setState({typeOfUser: char + rest});
 
-  }
 
   onLogin(){
-
-    this.setTypeLower();
     loginUser(this.state.email,this.state.password)
     .then(response => {
       alert("Success" + response.data)
