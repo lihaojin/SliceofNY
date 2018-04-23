@@ -26,12 +26,17 @@ export default class DeliveryRow extends Component{
 		})
 	}
 
+	getOrder(){
+		this.props.getSelectedOrder(this.state.order);
+	}
+
 	render(){
 		return(
 			<TableRow onRowSelection={()=>{console.log("hello")}} key={this.state.index}>
                 <TableRowColumn>{this.state.order.order_number}</TableRowColumn>
                 <TableRowColumn>{this.state.order.address}</TableRowColumn>
                 <TableRowColumn>{this.state.order.contents}</TableRowColumn>
+                <TableRowColumn><button onClick={this.getOrder.bind(this)}>Select</button></TableRowColumn>
               </TableRow>
 
 			)

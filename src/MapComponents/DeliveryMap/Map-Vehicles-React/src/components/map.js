@@ -37,6 +37,7 @@ class Map extends Component {
   }
 
   pSubmit(cords){
+    console.log("psubmit");
     this.map.panTo(cords[0][1]);
 
     this.setState((prevState) => ({

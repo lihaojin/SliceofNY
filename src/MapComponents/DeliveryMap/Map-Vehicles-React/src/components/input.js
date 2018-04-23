@@ -8,14 +8,14 @@ class Input extends Component{
     super(props);
     this.submit = this.submit.bind(this);    
     this.state ={
-      orders: [],
       origin: "",
       destination:""
     }
+    this.getSelectedOrder = this.getSelectedOrder.bind(this);
   }
 
   componentDidMount() {
-    //this.getOrders();
+ 
     var input = document.getElementsByClassName('form-control');
     for (var i = 0; i < input.length; i++) {
         new google.maps.places.SearchBox(input[i]);
@@ -29,23 +29,34 @@ class Input extends Component{
     })
   }
 
+  getSelectedOrder(order){
+    this.setState({
+      destination: order.address
+    })
+    this.selectOrder();
+  }
+
   selectOrder(){
     var pos = null;
+
     if (navigator.geolocation) {
+
           navigator.geolocation.getCurrentPosition(function(position) {
+            console.log('hello');
             pos = {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-
-         });
+            this.setCurrentOrder(pos);
+           
+         }.bind(this),()=>{console.log("failure")},{timeout:10000});
         }
+  }
 
-      
+  setCurrentOrder(pos){
     this.setState({
-      origin: pos,
-      destination: this.state.orders[0].address
-    })
+      origin: [pos]
+    });
     this.submit();
     console.log('selected');
     this.forceUpdate();
@@ -54,7 +65,7 @@ class Input extends Component{
   render(){
     return(
       <section>
-          <DeliveryTable orders={this.state.orders}/>
+          <DeliveryTable orders={this.state.orders} getSelectedOrder={this.getSelectedOrder.bind(this)}/>
           <div> <button onClick = {this.clearOrder.bind(this)}> Clear Directions </button> </div>
       </section>
     );
@@ -75,8 +86,6 @@ class Input extends Component{
             that.props.pSubmit(values);
         });
       
-      document.getElementsByName('origin')[0].value='';
-      document.getElementsByName('destination')[0].value='';
     }
   }
 }
