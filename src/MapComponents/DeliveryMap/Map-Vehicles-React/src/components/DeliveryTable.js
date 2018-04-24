@@ -54,6 +54,17 @@ componentDidMount(){
 		});
 	}
 
+	deleteRow(index){
+		var update = this.state.orders;
+		if(index in update){
+			update.splice(index,1);
+			this.setState({orders:update});
+		}
+		else{
+			alert("not in array");
+		}
+	}
+
 	render(){
 		return(
 		<div>
@@ -64,11 +75,12 @@ componentDidMount(){
             <TableHeaderColumn>Address</TableHeaderColumn> 
             <TableHeaderColumn>Order Details</TableHeaderColumn>
             <TableHeaderColumn>Select</TableHeaderColumn>
+            <TableHeaderColumn>Completed?</TableHeaderColumn>
           </TableHeader>
           <TableBody>
           {this.state.orders.map((order, i) =>{
             return(
-              <DeliveryRow order={order} index={i} getSelectedOrder={this.props.getSelectedOrder.bind(this)}/>
+              <DeliveryRow order={order} index={i} getSelectedOrder={this.props.getSelectedOrder.bind(this)} deleteRow={this.deleteRow.bind(this)}/>
               )
 
           })}

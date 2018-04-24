@@ -15,7 +15,8 @@ export default class DeliveryRow extends Component{
 		super(props);
 		this.state={
 			order: [],
-			index: -1
+			index: -1,
+			completed:false
 		}
 	}
 
@@ -30,6 +31,11 @@ export default class DeliveryRow extends Component{
 		this.props.getSelectedOrder(this.state.order);
 	}
 
+	delete(){
+		this.setState({completed: true});
+		this.props.deleteRow(this.state.index);
+	}
+
 	render(){
 		return(
 			<TableRow onRowSelection={()=>{console.log("hello")}} key={this.state.index}>
@@ -37,6 +43,7 @@ export default class DeliveryRow extends Component{
                 <TableRowColumn>{this.state.order.address}</TableRowColumn>
                 <TableRowColumn>{this.state.order.contents}</TableRowColumn>
                 <TableRowColumn><button onClick={this.getOrder.bind(this)}>Select</button></TableRowColumn>
+                <TableRowColumn><button onClick={this.delete.bind(this)}>Completed</button></TableRowColumn>
               </TableRow>
 
 			)

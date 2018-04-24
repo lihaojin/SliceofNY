@@ -11,7 +11,7 @@ class Map extends Component {
     this.drawPath = this.drawPath.bind(this);
     this.moveMarker = this.moveMarker.bind(this);
     this.panMap = this.panMap.bind(this);
-    this.state = { center: {lat: 40.758896, lng: -73.985130}, vehicles: [], id: -1, colors: [], card: 0, markers: []}
+    this.state = { center: {lat: 40.758896, lng: -73.985130}, vehicles: [], id: -1, flight: null, colors: [], card: 0, markers: [],directionsService: null}
   }
 
   componentDidMount() {
@@ -42,7 +42,6 @@ class Map extends Component {
     this.map.panTo(cords[0][1]);
 
     this.setState((prevState) => ({
-      vehicles: prevState.vehicles.concat([cords]),
       center: cords[0][1],
       id: prevState.id+1,
       card: prevState.id+1
@@ -55,10 +54,11 @@ class Map extends Component {
     this.addMarker(destLatLng,'Destination','B');
 
     const DirectionsService = new google.maps.DirectionsService();
+    this.setState({directionsService: DirectionsService});
     DirectionsService.route({
       origin: srcLatLng,
       destination: destLatLng,
-      travelMode: google.maps.TravelMode.DRIVING,
+      travelMode: google.maps.TravelMode.WALKING,
     }, (result, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
           this.drawPath(result.routes[0].overview_path,this.map,this.state.colors[this.state.id]);
@@ -78,8 +78,10 @@ class Map extends Component {
       strokeOpacity: 0.6,
       strokeWeight: 5
     });
-
-    flightPath.setMap(map);
+    this.setState({
+      flight : flightPath
+    })
+    this.state.flight.setMap(map);
   }
 
   moveMarker(cords,id){   
@@ -99,6 +101,23 @@ class Map extends Component {
       that.drawPath([cords[count-1],cords[count]],that.map,that.state.colors[id]);
     }, 100);
   }
+  
+  clearMap(){
+    console.log("clear")
+    this.setMapOnAll(null);
+  }
+
+  setMapOnAll(map) {
+    this.state.flight.setMap(null);
+    this.setState({
+      flight: null
+    })
+
+  }
+
+  
+
+  
 
   panMap(vehicle,index){
     this.map.panTo(this.state.markers[index]);
@@ -118,25 +137,8 @@ class Map extends Component {
           <div className="alert alert-secondary" role="alert">
             Select the order that you'd like to deliver first.<br />
           </div>
-          <Input pSubmit={this.pSubmit}/><br />
-          <div>
-            {this.state.vehicles.map((item,index) =>(
-                  <button key={index+1} 
-                  type="button" 
-                  className="btn btn-marg"
-                  style={{backgroundColor: this.state.colors[index]}}
-                  onClick={event => this.panMap(item,index) }>Vehicle {index+1}</button>
-              ))}
-          </div><br />
-          {this.state.vehicles.length!==0 &&
-            <div className="card text-white mb-3" style={{backgroundColor: this.state.colors[this.state.card]}}>
-              <div className="card-header">Vehicle {this.state.card + 1}</div>
-              <div className="card-body" style={{color: 'white'}}>
-                <h5 className="card-text"><b>Origin:</b> {this.state.vehicles[this.state.card][0][0]}</h5>
-                <h5 className="card-text"><b>Destination:</b> {this.state.vehicles[this.state.card][1][0]}</h5>
-              </div>
-            </div>
-          }
+          <Input pSubmit={this.pSubmit} clear={this.clearMap.bind(this)}/><br />
+          <br />
         </div>
       </div>  
     );

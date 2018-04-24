@@ -9,6 +9,7 @@ class Input extends Component{
     //this.submit = this.submit.bind(this);    
     this.state ={
       origin: "",
+      temp_origin: "",
       destination:""
     }
   }
@@ -22,13 +23,15 @@ class Input extends Component{
   }
 
   handleSubmit(event) {
-    this.setState({origin: this.state.origin});
-    console.log(this.state.origin);
+    event.preventDefault();
+    const orig = this.state.temp_origin
+    this.setState({origin: orig});
+    console.log(orig);
   }
 
   handleAddressChange(event){
     if(event.target.value){
-      this.setState({origin: event.target.value});
+      this.setState({temp_origin: event.target.value});
     }
   }
 
@@ -37,6 +40,7 @@ class Input extends Component{
       origin: "",
       destination: ""
     })
+    this.props.clear();
   }
 
   outputState(){
@@ -57,14 +61,13 @@ class Input extends Component{
       <section>
           <DeliveryTable orders={this.state.orders} getSelectedOrder={this.getSelectedOrder.bind(this)}/>
           <div> <button onClick = {this.clearOrder.bind(this)}> Clear Directions </button> </div>
-          <div>
+          <form>
+                <label>Current Address:
+                    <input type="text" onChange={this.handleAddressChange.bind(this)}/>
+                </label>
+                <input type="submit" value="Submit" onClick={this.handleSubmit.bind(this)}/>
+            </form>
 
-            <label id="Current Address">Enter your current address</label>
-            <input type="submit" id="Address" name="CurrAddress" type="text" value={this.state.origin} onChange={this.handleAddressChange.bind(this)} />
-
-        <button onClick={this.handleSubmit.bind(this)}>Send data!</button>
-        <button onClick={this.outputState.bind(this)}>Output Data! </button>
-      </div>
       </section>
     );
   }
@@ -77,7 +80,6 @@ class Input extends Component{
       var geocoder = new google.maps.Geocoder();
       var values = [];
       var that = this;
-      console.log('hello');
       geocoder.geocode({address: origin},function(results,status){
         values.push([origin,results[0].geometry.location]);
         geocoder.geocode({address: destination}, function(results, status) {
