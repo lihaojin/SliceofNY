@@ -60,12 +60,12 @@ class Input extends Component{
     return(
       <section>
           <DeliveryTable orders={this.state.orders} getSelectedOrder={this.getSelectedOrder.bind(this)}/>
-          <div> <button onClick = {this.clearOrder.bind(this)}> Clear Directions </button> </div>
-          <form>
+            <form>
                 <label>Current Address:
                     <input type="text" onChange={this.handleAddressChange.bind(this)}/>
                 </label>
                 <input type="submit" value="Submit" onClick={this.handleSubmit.bind(this)}/>
+                <button type="submit" value="Submit" onClick={this.clearOrder.bind(this)}>Clear Order </button>
             </form>
 
       </section>

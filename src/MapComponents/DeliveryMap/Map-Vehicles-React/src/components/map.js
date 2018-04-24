@@ -71,16 +71,13 @@ class Map extends Component {
 
   drawPath(cords,map,color){
     var flightPlanCoordinates = cords;
-    var flightPath = new google.maps.Polyline({
+    this.state.flight = new google.maps.Polyline({
       path: flightPlanCoordinates,
       geodesic: true,
       strokeColor: color,
       strokeOpacity: 0.6,
       strokeWeight: 5
     });
-    this.setState({
-      flight : flightPath
-    })
     this.state.flight.setMap(map);
   }
 
@@ -103,15 +100,18 @@ class Map extends Component {
   }
   
   clearMap(){
-    console.log("clear")
+    
     this.setMapOnAll(null);
+
   }
 
   setMapOnAll(map) {
+    console.log("clear")
     this.state.flight.setMap(null);
     this.setState({
       flight: null
-    })
+    });
+    this.forceUpdate();
 
   }
 
