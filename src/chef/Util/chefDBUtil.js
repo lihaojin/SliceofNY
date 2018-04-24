@@ -30,7 +30,7 @@ async function addRecipe(name,price,description)
 }
 
 export {getMenu}
-function getMenu(name,price,description)
+function getMenu()
 {
   const token = localStorage.getItem('token');
   const decoded = jwt.decode(token);
@@ -40,4 +40,15 @@ function getMenu(name,price,description)
   })
 
 }
-  
+
+export {changePrice}
+function changePrice(id,new_price)
+{ 
+  const token = localStorage.getItem('token');
+  const decoded = jwt.decode(token);
+  return axios.post(baseUrl+'/chef/changePrice',{
+    "email": decoded.email,
+    "id":id,
+    "new_price":new_price
+  })
+}

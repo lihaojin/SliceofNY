@@ -34,7 +34,7 @@ export default class MyMenu extends Component
 		const content = this.state.recipes.map((recipe)=>
 			<div key={recipe.toString()}>
 			<br></br>
-			<MenuCard title={recipe.name} price={recipe.price} description={recipe.description} />
+			<MenuCard title={recipe.name} price={recipe.price} description={recipe.description} id={recipe["_id"]} />
 			<br></br>
 			</div>
 			)
