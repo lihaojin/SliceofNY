@@ -32,8 +32,12 @@ async function addRecipe(name,price,description)
 export {getMenu}
 function getMenu(name,price,description)
 {
+  const token = localStorage.getItem('token');
+  const decoded = jwt.decode(token);
   
-  return axios.get(baseUrl+'/store/Batman/getAllMenu')
+  return axios.post(baseUrl+'/chef/getMenu',{
+    "email": decoded.email
+  })
 
 }
   

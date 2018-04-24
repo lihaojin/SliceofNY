@@ -15,9 +15,10 @@ export default class MyMenu extends Component
 	}
 
 	componentDidMount(){
-		  getMenu().then(result=>{
-		  	this.setState({
-		  		recipes: result.data[0]
+		  getMenu().then( result=>{
+
+		  	 this.setState({
+		  		recipes: result.data.recipe
 		  		})
 		  	}).catch(error=>{
 		  		console.log("error in myMenu DB Retrieval: ",error);
@@ -29,6 +30,7 @@ export default class MyMenu extends Component
 
 	render()
 	{
+		console.log("State ",this.state.recipes)
 		const content = this.state.recipes.map((recipe)=>
 			<div key={recipe.toString()}>
 			<br></br>

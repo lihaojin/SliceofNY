@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "react-material-ui-form-validator":"^1.1.4",
     "axios": "^0.18.0",
     "google-map-react": "^0.34.0",
     "google-maps-react": "^2.0.0",
@@ -14,6 +15,7 @@
     "react-dom": "^16.3.0",
     "react-geocode": "0.0.7",
     "react-google-maps": "^9.4.5",
+    "react-material-ui-form-validator": "^1.1.4",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1"
   },
