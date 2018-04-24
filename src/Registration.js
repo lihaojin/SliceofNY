@@ -7,19 +7,12 @@ import Paper from 'material-ui/Paper';
 import './Styles/Registration.css'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {signUp} from './Utils/Requests/auth';
+import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
+
 
 const style = {
-  formStyle: {
-  display: 'inline-block',
-  height: {flex:1},
-  width: {flex:2},
-  margin: 20,
-  padding: 40,
-  textAlign: 'center',
-  backgroundColor:'rgba(20,20,20,0.7)'
-  },
   customWidth: {
-  width: 250,
+  width: 100,
   },
   floatingLabelStyle: {
     color: 'white',
@@ -58,17 +51,9 @@ class Registration extends Component {
       }
 
 
-setTypeLower(){
-  var update = this.state.typeOfUser;
-  var char = update.substring(0,1).toUpperCase();
-  var rest = update.substring(1,update.length).toLowerCase();
-  this.setState({typeOfUser: char + rest});
-
-}
 
 //Handles post req for signu
 onSignUp(){
-  this.setTypeLower();
   signUp(this.state.email,this.state.password, this.state.typeOfUser,this.state.name, this.state.store_affiliated_with)
   .then(response => {
     alert("Success" + response.data)
@@ -82,9 +67,11 @@ onSignUp(){
 
   render() {
     const storeName = (this.state.typeOfUser==="Manager" || this.state.typeOfUser==="Chef") ? 
-                           <TextField
+                           <TextValidator
                           value={this.state.store_affiliated_with}
                           name="store_affiliated_with"
+                          validators={['required']}
+                          errorMessages={['this field is required']}
                           onChange={this.handleFormChange}
                           floatingLabelText="Store Name"
                           floatingLabelStyle ={style.floatingLabelStyle}
@@ -96,42 +83,58 @@ onSignUp(){
     return (
     <div className = "container" >
     <center>
-    <Paper style={style.formStyle} zDepth={3}>
+    <ValidatorForm 
 
-    <TextField
+                style={{backgroundColor:'rgba(20,20,20,0.7)',margin:20,
+                padding:40,display: 'inline-block',height: {flex:1},
+                width: {flex:2},textAlign: 'center'}}
+                ref="form"
+                onSubmit={this.onSignUp}
+                onError={errors => console.log(errors)}
+            >
+
+    <TextValidator
     name="name"
     value={this.state.name}
     onChange={this.handleFormChange}
+    validators={['required']}
+    errorMessages={['this field is required']}
     floatingLabelText="Enter your name"
     floatingLabelStyle ={style.floatingLabelStyle}
     floatingLabelFocusStyle={style.floatingLabelFocusStyle}
     inputStyle={style.inputStyle}
     /><br />
 
-    <TextField
+    <TextValidator
     value={this.state.email}
     name="email"
     onChange={this.handleFormChange}
+    validators={['required']}
+    errorMessages={['this field is required']}
     floatingLabelText="Enter your E-mail Address"
     floatingLabelStyle ={style.floatingLabelStyle}
     floatingLabelFocusStyle={style.floatingLabelFocusStyle}
     inputStyle={style.inputStyle}
     /><br />
 
-    <TextField
+    <TextValidator
     value={this.state.password}
     name="password"
     type="password"
     onChange={this.handleFormChange}
+    validators={['required']}
+    errorMessages={['this field is required']}
     floatingLabelText="Create a password"
     floatingLabelStyle ={style.floatingLabelStyle}
     floatingLabelFocusStyle={style.floatingLabelFocusStyle}
     inputStyle={style.inputStyle}
     /><br />
 
-    <TextField
+    <TextValidator
     value={this.state.typeOfUser}
     name="typeOfUser"
+    validators={['required']}
+    errorMessages={['this field is required']}
     onChange={this.handleFormChange}
     floatingLabelText="User Type"
     floatingLabelStyle ={style.floatingLabelStyle}
@@ -144,8 +147,8 @@ onSignUp(){
 
         <br/><br />
 
-    <RaisedButton onClick={this.onSignUp} label="Submit"/>
-    </Paper>
+    <RaisedButton type="submit" label="Submit"/>
+    </ValidatorForm>
     </center>
     </div>
     );

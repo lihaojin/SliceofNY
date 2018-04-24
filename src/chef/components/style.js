@@ -1,5 +1,4 @@
 
-
 export const style = {
   formStyle: {
   display: 'inline-block',
@@ -14,15 +13,18 @@ export const style = {
   width: 250,
   },
   floatingLabelStyle: {
-    color: 'white',
+    color: 'black',
   },
   floatingLabelFocusStyle: {
-    color: 'white',
+    color: 'black',
+  },
+  h2:{
+    color:'black',
   },
   inputStyle:{
-    color: 'white',
+    color: 'black',
   },
   labelStyle:{
-    color:'white',
+    color:'black',
   }
 };
