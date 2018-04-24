@@ -37,6 +37,7 @@ export default class AddMenu extends Component{
   	.then(response=>
 	{
 		alert("Recipe Added!");
+		window.location.reload();
 	})
   	.catch(error=>
   	{
