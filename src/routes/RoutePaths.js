@@ -9,7 +9,7 @@ import Delivery from '../Users/Delivery';
 import Chef from '../chef/container/chefContainer'
 import MapPage from '../MapComponents/CustomerMap/MapPage';
 import MapDelivery from '../MapComponents/DeliveryMap/MapDelivery';
-
+import StorePage from '../Stores/StorePage';
 
 
 const RoutePaths= () => (
@@ -24,6 +24,7 @@ const RoutePaths= () => (
   <Route path = '/Chef' component = {Chef}/>
   <Route path = '/MapPage' component = {MapPage}/>
   <Route path = '/MapDelivery' component ={MapDelivery}/>
+  <Route path = '/StorePage' component ={StorePage}/>
   </Switch>
   </Router>
 )
