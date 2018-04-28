@@ -5,6 +5,8 @@ import Paper from 'material-ui/Paper';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {loginUser} from './Utils/Requests/auth';
+import { Redirect } from 'react-router';
+import jwt from 'jsonwebtoken';
 import './Styles/Login.css'
 
 class Login extends Component {
@@ -34,8 +36,21 @@ class Login extends Component {
       alert("Success" + response.data)
       console.log(response)
       let token = response.data.token;
+      let decoded = jwt.decode(token);
       localStorage.setItem("token",token);
-      this.props.history.push('/chef');
+      console.log(decoded.typeOfUser)
+     
+      if(decoded.typeOfUser==="Chef")
+      {   console.log("this worked!");
+        console.log(this.props.history);
+        this.props.history.push('/chef');
+        return;
+      }
+      if(decoded.typeOfUser==="Manager");
+      {
+           this.props.history.push('/Manager');
+           return;
+      }
     })
     .catch(error => {
       alert("Error " + error.toString());
