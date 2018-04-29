@@ -5,6 +5,7 @@ import pizza from './images/pizza.png'
 import pink_circle from './images/pink-circle.png'
 import Geocode from "react-geocode";
 import axios from 'axios'
+import RaisedButton from 'material-ui/RaisedButton'
 
 
 
@@ -130,9 +131,9 @@ export default class MapContainer extends Component {
         
       </GoogleMapReact>
       <div className="text-center">
-        <button className="button" onClick = {this.returnRelevantMarker.bind(this)}> Show All </button>
-        <button className="button"> Show Relevant </button>
-        <button className="button" onClick = {this.removeCurrent.bind(this)}> Reset Current </button>
+        <RaisedButton className="button" onClick = {this.returnRelevantMarker.bind(this)}> Show All </RaisedButton>
+        <RaisedButton className="button"> Show Relevant </RaisedButton>
+        <RaisedButton className="button" onClick = {this.removeCurrent.bind(this)}> Reset Current </RaisedButton>
         </div>
         {this.state.showPrompt && (<div className="InitialPrompt">Please Click Your Current Location </div>)}
       </div>

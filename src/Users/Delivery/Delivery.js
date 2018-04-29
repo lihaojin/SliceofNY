@@ -5,6 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MapDelivery from './DeliveryMap/MapDelivery'
 import DeliveryTable from './DeliveryMap/Map-Vehicles-React/src/components/DeliveryTable'
 import Map from './DeliveryMap/Map-Vehicles-React/src/components/map'
+import RaisedButton from 'material-ui/RaisedButton'
 
 import {
   Table,
@@ -25,8 +26,9 @@ const style = {
   textAlign: 'center',
   backgroundColor:'rgba(20,20,20,0.7)'
   },
+}
 
-};
+
 
 class Delivery extends Component {
 
@@ -66,10 +68,14 @@ class Delivery extends Component {
   handleChange = (event, index, value) => this.setState({value});
 
   handleSubmit(){
-    this.setState({
-      enterOrigin: true
-    })
-
+    if(this.state.origin != ''){
+      this.setState({
+        enterOrigin: true
+      })
+    }
+    else{
+      alert('Enter valid address')
+    }
     this.forceUpdate()
   }
 
@@ -94,10 +100,10 @@ class Delivery extends Component {
     </center>
     </div>
     </Tab>
-
-    <Tab label="Directions" style={{background: this.state.color}}>
-    {this.state.map && (<Map key={this.state.key} origin={this.state.origin} destination={this.state.destination} />)}
-    </Tab>
+    {this.state.map && (
+    <Tab label="Directions" style={{background: 'blue'}}>
+    <Map key={this.state.key} origin={this.state.origin} destination={this.state.destination} />
+    </Tab>)}
       </Tabs>
     );
   }
@@ -107,7 +113,7 @@ class Delivery extends Component {
       <h1 style={{color: "white"}}>Enter Origin:</h1>
       <form>
         <input type='text' name='originAddress' value={this.state.origin} onChange={this.handleChangeOrigin.bind(this)} />
-        <button onClick={this.handleSubmit.bind(this)}> Submit </button>
+        <RaisedButton style={{height:'20px'}} onClick={this.handleSubmit.bind(this)}> Submit </RaisedButton>
       </form>
       </div>
       )
