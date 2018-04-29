@@ -34,6 +34,7 @@ export default class DeliveryRow extends Component{
 	delete(){
 		this.setState({completed: true});
 		this.props.deleteRow(this.state.index);
+		this.props.complete()
 	}
 
 	render(){

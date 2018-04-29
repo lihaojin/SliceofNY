@@ -5,7 +5,7 @@ import Registration from '../Registration';
 import {Router, Route,Switch} from 'react-router-dom';
 import History from '../Utils/History';
 import Manager from '../Users/Managerpage';
-import Delivery from '../Users/Delivery';
+import Delivery from '../Users/Delivery/Delivery';
 import Chef from '../chef/container/chefContainer'
 import MapPage from '../MapComponents/CustomerMap/MapPage';
 import MapDelivery from '../MapComponents/DeliveryMap/MapDelivery';

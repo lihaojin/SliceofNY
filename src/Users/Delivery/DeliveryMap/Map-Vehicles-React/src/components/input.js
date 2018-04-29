@@ -72,24 +72,8 @@ class Input extends Component{
     );
   }
 
-  submit(orig, add){
-    var origin = orig;
-    var destination = add;
-    console.log(origin,destination);
-    if(origin!=="" && destination!==""){
-      var geocoder = new google.maps.Geocoder();
-      var values = [];
-      var that = this;
-      geocoder.geocode({address: origin},function(results,status){
-        values.push([origin,results[0].geometry.location]);
-        geocoder.geocode({address: destination}, function(results, status) {
-            values.push([destination,results[0].geometry.location]);
-            that.props.pSubmit(values);
-        });
-      });
-      
-    }
-  }
+  
+  
 }
 
 export default Input;

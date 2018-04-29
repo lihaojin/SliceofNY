@@ -65,6 +65,10 @@ componentDidMount(){
 		}
 	}
 
+  complete(){
+    this.props.complete()
+  }
+
 	render(){
 		return(
 		<div>
@@ -80,7 +84,7 @@ componentDidMount(){
           <TableBody>
           {this.state.orders.map((order, i) =>{
             return(
-              <DeliveryRow order={order} index={i} getSelectedOrder={this.props.getSelectedOrder.bind(this)} deleteRow={this.deleteRow.bind(this)}/>
+              <DeliveryRow order={order} index={i} getSelectedOrder={this.props.getSelectedOrder.bind(this)} deleteRow={this.deleteRow.bind(this)} complete={this.complete.bind(this)}/>
               )
 
           })}

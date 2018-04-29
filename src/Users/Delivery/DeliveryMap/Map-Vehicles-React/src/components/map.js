@@ -11,11 +11,15 @@ class Map extends Component {
     this.drawPath = this.drawPath.bind(this);
     this.moveMarker = this.moveMarker.bind(this);
     this.panMap = this.panMap.bind(this);
-    this.state = { center: {lat: 40.758896, lng: -73.985130}, vehicles: [], id: -1, flight: null, colors: [], card: 0, markers: [],directionsService: null}
+    this.state = { center: {lat: 40.758896, lng: -73.985130}, id: -1, flight: null, colors: [], card: 0, markers: [],directionsService: null}
   }
 
   componentDidMount() {
     this.renderMap();
+    console.log(this.props.destination);
+    if(this.props.origin != null && this.props.destination != null){
+      this.submit(this.props.origin,this.props.destination)
+    }
   }
 
   renderMap(){
@@ -115,7 +119,24 @@ class Map extends Component {
 
   }
 
-  
+  submit(orig, add){
+    var origin = orig;
+    var destination = add;
+    console.log(origin,destination);
+    if(origin!=="" && destination!==""){
+      var geocoder = new google.maps.Geocoder();
+      var values = [];
+      var that = this;
+      geocoder.geocode({address: origin},function(results,status){
+        values.push([origin,results[0].geometry.location]);
+        geocoder.geocode({address: destination}, function(results, status) {
+            values.push([destination,results[0].geometry.location]);
+            that.pSubmit(values);
+        });
+      });
+      
+    }
+  }
 
   
 
@@ -137,12 +158,13 @@ class Map extends Component {
           <div className="alert alert-secondary" role="alert">
             Select the order that you'd like to deliver first.<br />
           </div>
-          <Input pSubmit={this.pSubmit} clear={this.clearMap.bind(this)}/><br />
           <br />
         </div>
       </div>  
     );
   }
+  
+
 }
 
 export default Map;
