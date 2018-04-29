@@ -13,7 +13,7 @@ export default class ChefContainer extends Component
 			<div>
 				<Tabs>
 					<Tab label="My Menu">
-						<MyMenu/>
+						<MyMenu type="Chef"/>
 					</Tab>
 					<Tab label="Add Menu">
 						<AddMenu />

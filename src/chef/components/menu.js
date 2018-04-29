@@ -33,7 +33,6 @@ export default class  MenuCard extends Component{
   }
 
   submitPrice = ()=>{
-
   	changePrice(this.props.id,this.state.price)
   	.then(result=>
   	{
