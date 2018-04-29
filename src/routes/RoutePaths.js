@@ -4,16 +4,10 @@ import Login from '../Login';
 import Registration from '../Registration';
 import {Router, Route,Switch} from 'react-router-dom';
 import History from '../Utils/History';
-<<<<<<< HEAD
-import Manager from '../Users/Managerpage';
-import Delivery from '../Users/Delivery/Delivery';
-=======
 import Manager from '../manager/container/mainManagerContainer';
-import Delivery from '../Users/Delivery';
->>>>>>> 2ea3b3f6c8d2725a3871b95cc2f3393cddb94d18
+import Delivery from '../Users/Delivery/Delivery';
 import Chef from '../chef/container/chefContainer'
 import MapPage from '../MapComponents/CustomerMap/MapPage';
-import MapDelivery from '../MapComponents/DeliveryMap/MapDelivery';
 import StorePage from '../Stores/StorePage';
 
 
@@ -28,7 +22,6 @@ const RoutePaths= () => (
   <Route path = '/Delivery' component = {Delivery}/>
   <Route path = '/Chef' component = {Chef}/>
   <Route path = '/MapPage' component = {MapPage}/>
-  <Route path = '/MapDelivery' component ={MapDelivery}/>
   <Route path = '/StorePage' component ={StorePage}/>
   </Switch>
   </Router>
