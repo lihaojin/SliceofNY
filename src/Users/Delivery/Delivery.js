@@ -34,6 +34,8 @@ class Delivery extends Component {
     super(props);
     this.state = {
       value: 1,
+      enterOrigin: false,
+      origin: '',
       destination: '',
       map: false,
       color: 'blue',
@@ -54,14 +56,32 @@ class Delivery extends Component {
     this.setState({
       map: false,
       key: this.state.key + 1,
-      color: 'blue'
+      color: 'blue',
+      origin: this.state.destination
     })
 
     this.forceUpdate();
   }
-handleChange = (event, index, value) => this.setState({value});
+
+  handleChange = (event, index, value) => this.setState({value});
+
+  handleSubmit(){
+    this.setState({
+      enterOrigin: true
+    })
+
+    this.forceUpdate()
+  }
+
+  handleChangeOrigin(event){
+    const value = event.target.value;
+    this.setState({
+      origin: value
+    })
+  }
 
   render() {
+    if(this.state.enterOrigin){
     return (
       <Tabs>
       <Tab label="Orders" style={{background: 'blue'}}>
@@ -76,11 +96,23 @@ handleChange = (event, index, value) => this.setState({value});
     </Tab>
 
     <Tab label="Directions" style={{background: this.state.color}}>
-    {this.state.map && (<Map key={this.state.key} origin="114 Bellair Drive" destination={this.state.destination} />)}
+    {this.state.map && (<Map key={this.state.key} origin={this.state.origin} destination={this.state.destination} />)}
     </Tab>
       </Tabs>
     );
   }
+  else{
+    return(
+      <div className = 'container'>
+      <h1 style={{color: "white"}}>Enter Origin:</h1>
+      <form>
+        <input type='text' name='originAddress' value={this.state.origin} onChange={this.handleChangeOrigin.bind(this)} />
+        <button onClick={this.handleSubmit.bind(this)}> Submit </button>
+      </form>
+      </div>
+      )
+  }
+}
 }
 
 export default Delivery;
