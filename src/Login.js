@@ -34,15 +34,12 @@ class Login extends Component {
     loginUser(this.state.email,this.state.password)
     .then(response => {
       alert("Success" + response.data)
-      console.log(response)
       let token = response.data.token;
       let decoded = jwt.decode(token);
       localStorage.setItem("token",token);
-      console.log(decoded.typeOfUser)
      
       if(decoded.typeOfUser==="Chef")
-      {   console.log("this worked!");
-        console.log(this.props.history);
+      {  
         this.props.history.push('/chef');
         return;
       }

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MenuCard from '../components/menu';
 import {getMenu} from '../Util/chefDBUtil';
+import {getMenuStore} from '../../manager/Util/managerDBUtil';
 import { Redirect } from 'react-router';
 
 export default class MyMenu extends Component
@@ -25,18 +26,53 @@ export default class MyMenu extends Component
 		}
 		else{
 
-		  getMenu().then( result=>{
+			if(this.props.type==="Chef"){
 
-		  	 this.setState({
-		  		recipes: result.data.recipe,
-		  		redirect:false
-		  		})
-		  	}).catch(error=>{
-		  		console.log("error in myMenu DB Retrieval: ",error);
-		  		alert("Error ",error);
+				getMenu().then( result=>{
+				 console.log("Chef Menu result: "+result.data.recipe);
+			  	 this.setState({
+			  		recipes: result.data.recipe,
+			  		redirect:false
+			  		})
+			  	}).catch(error=>{
+			  		console.log("error in Chef myMenu DB Retrieval: ",error);
+			  		alert("Error ",error);
 
-		  	});
-		  }
+			  	});
+		  	}
+		  	if(this.props.type==="Manager")
+		  	{
+
+				getMenuStore().then( result=>{
+					let allMenu = []
+					if(result.data){
+						for(let i = 0; i<result.data.length; ++i)
+						{
+							if(result.data[i])
+							{
+								for(let j = 0; j<result.data[i].length;++j)
+								{
+									console.log("Data Present in i,j : ",result.data[i][j])
+									allMenu.push(result.data[i][j]);
+								}
+							}
+						}
+					}
+					
+					console.log(allMenu);
+
+				 console.log("Manager Menu result: "+result);
+			  	 this.setState({
+			  		recipes: allMenu,
+			  		redirect:false
+			  		})
+			  	}).catch(error=>{
+			  		console.log("error in Chef myMenu DB Retrieval: ",error);
+			  		alert("Error ",error);
+
+			  	});
+		  	}
+		}
 	}
 
 
@@ -48,6 +84,7 @@ export default class MyMenu extends Component
 				<Redirect to='/login'/>
 				)
 		}
+
 		console.log("State ",this.state.recipes)
 		const content = this.state.recipes.map((recipe)=>
 			<div key={recipe.toString()}>

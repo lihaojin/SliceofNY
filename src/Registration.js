@@ -56,7 +56,9 @@ class Registration extends Component {
 onSignUp(){
   signUp(this.state.email,this.state.password, this.state.typeOfUser,this.state.name, this.state.store_affiliated_with)
   .then(response => {
-    alert("Success" + response.data)
+    alert("Success" + response.data);
+    this.props.history.push('/login');
+    return;
   })
   .catch(error => {
     alert("Error " + error);
