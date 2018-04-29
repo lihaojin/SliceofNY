@@ -31,6 +31,7 @@ componentDidMount(){
   render() {
 
     return (
+      <div style={{border: '10px double white'}}>
       <Table>
    <TableHeader>
      <TableRow>
@@ -46,6 +47,7 @@ componentDidMount(){
 
    </TableBody>
  </Table>
+ </div>
     );
   }
 }

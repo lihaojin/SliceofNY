@@ -6,6 +6,7 @@ import MapDelivery from './DeliveryMap/MapDelivery'
 import DeliveryTable from './DeliveryMap/Map-Vehicles-React/src/components/DeliveryTable'
 import Map from './DeliveryMap/Map-Vehicles-React/src/components/map'
 import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField';
 
 import {
   Table,
@@ -28,7 +29,24 @@ const style = {
   },
 }
 
-
+const style_textField = {
+      display: 'inline-block',
+      height: {flex:1},
+      width: {flex:2},
+      margin: 20,
+      padding: 40,
+      textAlign: 'center',
+      backgroundColor:'rgba(20,20,20,0.7)',
+      floatingLabelStyle: {
+        color: 'white',
+      },
+      floatingLabelFocusStyle: {
+        color: 'white',
+      },
+      inputStyle:{
+        color: 'white',
+      }
+    }
 
 class Delivery extends Component {
 
@@ -110,11 +128,18 @@ class Delivery extends Component {
   else{
     return(
       <div className = 'container'>
-      <h1 style={{color: "white"}}>Enter Origin:</h1>
-      <form>
-        <input type='text' name='originAddress' value={this.state.origin} onChange={this.handleChangeOrigin.bind(this)} />
+      <TextField
+      value={this.state.origin}
+      name="originAddress"
+      onChange={this.handleChangeOrigin.bind(this)}
+      floatingLabelText="Origin"
+      type="text"
+      floatingLabelStyle ={style_textField.floatingLabelStyle}
+      floatingLabelFocusStyle={style_textField.floatingLabelFocusStyle}
+      inputStyle={style_textField.inputStyle}
+    />
+        
         <RaisedButton style={{height:'20px'}} onClick={this.handleSubmit.bind(this)}> Submit </RaisedButton>
-      </form>
       </div>
       )
   }

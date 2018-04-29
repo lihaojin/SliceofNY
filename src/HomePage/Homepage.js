@@ -42,10 +42,10 @@ class App extends Component {
     <Paper style={style} zDepth={3}>
     <MapPage />
     <br /><br />
-    <h1>Top 3 Stores</h1>
+    <h1 style={{color:'white'}}>Top 3 Stores</h1>
     <TopThreeTable/>
     <br /><br />
-    <h1>All Stores</h1>
+    <h1 style={{color:'white'}}>All Stores</h1>
     <ShowAllTable/>
     </Paper>
     </center>
