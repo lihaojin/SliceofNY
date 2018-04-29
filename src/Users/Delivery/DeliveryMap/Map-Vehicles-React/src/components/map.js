@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Input from './input';
+
 
 
 const google = window.google;
@@ -150,15 +150,6 @@ class Map extends Component {
       <div className="row">
         <div className="col-md-8 mapcont">
           <div ref="map" className="map"></div><br />
-        </div>
-        <div className="col-md-4">
-          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-              <a className="navbar-brand" href="#">Map Vehicles</a>
-          </nav><br />
-          <div className="alert alert-secondary" role="alert">
-            Select the order that you'd like to deliver first.<br />
-          </div>
-          <br />
         </div>
       </div>  
     );

@@ -31,19 +31,27 @@ componentDidMount(){
   })
   */
   //api call to get orders for now i'm just going to hardcode some
-    var orders_temp = [{order_number: 1, address: "3147 Broadway Apt. 3", contents:"1 pizza"},{order_number: 2, address: "18 St Nicholas Place Apt. 3B", contents:"2 pizza"}];
+    var orders_temp = [{address: "3147 Broadway Apt. 3", contents:"1 pizza"},{address: "18 St Nicholas Place Apt. 3B", contents:"2 pizza"},{address: "4510 5th Avenue", contents:"800 pizzas"}];
     this.setState({
       orders: orders_temp
     });
     this.forceUpdate();
 }
 
-	deleteOrder(index){
+	deleteRow(address){
 		var update = this.state.orders;
-		update.splice(index,1);
+    for(var i = 0; i < update.length; i++){
+      if(update[i].address == address){
+        update.splice(i,1)
+      }
+    }
+		
 		this.setState({
-			orders: update
+			orders: update,
 		});
+
+    console.log(this.state.orders)
+    this.forceUpdate();
 	}
 
 	addOrder(order){
@@ -54,22 +62,13 @@ componentDidMount(){
 		});
 	}
 
-	deleteRow(index){
-		var update = this.state.orders;
-		if(index in update){
-			update.splice(index,1);
-			this.setState({orders:update});
-		}
-		else{
-			alert("not in array");
-		}
-	}
-
+  //calls complete in Delivery.js
   complete(){
     this.props.complete()
   }
 
 	render(){
+    if(this.state.orders.length > 0){
 		return(
 		<div>
 	    <MuiThemeProvider>
@@ -84,7 +83,7 @@ componentDidMount(){
           <TableBody>
           {this.state.orders.map((order, i) =>{
             return(
-              <DeliveryRow order={order} index={i} getSelectedOrder={this.props.getSelectedOrder.bind(this)} deleteRow={this.deleteRow.bind(this)} complete={this.complete.bind(this)}/>
+              <DeliveryRow order={order} key = {order.address} getSelectedOrder={this.props.getSelectedOrder.bind(this)} deleteRow={this.deleteRow.bind(this)} complete={this.complete.bind(this)}/>
               )
 
           })}
@@ -93,6 +92,17 @@ componentDidMount(){
           </MuiThemeProvider>
           </div>
           )
+  }
+  else{
+    return(
+      <div style={{color:'white'}}>
+        <div> NICE WORK! </div>
+        <div> NO MORE DELIVERIES </div>
+
+      </div>
+
+      )
+  }
 	}
 
 }

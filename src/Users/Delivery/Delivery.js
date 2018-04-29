@@ -36,6 +36,7 @@ class Delivery extends Component {
       value: 1,
       destination: '',
       map: false,
+      color: 'blue',
       key: 0
     };
   }
@@ -43,7 +44,8 @@ class Delivery extends Component {
   getSelectedOrder(order){
     this.setState({
       destination: order.address,
-      map: true
+      map: true,
+      color: 'green'
     })
     this.forceUpdate();
   }
@@ -51,7 +53,8 @@ class Delivery extends Component {
   complete(){
     this.setState({
       map: false,
-      key: this.state.key + 1
+      key: this.state.key + 1,
+      color: 'blue'
     })
 
     this.forceUpdate();
@@ -61,7 +64,7 @@ handleChange = (event, index, value) => this.setState({value});
   render() {
     return (
       <Tabs>
-      <Tab label="Employees">
+      <Tab label="Orders" style={{background: 'blue'}}>
     <div className = "container" >
     <center>
     <Paper style={style.formStyle} zDepth={3}>
@@ -72,7 +75,7 @@ handleChange = (event, index, value) => this.setState({value});
     </div>
     </Tab>
 
-    <Tab label="Directions">
+    <Tab label="Directions" style={{background: this.state.color}}>
     {this.state.map && (<Map key={this.state.key} origin="114 Bellair Drive" destination={this.state.destination} />)}
     </Tab>
       </Tabs>
