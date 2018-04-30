@@ -22,12 +22,7 @@ const RoutePaths= () => (
   <Route path = '/Delivery' component = {Delivery}/>
   <Route path = '/Chef' component = {Chef}/>
   <Route path = '/MapPage' component = {MapPage}/>
-<<<<<<< HEAD
-  <Route path = '/MapDelivery' component ={MapDelivery}/>
   <Route path = '/:name/StorePage' component ={StorePage}/>
-=======
-  <Route path = '/StorePage' component ={StorePage}/>
->>>>>>> 4897ed287194cf4013c9143b5f15e8d81619e2f4
   </Switch>
   </Router>
 )
