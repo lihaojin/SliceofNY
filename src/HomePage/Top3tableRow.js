@@ -32,29 +32,10 @@ class Top3tableRow extends Component {
           <br />
           <TableRowColumn>{this.props.store.rating}</TableRowColumn>
           <TableRowColumn>
-          <Link to={'/'+ this.props.store.name +'/StorePage'}>VISIT</Link>
+          <Link to={'/'+ this.props.store.name +'/StorePage'}>VISIT</Link> 
           </TableRowColumn>
         </TableRow>
       )
     }
 }
 export default Top3tableRow;
-
-
-// class PassStoreName extends Component {
-//   constructor(props){
-//     super(props)
-//     this.state = {
-//       storename: ""
-//     }
-//   }
-//   componentDidMount(){
-//     this.setState({storename:this.props.store.name});
-//   }
-//   render(){
-//     return(
-//       <div>{this.state.name}</div>
-//     );
-//   }
-// }
-// export default PassStoreName;

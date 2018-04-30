@@ -9,7 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import './Styles/App.css'
 
 
-class App extends Component { 
+class App extends Component {
 
   constructor(props) {
   super(props);
@@ -22,7 +22,7 @@ class App extends Component {
   {
     this.setState({open:!this.state.open});
     if(localStorage.getItem("token")!=null)
-    { 
+    {
       localStorage.removeItem("token");
       alert("Success!");
       window.location.reload();
