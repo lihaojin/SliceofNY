@@ -19,6 +19,9 @@ constructor(props){
   }
 }
 
+
+
+
 componentDidMount(){
   StoresTopThree()
   .then(response => {
@@ -36,6 +39,7 @@ componentDidMount(){
      <TableRow>
        <TableHeaderColumn>Name</TableHeaderColumn>
        <TableHeaderColumn>Rating</TableHeaderColumn>
+       <TableHeaderColumn></TableHeaderColumn>
      </TableRow>
    </TableHeader>
    <TableBody>

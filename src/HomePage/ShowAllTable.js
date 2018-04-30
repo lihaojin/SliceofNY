@@ -19,6 +19,7 @@ constructor(props){
   }
 }
 
+
 componentDidMount(){
   GetAllStores()
   .then(response => {
@@ -36,7 +37,7 @@ componentDidMount(){
      <TableRow>
        <TableHeaderColumn>Name</TableHeaderColumn>
        <TableHeaderColumn>Rating</TableHeaderColumn>
-       <TableHeaderColumn>Address</TableHeaderColumn>
+       <TableHeaderColumn></TableHeaderColumn>
      </TableRow>
    </TableHeader>
    <TableBody>

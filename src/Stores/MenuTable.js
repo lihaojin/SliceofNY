@@ -14,13 +14,13 @@ class MenuTable extends Component {
   constructor(props){
     super(props)
     this.state = {
-      storename: "",
       menu:[]
     }
   }
 
   componentDidMount(){
-    GetMenu()
+    var passName = this.props.match.params.name;
+    GetMenu(this.state.name)
     .then(response => {
       this.setState({menu:response.data[0]});
     })
