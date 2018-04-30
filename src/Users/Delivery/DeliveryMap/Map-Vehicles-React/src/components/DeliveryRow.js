@@ -33,13 +33,14 @@ export default class DeliveryRow extends Component{
 
 	delete(){
 		this.setState({completed: true});
-		this.props.deleteRow(this.state.index);
+		this.props.deleteRow(this.state.order.address);
+		this.props.complete()
 	}
 
 	render(){
 		return(
 			<TableRow onRowSelection={()=>{console.log("hello")}} key={this.state.index}>
-                <TableRowColumn>{this.state.order.order_number}</TableRowColumn>
+                <TableRowColumn>{this.props.ind + 1}</TableRowColumn>
                 <TableRowColumn>{this.state.order.address}</TableRowColumn>
                 <TableRowColumn>{this.state.order.contents}</TableRowColumn>
                 <TableRowColumn><button onClick={this.getOrder.bind(this)}>Select</button></TableRowColumn>

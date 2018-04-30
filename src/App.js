@@ -9,7 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import './Styles/App.css'
 
 
-class App extends Component {
+class App extends Component { 
 
   constructor(props) {
   super(props);
@@ -18,6 +18,19 @@ class App extends Component {
 
   handleToggle = () => this.setState({open: !this.state.open});
   handleToggle2 = () => this.setState({open2: !this.state.open2});
+  handleSignOut = ()=>
+  {
+    this.setState({open:!this.state.open});
+    if(localStorage.getItem("token")!=null)
+    { 
+      localStorage.removeItem("token");
+      alert("Success!");
+      window.location.reload();
+    }
+    else
+      return alert("You have not logged in yet!");
+
+  }
 
   render() {
     const style = {
@@ -37,11 +50,10 @@ class App extends Component {
         width={200}
         open={this.state.open}
         onRequestChange={(open) => this.setState({open})}>
-        <MenuItem onClick={this.handleClose} href="/Homepage">Home</MenuItem>
-        <MenuItem onClick={this.handleClose} href="/Login">Log In</MenuItem>
-        <MenuItem onClick={this.handleClose} href="/Registration">Sign Up</MenuItem>
-        <MenuItem onClick={this.handleClose} href="/MapPage">Map </MenuItem>
-        <MenuItem onClick={this.handleClose} href="/MapDelivery">Delivery Map</MenuItem>
+        <MenuItem onClick={this.handleToggle} href="/Homepage">Home</MenuItem>
+        <MenuItem onClick={this.handleToggle} href="/Login">Log In</MenuItem>
+        <MenuItem onClick={this.handleToggle} href="/Registration">Sign Up</MenuItem>
+        <MenuItem onClick={this.handleSignOut}>Sign Out</MenuItem>
       </Drawer>
 
 
