@@ -23,14 +23,15 @@ async function getMenuStore()
 
 }
 
-// export {changePrice}
-// function changePrice(id,new_price)
-// { 
-//   const token = localStorage.getItem('token');
-//   const decoded = jwt.decode(token);
-//   return axios.post(baseUrl+'/chef/changePrice',{
-//     "email": decoded.email,
-//     "id":id,
-//     "new_price":new_price
-//   })
-// }
+
+export {changePriceManager}
+async function changePriceManager(id,new_price)
+{
+  return axios.post(baseUrl+'/manager/changePrice',
+    {
+        "id":id,
+        "new_price":new_price
+    }
+  )
+
+}
