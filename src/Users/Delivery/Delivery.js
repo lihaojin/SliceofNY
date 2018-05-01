@@ -113,7 +113,9 @@ class Delivery extends Component {
     <center>
     <Paper style={style.formStyle} zDepth={3}>
     <h2>To Deliver</h2>
+    <div style={{border: '10px double white'}}>
     <DeliveryTable  getSelectedOrder={this.getSelectedOrder.bind(this)} complete={this.complete.bind(this)}/>
+    </div>
     </Paper>
     </center>
     </div>

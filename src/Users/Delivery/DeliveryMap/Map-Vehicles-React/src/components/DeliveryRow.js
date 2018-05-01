@@ -9,6 +9,7 @@ import {
 } from 'material-ui/Table';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import RaisedButton from 'material-ui/RaisedButton'
 
 export default class DeliveryRow extends Component{
 	constructor(props){
@@ -43,8 +44,8 @@ export default class DeliveryRow extends Component{
                 <TableRowColumn>{this.props.ind + 1}</TableRowColumn>
                 <TableRowColumn>{this.state.order.address}</TableRowColumn>
                 <TableRowColumn>{this.state.order.contents}</TableRowColumn>
-                <TableRowColumn><button onClick={this.getOrder.bind(this)}>Select</button></TableRowColumn>
-                <TableRowColumn><button onClick={this.delete.bind(this)}>Completed</button></TableRowColumn>
+                <TableRowColumn><RaisedButton onClick={this.getOrder.bind(this)}>Select</RaisedButton></TableRowColumn>
+                <TableRowColumn><RaisedButton onClick={this.delete.bind(this)}>Completed</RaisedButton></TableRowColumn>
               </TableRow>
 
 			)

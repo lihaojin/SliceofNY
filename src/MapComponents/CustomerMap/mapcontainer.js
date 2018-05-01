@@ -6,8 +6,11 @@ import pink_circle from './images/pink-circle.png'
 import Geocode from "react-geocode";
 import axios from 'axios'
 import RaisedButton from 'material-ui/RaisedButton'
+import './Map.css'
 
-
+const btn_style={
+  padding:'10px'
+}
 
 export default class MapContainer extends Component {
   constructor(props){
@@ -134,9 +137,9 @@ export default class MapContainer extends Component {
       </GoogleMapReact>
       </div>
       <div className="text-center">
-        <RaisedButton className="button" onClick = {this.returnRelevantMarker.bind(this)}> Show All </RaisedButton>
-        <RaisedButton className="button"> Show Relevant </RaisedButton>
-        <RaisedButton className="button" onClick = {this.removeCurrent.bind(this)}> Reset Current </RaisedButton>
+        <RaisedButton className="button" primary={true} onClick = {this.returnRelevantMarker.bind(this)}> Show All </RaisedButton>
+        <RaisedButton className="button" > Show Relevant </RaisedButton>
+        <RaisedButton className="button" secondary={true} onClick = {this.removeCurrent.bind(this)}> Reset Current </RaisedButton>
         </div>
       </div>
 
