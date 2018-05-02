@@ -63,8 +63,8 @@ componentDidMount(){
 	}
 
   //calls complete in Delivery.js
-  complete(){
-    this.props.complete()
+  complete(isSelected){
+    this.props.complete(isSelected) //isSelected if completed
   }
 
 	render(){

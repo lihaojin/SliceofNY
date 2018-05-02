@@ -7,6 +7,7 @@ import DeliveryTable from './DeliveryMap/Map-Vehicles-React/src/components/Deliv
 import Map from './DeliveryMap/Map-Vehicles-React/src/components/map'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField';
+import Ratings from '../../ratings/ratings'
 
 import {
   Table,
@@ -58,27 +59,47 @@ class Delivery extends Component {
       origin: '',
       destination: '',
       map: false,
-      color: 'blue',
-      key: 0
+      key: 0,
+      ratingsOn: false,
+      color: 'red'
     };
   }
 
   getSelectedOrder(order){
-    this.setState({
-      destination: order.address,
-      map: true,
-      color: 'green'
-    })
-    this.forceUpdate();
+    if(!this.state.map || this.state.destination === order.address){
+      this.setState({
+        destination: order.address,
+        map: true,
+        color: 'blue'
+      })
+      this.forceUpdate();
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
-  complete(){
-    this.setState({
-      map: false,
-      key: this.state.key + 1,
-      color: 'blue',
-      origin: this.state.destination
-    })
+  complete(isComplete){
+    if(isComplete){
+      this.setState({
+        map: false,
+        color: 'red',
+        key: this.state.key + 1,
+        origin: this.state.destination,
+        ratingsOn: true
+     })
+    }
+    else{
+      this.setState({
+        map: false,
+        key: this.state.key + 1,
+        origin: this.state.origin,
+        ratingsOn: false,
+        color: 'red'
+
+      })
+    }
 
     this.forceUpdate();
   }
@@ -104,28 +125,44 @@ class Delivery extends Component {
     })
   }
 
+  handleCustomerRating(value){
+    this.setState({
+      ratingsOn: false
+    })
+    console.log(value);
+
+  }
+
   render() {
     if(this.state.enterOrigin){
-    return (
-      <Tabs>
-      <Tab label="Orders" style={{background: 'blue'}}>
-    <div className = "container" >
-    <center>
-    <Paper style={style.formStyle} zDepth={3}>
-    <h2>To Deliver</h2>
-    <div style={{border: '10px double white'}}>
-    <DeliveryTable  getSelectedOrder={this.getSelectedOrder.bind(this)} complete={this.complete.bind(this)}/>
-    </div>
-    </Paper>
-    </center>
-    </div>
-    </Tab>
-    {this.state.map && (
-    <Tab label="Directions" style={{background: 'blue'}}>
-    <Map key={this.state.key} origin={this.state.origin} destination={this.state.destination} />
-    </Tab>)}
-      </Tabs>
-    );
+      if(true){
+        return (
+          <Tabs>
+            <Tab label="Orders" style={{background: this.state.color}}>
+              <div className = "container" >
+                <center>
+                  <Paper style={style.formStyle} zDepth={3}>
+                    <h2>To Deliver</h2>
+                    <div style={{border: '10px double white'}}>
+                      <DeliveryTable  getSelectedOrder={this.getSelectedOrder.bind(this)} complete={this.complete.bind(this)}/>
+                    </div>
+                  </Paper>
+                </center>
+              </div>
+            </Tab>
+        {this.state.map && (
+          <Tab label="Directions" style={{background: 'blue'}}>
+            <div> {console.log(this.state.map)} </div>
+            <Map key={this.state.key} origin={this.state.origin} destination={this.state.destination} />
+          </Tab>)}
+        </Tabs>
+      );
+    }
+    else{
+      return(
+        <Ratings key={this.state.key} handleRating={this.handleCustomerRating.bind(this)}/>
+      );
+    }
   }
   else{
     return(
@@ -143,7 +180,7 @@ class Delivery extends Component {
         
         <RaisedButton style={{height:'20px'}} onClick={this.handleSubmit.bind(this)}> Submit </RaisedButton>
       </div>
-      )
+      );
   }
 }
 }

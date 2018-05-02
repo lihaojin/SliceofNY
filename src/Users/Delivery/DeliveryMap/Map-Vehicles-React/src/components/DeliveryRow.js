@@ -17,7 +17,9 @@ export default class DeliveryRow extends Component{
 		this.state={
 			order: [],
 			index: -1,
-			completed:false
+			completed:false,
+			selected: {background:'white'},
+			seletedYet: false
 		}
 	}
 
@@ -29,18 +31,40 @@ export default class DeliveryRow extends Component{
 	}
 
 	getOrder(){
-		this.props.getSelectedOrder(this.state.order);
+		var cont = this.props.getSelectedOrder(this.state.order);
+		if(cont){
+			this.setHighlightColor();
+			this.forceUpdate()
+		}
+		
+	}
+
+	setHighlightColor(){
+		if(!this.state.selectedYet){
+			this.setState({
+				selected: {background: 'blue'},
+				selectedYet: true
+			});
+		}
+		else{
+			this.setState({
+				selected: {background: 'white'},
+				selectedYet: false
+			});
+			this.props.complete(false);
+		}
+		
 	}
 
 	delete(){
 		this.setState({completed: true});
 		this.props.deleteRow(this.state.order.address);
-		this.props.complete()
+		this.props.complete(true)
 	}
 
 	render(){
 		return(
-			<TableRow onRowSelection={()=>{console.log("hello")}} key={this.state.index}>
+			<TableRow style={this.state.selected} key={this.state.index}>
                 <TableRowColumn>{this.props.ind + 1}</TableRowColumn>
                 <TableRowColumn>{this.state.order.address}</TableRowColumn>
                 <TableRowColumn>{this.state.order.contents}</TableRowColumn>
