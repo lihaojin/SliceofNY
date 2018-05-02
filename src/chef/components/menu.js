@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import {changePrice} from '../Util/chefDBUtil';
+import {changePriceManager} from '../../manager/Util/managerDBUtil';
 
 export default class  MenuCard extends Component{
 	
@@ -33,14 +34,29 @@ export default class  MenuCard extends Component{
   }
 
   submitPrice = ()=>{
-  	changePrice(this.props.id,this.state.price)
-  	.then(result=>
-  	{
-  		alert("Price Updated Successfully!\n Result: ",result);
-  		window.location.reload();
-  	}).catch((err)=>{
-  		alert("Error Occured! ",err);
-  	})
+    if(this.props.type==="Chef")
+    {
+      changePrice(this.props.id,this.state.price)
+      .then(result=>
+      {
+        alert("Price Updated Successfully!");
+        window.location.reload();
+      }).catch((err)=>{
+        alert("Error Occured! ",err);
+      })
+    }
+    if(this.props.type==="Manager")
+    {
+      changePriceManager(this.props.id,this.state.price)
+      .then(result=>
+      {
+        alert("Price Updated Successfully!");
+        window.location.reload();
+      }).catch((err)=>{
+        alert("Error Occured! ",err);
+      })
+
+    }
   }
 
   render(){
