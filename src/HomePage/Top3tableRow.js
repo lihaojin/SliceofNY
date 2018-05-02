@@ -19,6 +19,7 @@ class Top3tableRow extends Component {
     this.handleFormChange = this.handleFormChange.bind(this);
   }
 
+  
   handleFormChange(e){
           const value = e.target.value;
           const name = e.target.name;
@@ -32,7 +33,11 @@ class Top3tableRow extends Component {
           <br />
           <TableRowColumn>{this.props.store.rating}</TableRowColumn>
           <TableRowColumn>
-          <Link to={'/'+ this.props.store.name +'/StorePage'}>VISIT</Link> 
+          <Link to={'/'+ this.props.store.name +'/StorePage'} >
+           <RaisedButton>
+            Visit
+           </RaisedButton>
+          </Link>
           </TableRowColumn>
         </TableRow>
       )

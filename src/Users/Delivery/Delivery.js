@@ -8,7 +8,7 @@ import Map from './DeliveryMap/Map-Vehicles-React/src/components/map'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField';
 import Ratings from '../../ratings/ratings'
-
+import Popup from "reactjs-popup";
 import {
   Table,
   TableBody,
@@ -53,6 +53,7 @@ class Delivery extends Component {
 
   constructor(props) {
     super(props);
+    var orders_temp = [{address: "3147 Broadway Apt. 3", contents:"1 pizza"},{address: "18 St Nicholas Place Apt. 3B", contents:"2 pizza"},{address: "4510 5th Avenue", contents:"800 pizzas"}];
     this.state = {
       value: 1,
       enterOrigin: false,
@@ -61,8 +62,57 @@ class Delivery extends Component {
       map: false,
       key: 0,
       ratingsOn: false,
-      color: 'red'
+      color: 'red',
+      toBeDeleted: '',
+      orders: orders_temp
     };
+  }
+
+  shouldComponentUpdaate(){
+    return !this.ratingsOn;
+  }
+
+  componentDidMount(){
+  /*
+  StoresTopThree()
+  .then(response => {
+    this.setState({stores:response.data});
+  })
+  .catch(error => {
+    alert("Error" + error);
+  })
+  */
+  //api call to get orders for now i'm just going to hardcode some
+}
+
+  deleteRow(address){
+    var update = this.state.orders;
+    for(var i = 0; i < update.length; i++){
+      if(update[i].address == address){
+        update.splice(i,1)
+      }
+    }
+    
+    this.setState({
+      orders: update,
+    });
+
+    console.log(this.state.orders)
+    this.forceUpdate();
+  }
+
+  addOrder(order){
+    var update = this.state.orders;
+    update.push(order);
+    this.setState({
+      orders: update
+    });
+  }
+
+  setToBeDeleted(address){
+    this.setState({
+      toBeDeleted: address
+    })
   }
 
   getSelectedOrder(order){
@@ -125,17 +175,33 @@ class Delivery extends Component {
     })
   }
 
+  triggerRating(){
+    this.complete(false);
+    this.setState({
+      ratingsOn: true
+    })
+    
+  }
+
   handleCustomerRating(value){
     this.setState({
       ratingsOn: false
     })
+    this.complete(true);
+    this.deleteRow(this.state.toBeDeleted)
     console.log(value);
 
   }
 
+  handleCancel(){
+    this.setState({
+      ratingsOn: false
+    })
+    this.forceUpdate();
+  }
+
   render() {
     if(this.state.enterOrigin){
-      if(true){
         return (
           <Tabs>
             <Tab label="Orders" style={{background: this.state.color}}>
@@ -144,7 +210,11 @@ class Delivery extends Component {
                   <Paper style={style.formStyle} zDepth={3}>
                     <h2>To Deliver</h2>
                     <div style={{border: '10px double white'}}>
-                      <DeliveryTable  getSelectedOrder={this.getSelectedOrder.bind(this)} complete={this.complete.bind(this)}/>
+                      <Popup  style={{width:'100px',height: '100px'}} open={this.state.ratingsOn}> 
+                        <Ratings handleRating = {this.handleCustomerRating.bind(this)}/> 
+                        <RaisedButton onClick = {this.handleCancel.bind(this)}> Cancel </RaisedButton>
+                      </Popup>
+                      <DeliveryTable  setToBeDeleted={this.setToBeDeleted.bind(this)} orders = {this.state.orders} getSelectedOrder={this.getSelectedOrder.bind(this)} triggerRating={this.triggerRating.bind(this)}/>
                     </div>
                   </Paper>
                 </center>
@@ -157,12 +227,8 @@ class Delivery extends Component {
           </Tab>)}
         </Tabs>
       );
-    }
-    else{
-      return(
-        <Ratings key={this.state.key} handleRating={this.handleCustomerRating.bind(this)}/>
-      );
-    }
+      
+  
   }
   else{
     return(

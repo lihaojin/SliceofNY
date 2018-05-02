@@ -110,7 +110,7 @@ export default class MapContainer extends Component {
     return (
       <div>
       {this.state.showPrompt && (<div className="InitialPrompt" style={{color:"white"}}>Please Click Your Current Location </div>)}
-      <div style={{width: '100%', height: '400px', border: '10px double white'}}> 
+      <div style={{width: '100%', height: '400px', border: '5px solid white'}}> 
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyAIQZMVYWhDwlR9mqBRL-dOGxW3LwLV-ds' }}
         defaultCenter={this.props.center}

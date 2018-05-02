@@ -55,11 +55,8 @@ export default class DeliveryRow extends Component{
 		}
 		
 	}
-
-	delete(){
-		this.setState({completed: true});
-		this.props.deleteRow(this.state.order.address);
-		this.props.complete(true)
+	complete(){
+		this.props.complete(this.state.order.address);
 	}
 
 	render(){
@@ -69,7 +66,7 @@ export default class DeliveryRow extends Component{
                 <TableRowColumn>{this.state.order.address}</TableRowColumn>
                 <TableRowColumn>{this.state.order.contents}</TableRowColumn>
                 <TableRowColumn><RaisedButton onClick={this.getOrder.bind(this)}>Select</RaisedButton></TableRowColumn>
-                <TableRowColumn><RaisedButton onClick={this.delete.bind(this)}>Completed</RaisedButton></TableRowColumn>
+                <TableRowColumn><RaisedButton onClick={this.complete.bind(this)}>Completed</RaisedButton></TableRowColumn>
               </TableRow>
 
 			)

@@ -26,12 +26,10 @@ export default class Ratings extends Component{
 
 	render(){
 		return(
-			<div className = 'container'>
         		<Paper style={style.formStyle} zDepth={3}>
         			<h1 style={{color:'white'}}> Please Rate the Customer! </h1>
           			<Rating onChange={this.handleRating.bind(this)}/>
           		</Paper>
-        	</div>
 			);
 	}
 }
