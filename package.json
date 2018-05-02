@@ -17,7 +17,8 @@
     "react-google-maps": "^9.4.5",
     "react-material-ui-form-validator": "^1.1.4",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "react-shopping-cart": "^1.8.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -6,6 +6,8 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import {List, ListItem} from 'material-ui/List';
+import ListRow from './ShoppingCart/ListRow';
 import './Styles/App.css'
 
 
@@ -13,12 +15,25 @@ class App extends Component {
 
   constructor(props) {
   super(props);
-  this.state = {open:false,open2:false};
+  this.state = {
+    open:false,
+    open2:false,
+    cart:[]
+    };
+    this.addItem = this.addItem.bind(this);
   }
+
+  addItem(item){
+    var cart = this.state.cart;
+    cart.push(item);
+    this.setState({cart: cart});
+  }
+
+
 
   handleToggle = () => this.setState({open: !this.state.open});
   handleToggle2 = () => this.setState({open2: !this.state.open2});
-  handleSignOut = ()=>
+  handleSignOut = () =>
   {
     this.setState({open:!this.state.open});
     if(localStorage.getItem("token")!=null)
@@ -35,7 +50,6 @@ class App extends Component {
   render() {
     const style = {
       backgroundColor:'black',
-
     }
 
     return (
@@ -57,17 +71,22 @@ class App extends Component {
       </Drawer>
 
 
-      <Drawer width={200}
+      <Drawer width={300}
       docked={false}
       openSecondary={true}
       open={this.state.open2}
       onRequestChange={(open2) => this.setState({open2})}>
       <h3>Items</h3>
+      <List>
+        {this.state.cart.map(function(recipe){
+          <ListRow recipe={recipe}/>
+        })}
+      </List>
       <div className="checkout">
       <RaisedButton label="Checkout" primary={true} fullWidth={true}/>
       </div>
       </Drawer>
-      <RoutePaths/>
+      <RoutePaths addItem={this.addItem}/>
       </MuiThemeProvider>
     );
   }

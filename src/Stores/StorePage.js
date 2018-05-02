@@ -26,7 +26,7 @@ class StorePage extends Component {
       <div>
       <center><h1>Menu</h1></center>
       <br />
-      <MenuTable menu={this.state.menu}/>
+      <MenuTable addItem={this.props.addItem} menu={this.state.menu}/>
       </div>
     );
   }
