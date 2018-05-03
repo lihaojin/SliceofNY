@@ -25,7 +25,7 @@ async function getMenuStore()
 
 
 export {changePriceManager}
-async function changePriceManager(id,new_price)
+function changePriceManager(id,new_price)
 {
   return axios.post(baseUrl+'/manager/changePrice',
     {
@@ -34,4 +34,23 @@ async function changePriceManager(id,new_price)
     }
   )
 
+}
+
+export {getAllRegisteredCustomers}
+function  getAllRegisteredCustomers()
+{
+  return axios.get(baseUrl+'/manager/getAllRegisteredCustomers');
+}
+
+export {getAllPendingCustomers}
+function  getAllPendingCustomers()
+{
+  return axios.get(baseUrl+'/manager/getAllPendingCustomers');
+}
+
+
+export {getAllBlacklistedCustomers}
+function  getAllBlacklistedCustomers()
+{
+  return axios.get(baseUrl+'/manager/getAllBlacklistedCustomers');
 }
