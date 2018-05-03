@@ -17,7 +17,9 @@ export default class DeliveryRow extends Component{
 		this.state={
 			order: [],
 			index: -1,
-			completed:false
+			completed:false,
+			selected: {background:'white'},
+			selectedYet: false
 		}
 	}
 
@@ -29,23 +31,51 @@ export default class DeliveryRow extends Component{
 	}
 
 	getOrder(){
-		this.props.getSelectedOrder(this.state.order);
-	}
+		var cont = this.props.getSelectedOrder(this.state.order);
+		this.setHighlightColor(cont);
+		this.forceUpdate()
+		}
+		
+	
 
-	delete(){
-		this.setState({completed: true});
-		this.props.deleteRow(this.state.order.address);
-		this.props.complete()
+	setHighlightColor(sYet){
+		//sYet ensures only one thing is selected 
+		if(!this.state.selectedYet && sYet){//
+			this.setState({
+				selected: {background: 'green'},
+				selectedYet: true
+			});
+		}
+		else{
+			this.setState({
+				selected: {background: 'white'},
+				selectedYet: false
+			});
+			
+		}
+		
+	}
+	complete(){
+		if(this.state.selectedYet){
+			this.setState({
+				selected: {background: 'white'},
+				selectedYet: false
+			})
+			this.props.complete(this.state.order.address);
+		}
+		else{
+			alert('You fuck')
+		}
 	}
 
 	render(){
 		return(
-			<TableRow onRowSelection={()=>{console.log("hello")}} key={this.state.index}>
+			<TableRow style={this.state.selected} key={this.state.index}>
                 <TableRowColumn>{this.props.ind + 1}</TableRowColumn>
                 <TableRowColumn>{this.state.order.address}</TableRowColumn>
                 <TableRowColumn>{this.state.order.contents}</TableRowColumn>
                 <TableRowColumn><RaisedButton onClick={this.getOrder.bind(this)}>Select</RaisedButton></TableRowColumn>
-                <TableRowColumn><RaisedButton onClick={this.delete.bind(this)}>Completed</RaisedButton></TableRowColumn>
+                <TableRowColumn><RaisedButton onClick={this.complete.bind(this)}>Completed</RaisedButton></TableRowColumn>
               </TableRow>
 
 			)
