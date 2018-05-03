@@ -19,11 +19,6 @@
     "react-rating": "^1.1.2",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
-<<<<<<< HEAD
-    "react-shopping-cart": "^1.8.1"
-=======
-    "reactjs-popup": "^1.1.1"
->>>>>>> 53288fd3388695612baa8f4bc078ebeb950d9fd9
   },
   "scripts": {
     "start": "react-scripts start",

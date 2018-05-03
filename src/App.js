@@ -42,15 +42,6 @@ class App extends Component {
     this.setState({subtotal: this.state.subtotal + price});
   }
 
-  addTotal(price){
-
-    this.setState(price => {this.state.
-      return
-    });
-
-  }
-
-
 
   handleToggle = () => this.setState({open: !this.state.open});
   handleToggle2 = () => this.setState({open2: !this.state.open2});
