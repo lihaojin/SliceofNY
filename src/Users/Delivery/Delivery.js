@@ -64,7 +64,8 @@ class Delivery extends Component {
       ratingsOn: false,
       color: 'red',
       toBeDeleted: '',
-      orders: orders_temp
+      orders: orders_temp,
+      alreadySelected: false
     };
   }
 
@@ -99,11 +100,15 @@ class Delivery extends Component {
   }
 
   getSelectedOrder(order){
+    if(order.address!=this.state.destination && this.state.map){
+      return false;
+    }
     if(!this.state.map){
       this.setState({
         destination: order.address,
         map: true,
-        color: 'blue'
+        color: 'green',
+        alreadySelected: true
       })
       this.forceUpdate();
       return true;
@@ -112,7 +117,8 @@ class Delivery extends Component {
       this.setState({
         destination: this.state.destination,
         map: false,
-        color: 'red'
+        color: 'red',
+        alreadySelected: false
       })
       return false;
     }
@@ -192,6 +198,7 @@ class Delivery extends Component {
 
   render() {
     if(this.state.enterOrigin){
+        const color = this.state.color
         return (
           <Tabs>
             <Tab label="Orders" style={{background: this.state.color}}>
@@ -199,7 +206,7 @@ class Delivery extends Component {
                 <center>
                   <Paper style={style.formStyle} zDepth={3}>
                     <h2>To Deliver</h2>
-                    <div style={{border: '10px double white'}}>
+                    <div style={{border: '2px solid ' + color}}>
                       <Popup  style={{width:'100px',height: '100px'}} open={this.state.ratingsOn}> 
                         <Ratings handleRating = {this.handleCustomerRating.bind(this)}/> 
                         <RaisedButton onClick = {this.handleCancel.bind(this)}> Cancel </RaisedButton>
@@ -211,7 +218,7 @@ class Delivery extends Component {
               </div>
             </Tab>
         {this.state.map && (
-          <Tab label="Directions" style={{background: 'blue'}}>
+          <Tab label="Directions" style={{background: color}}>
             <div> {console.log(this.state.map)} </div>
             <Map key={this.state.key} origin={this.state.origin} destination={this.state.destination} />
           </Tab>)}

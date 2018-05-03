@@ -19,7 +19,7 @@ export default class DeliveryRow extends Component{
 			index: -1,
 			completed:false,
 			selected: {background:'white'},
-			seletedYet: false
+			selectedYet: false
 		}
 	}
 
@@ -32,16 +32,17 @@ export default class DeliveryRow extends Component{
 
 	getOrder(){
 		var cont = this.props.getSelectedOrder(this.state.order);
-		this.setHighlightColor();
+		this.setHighlightColor(cont);
 		this.forceUpdate()
 		}
 		
 	
 
-	setHighlightColor(){
-		if(!this.state.selectedYet){
+	setHighlightColor(sYet){
+		//sYet ensures only one thing is selected 
+		if(!this.state.selectedYet && sYet){//
 			this.setState({
-				selected: {background: 'blue'},
+				selected: {background: 'green'},
 				selectedYet: true
 			});
 		}
@@ -55,7 +56,7 @@ export default class DeliveryRow extends Component{
 		
 	}
 	complete(){
-		if(this.state.selected){
+		if(this.state.selectedYet){
 			this.setState({
 				selected: {background: 'white'},
 				selectedYet: false
@@ -63,7 +64,7 @@ export default class DeliveryRow extends Component{
 			this.props.complete(this.state.order.address);
 		}
 		else{
-			alert('You must select it first')
+			alert('You fuck')
 		}
 	}
 
