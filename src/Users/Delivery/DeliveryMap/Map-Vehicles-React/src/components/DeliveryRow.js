@@ -32,12 +32,11 @@ export default class DeliveryRow extends Component{
 
 	getOrder(){
 		var cont = this.props.getSelectedOrder(this.state.order);
-		if(cont){
-			this.setHighlightColor();
-			this.forceUpdate()
+		this.setHighlightColor();
+		this.forceUpdate()
 		}
 		
-	}
+	
 
 	setHighlightColor(){
 		if(!this.state.selectedYet){
@@ -51,12 +50,21 @@ export default class DeliveryRow extends Component{
 				selected: {background: 'white'},
 				selectedYet: false
 			});
-			this.props.complete(false);
+			
 		}
 		
 	}
 	complete(){
-		this.props.complete(this.state.order.address);
+		if(this.state.selected){
+			this.setState({
+				selected: {background: 'white'},
+				selectedYet: false
+			})
+			this.props.complete(this.state.order.address);
+		}
+		else{
+			alert('You must select it first')
+		}
 	}
 
 	render(){

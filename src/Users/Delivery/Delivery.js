@@ -68,23 +68,6 @@ class Delivery extends Component {
     };
   }
 
-  shouldComponentUpdaate(){
-    return !this.ratingsOn;
-  }
-
-  componentDidMount(){
-  /*
-  StoresTopThree()
-  .then(response => {
-    this.setState({stores:response.data});
-  })
-  .catch(error => {
-    alert("Error" + error);
-  })
-  */
-  //api call to get orders for now i'm just going to hardcode some
-}
-
   deleteRow(address){
     var update = this.state.orders;
     for(var i = 0; i < update.length; i++){
@@ -116,7 +99,7 @@ class Delivery extends Component {
   }
 
   getSelectedOrder(order){
-    if(!this.state.map || this.state.destination === order.address){
+    if(!this.state.map){
       this.setState({
         destination: order.address,
         map: true,
@@ -126,6 +109,11 @@ class Delivery extends Component {
       return true;
     }
     else{
+      this.setState({
+        destination: this.state.destination,
+        map: false,
+        color: 'red'
+      })
       return false;
     }
   }
@@ -137,7 +125,7 @@ class Delivery extends Component {
         color: 'red',
         key: this.state.key + 1,
         origin: this.state.destination,
-        ratingsOn: true
+        ratingsOn: false
      })
     }
     else{
@@ -153,8 +141,6 @@ class Delivery extends Component {
 
     this.forceUpdate();
   }
-
-  handleChange = (event, index, value) => this.setState({value});
 
   handleSubmit(){
     if(this.state.origin != ''){
@@ -183,6 +169,7 @@ class Delivery extends Component {
     
   }
 
+  //Handles rating once delivery rates the customer
   handleCustomerRating(value){
     this.setState({
       ratingsOn: false
@@ -195,7 +182,10 @@ class Delivery extends Component {
 
   handleCancel(){
     this.setState({
-      ratingsOn: false
+      ratingsOn: false,
+      map: false,
+      color: 'red'
+
     })
     this.forceUpdate();
   }
