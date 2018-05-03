@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
-import {List, ListItem} from 'material-ui/List';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
 
 class ListRow extends Component {
     constructor(props){
       super(props);
       this.state = {
-        recipe: this.props.recipe
+        recipe: this.props.recipe,
       }
     }
     render() {
       return(
-        <ListItem>
-          {this.props.recipe.name}
-        </ListItem>
+        <TableRow>
+          <TableRowColumn>{this.props.recipe.name}</TableRowColumn>
+          <TableRowColumn>{this.props.recipe.price}</TableRowColumn>
+        </TableRow>
       )
     }
 }

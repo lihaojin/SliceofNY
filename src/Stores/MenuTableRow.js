@@ -25,7 +25,7 @@ class MenuTableRow extends Component {
       return(
         <TableRow>
         <TableRowColumn>
-        <FloatingActionButton onClick={() => this.props.addItem(this.props.recipe)} mini={true}>
+        <FloatingActionButton onClick={() => this.props.addItem(this.props.recipe,this.props.recipe.price)} mini={true}>
           <ContentAdd />
         </FloatingActionButton>
         </TableRowColumn>

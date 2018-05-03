@@ -8,6 +8,15 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {List, ListItem} from 'material-ui/List';
 import ListRow from './ShoppingCart/ListRow';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
+
 import './Styles/App.css'
 
 
@@ -18,15 +27,27 @@ class App extends Component {
   this.state = {
     open:false,
     open2:false,
-    cart:[]
+    cart:[],
+    subtotal:0,
+    recipe: this.props.recipe
     };
     this.addItem = this.addItem.bind(this);
   }
 
-  addItem(item){
+  addItem(item,price){
     var cart = this.state.cart;
+    var subtotal = this.state.subtotal;
     cart.push(item);
     this.setState({cart: cart});
+    this.setState({subtotal: this.state.subtotal + price});
+  }
+
+  addTotal(price){
+
+    this.setState(price => {this.state.
+      return
+    });
+
   }
 
 
@@ -77,15 +98,25 @@ class App extends Component {
       open={this.state.open2}
       onRequestChange={(open2) => this.setState({open2})}>
       <h3>Items</h3>
-      <List>
-        {this.state.cart.map(function(recipe){
-          <ListRow recipe={recipe}/>
-        })}
-      </List>
+
+      <Table>
+      <TableBody>
+      {this.state.cart.map(function(recipe){
+     return <ListRow recipe={recipe}/>
+      })}
+      </TableBody>
+      </Table><br />
+
+      <div className="subtotal">
+      Total: $
+      {this.state.subtotal}
+      </div>
+
       <div className="checkout">
       <RaisedButton label="Checkout" primary={true} fullWidth={true}/>
       </div>
       </Drawer>
+
       <RoutePaths addItem={this.addItem}/>
       </MuiThemeProvider>
     );
