@@ -82,14 +82,12 @@ export default class Customers extends Component
  
 	render()
 	{
-		console.log("Pending: ",this.state.pending);
-		console.log("Blacklisted ", this.state.blackListed);
-		console.log("Registered ",this.state.registered);
+
 		const pending = this.state.pending.map((customer)=>
 
 			<div key={customer.toString()}>
 			<br></br>
-			<CustomerCard title={customer} status="Status: Pending "
+			<CustomerCard title={customer} status="Status: Pending "  isBlacklist = {false}
 			 />
 			<br></br>
 			</div>
@@ -98,7 +96,7 @@ export default class Customers extends Component
 
 			<div key={customer.toString()}>
 			<br></br>
-			<CustomerCard title={customer} status="Status: Registered "
+			<CustomerCard title={customer} status="Status: Registered "  isBlacklist = {false}
 			 />
 			<br></br>
 			</div>
@@ -107,7 +105,7 @@ export default class Customers extends Component
 
 			<div key={customer.toString()}>
 			<br></br>
-			<CustomerCard title={customer} status="Status: Blacklisted "
+			<CustomerCard title={customer} status="Status: Blacklisted " isBlacklist = {true}
 			 />
 			<br></br>
 			</div>
