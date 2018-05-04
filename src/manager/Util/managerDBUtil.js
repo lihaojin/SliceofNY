@@ -54,3 +54,17 @@ function  getAllBlacklistedCustomers()
 {
   return axios.get(baseUrl+'/manager/getAllBlacklistedCustomers');
 }
+
+
+
+export{approveCustomer}
+function approveCustomer(email)
+{
+  return axios.post(baseUrl+'/manager/approveCustomer',{
+    "email":email
+  })
+
+}
+
+
+

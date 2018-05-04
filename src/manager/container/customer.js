@@ -5,6 +5,7 @@ import {getAllRegisteredCustomers} from '../Util/managerDBUtil';
 import {getAllPendingCustomers} from '../Util/managerDBUtil';
 import {getAllBlacklistedCustomers} from '../Util/managerDBUtil';
 
+
 export default class Customers extends Component
 {
 	constructor(props)
@@ -50,7 +51,7 @@ export default class Customers extends Component
 				if(customers.length!=0)
 				{
 		  	 this.setState({
-		  		pending: customers,
+		  		registered: customers,
 		  		redirect:false
 		  		})}
 		  	}).catch(error=>{
@@ -67,7 +68,7 @@ export default class Customers extends Component
 
 
 		  	 this.setState({
-		  		pending: customers,
+		  		blackListed: customers,
 		  		redirect:false
 		  		})				}
 		  	}).catch(error=>{
@@ -78,10 +79,12 @@ export default class Customers extends Component
 		}
 		 
 	}
-
+ 
 	render()
 	{
-		console.log(this.state.pending)
+		console.log("Pending: ",this.state.pending);
+		console.log("Blacklisted ", this.state.blackListed);
+		console.log("Registered ",this.state.registered);
 		const pending = this.state.pending.map((customer)=>
 
 			<div key={customer.toString()}>
@@ -100,7 +103,7 @@ export default class Customers extends Component
 			<br></br>
 			</div>
 			)
-		const blacklisted = this.state.pending.map((customer)=>
+		const blacklisted = this.state.blackListed.map((customer)=>
 
 			<div key={customer.toString()}>
 			<br></br>
@@ -113,7 +116,9 @@ export default class Customers extends Component
 		return(
 			<div>
 			{pending}
+			<br/>
 			{registered}
+			<br/>
 			{blacklisted}
 			</div>
 
