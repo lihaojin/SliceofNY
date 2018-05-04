@@ -5,6 +5,7 @@ import {getAllRegisteredCustomers} from '../Util/managerDBUtil';
 import {getAllPendingCustomers} from '../Util/managerDBUtil';
 import {getAllBlacklistedCustomers} from '../Util/managerDBUtil';
 
+
 export default class Customers extends Component
 {
 	constructor(props)
@@ -50,7 +51,7 @@ export default class Customers extends Component
 				if(customers.length!=0)
 				{
 		  	 this.setState({
-		  		pending: customers,
+		  		registered: customers,
 		  		redirect:false
 		  		})}
 		  	}).catch(error=>{
@@ -67,7 +68,7 @@ export default class Customers extends Component
 
 
 		  	 this.setState({
-		  		pending: customers,
+		  		blackListed: customers,
 		  		redirect:false
 		  		})				}
 		  	}).catch(error=>{
@@ -78,15 +79,15 @@ export default class Customers extends Component
 		}
 		 
 	}
-
+ 
 	render()
 	{
-		console.log(this.state.pending)
+
 		const pending = this.state.pending.map((customer)=>
 
 			<div key={customer.toString()}>
 			<br></br>
-			<CustomerCard title={customer} status="Status: Pending "
+			<CustomerCard title={customer} status="Status: Pending "  isBlacklist = {false}
 			 />
 			<br></br>
 			</div>
@@ -95,16 +96,16 @@ export default class Customers extends Component
 
 			<div key={customer.toString()}>
 			<br></br>
-			<CustomerCard title={customer} status="Status: Registered "
+			<CustomerCard title={customer} status="Status: Registered "  isBlacklist = {false}
 			 />
 			<br></br>
 			</div>
 			)
-		const blacklisted = this.state.pending.map((customer)=>
+		const blacklisted = this.state.blackListed.map((customer)=>
 
 			<div key={customer.toString()}>
 			<br></br>
-			<CustomerCard title={customer} status="Status: Blacklisted "
+			<CustomerCard title={customer} status="Status: Blacklisted " isBlacklist = {true}
 			 />
 			<br></br>
 			</div>
@@ -113,7 +114,9 @@ export default class Customers extends Component
 		return(
 			<div>
 			{pending}
+			<br/>
 			{registered}
+			<br/>
 			{blacklisted}
 			</div>
 
