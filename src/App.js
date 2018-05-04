@@ -29,9 +29,29 @@ class App extends Component {
     open2:false,
     cart:[],
     subtotal:0,
-    recipe: this.props.recipe
+    recipe: this.props.recipe,
+    alreadyLoggedIn: false
     };
     this.addItem = this.addItem.bind(this);
+  }
+
+  checkForLogIn(){
+    
+    if(localStorage.getItem('token')!==null){
+      this.setState({
+        alreadyLoggedIn: false
+      })
+    }
+    else{
+      this.setState({
+        alreadyLoggedIn: true
+      })
+    }
+    
+  }
+
+  componentDidMount(){
+    this.checkForLogIn();
   }
 
   addItem(item,price){
@@ -47,7 +67,11 @@ class App extends Component {
   handleToggle2 = () => this.setState({open2: !this.state.open2});
   handleSignOut = () =>
   {
-    this.setState({open:!this.state.open});
+    this.setState({
+      open:!this.state.open,
+      alreadyLoggedIn: false
+
+    });
     if(localStorage.getItem("token")!=null)
     {
       localStorage.removeItem("token");
@@ -58,6 +82,8 @@ class App extends Component {
       return alert("You have not logged in yet!");
 
   }
+
+  
 
   render() {
     const style = {
@@ -77,9 +103,9 @@ class App extends Component {
         open={this.state.open}
         onRequestChange={(open) => this.setState({open})}>
         <MenuItem onClick={this.handleToggle} href="/Homepage">Home</MenuItem>
-        <MenuItem onClick={this.handleToggle} href="/Login">Log In</MenuItem>
-        <MenuItem onClick={this.handleToggle} href="/Registration">Sign Up</MenuItem>
-        <MenuItem onClick={this.handleSignOut}>Sign Out</MenuItem>
+        {!this.state.alreadyLoggedIn && (<MenuItem onClick={this.handleToggle} href="/Login">Log In</MenuItem>)}
+        {!this.state.alreadyLoggedIn && (<MenuItem onClick={this.handleToggle} href="/Registration">Sign Up</MenuItem>)}
+        {!this.state.alreadyLoggedIn && (<MenuItem onClick={this.handleSignOut}>Sign Out</MenuItem>)}
       </Drawer>
 
 
