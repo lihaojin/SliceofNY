@@ -29,6 +29,8 @@ componentDidMount(){
     alert("Error" + error);
   })
 }
+
+
   render() {
 
     return (
@@ -38,6 +40,7 @@ componentDidMount(){
      <TableRow>
        <TableHeaderColumn>Name</TableHeaderColumn>
        <TableHeaderColumn>Rating</TableHeaderColumn>
+       <TableHeaderColumn></TableHeaderColumn>
        <TableHeaderColumn></TableHeaderColumn>
      </TableRow>
    </TableHeader>

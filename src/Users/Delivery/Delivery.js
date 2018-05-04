@@ -207,7 +207,7 @@ class Delivery extends Component {
                   <Paper style={style.formStyle} zDepth={3}>
                     <h2>To Deliver</h2>
                     <div style={{border: '2px solid ' + color}}>
-                      <Popup  style={{width:'100px',height: '100px',backgournd:'black'}} open={this.state.ratingsOn}> 
+                      <Popup  style={{width:'100px',height: '100px',color:'black'}} open={this.state.ratingsOn}> 
                         <Ratings handleRating = {this.handleCustomerRating.bind(this)}/> 
                         <RaisedButton onClick = {this.handleCancel.bind(this)}> Cancel </RaisedButton>
                       </Popup>

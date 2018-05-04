@@ -12,12 +12,22 @@ import MenuTableRow from './MenuTableRow';
 class MenuTable extends Component {
   constructor(props){
     super(props)
+    var menu;
+    if(typeof this.props.menu === "undefined"){
+      menu = []
+    }
+    else{
+      menu = this.props.menu;
+    }
     this.state = {
-      menu:this.props.menu,
+      menu:menu,
       addItem: this.props.addItem
     }
 
   }
+
+
+
 
 
 render() {
@@ -34,7 +44,8 @@ render() {
  </TableHeader>
 
  <TableBody>
- {this.props.menu.map(function(recipe){
+
+ {this.state.menu.map(function(recipe){
    return <MenuTableRow  addItem={addItem} recipe = {recipe}/>
  })}
 

@@ -26,6 +26,10 @@ class Top3tableRow extends Component {
           this.setState({[name]: value})
       }
 
+  handleSignUp(){
+    console.log("Sign Up");
+  }
+
     render() {
       return(
         <TableRow>
@@ -38,6 +42,11 @@ class Top3tableRow extends Component {
             Visit
            </RaisedButton>
           </Link>
+          </TableRowColumn>
+          <TableRowColumn>
+           <RaisedButton onClick={this.handleSignUp.bind(this)}>
+            Sign Up
+           </RaisedButton>
           </TableRowColumn>
         </TableRow>
       )
