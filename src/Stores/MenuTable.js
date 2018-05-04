@@ -14,11 +14,14 @@ class MenuTable extends Component {
     super(props)
     this.state = {
       menu:this.props.menu,
+      addItem: this.props.addItem
     }
+
   }
 
 
 render() {
+  const addItem = this.state.addItem
   return (
     <Table>
  <TableHeader>
@@ -32,8 +35,9 @@ render() {
 
  <TableBody>
  {this.props.menu.map(function(recipe){
-   return <MenuTableRow recipe = {recipe}/>
+   return <MenuTableRow  addItem={addItem} recipe = {recipe}/>
  })}
+
  </TableBody>
 </Table>
   );

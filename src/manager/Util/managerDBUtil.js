@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 const baseUrl = "http://localhost:3001";
 
-axios.interceptors.request.use((config)=>{  
+axios.interceptors.request.use((config)=>{
     const token = localStorage.getItem("token");
     config.headers.Authorization = `Bearer ${token}`;
     return config;
@@ -18,15 +18,14 @@ async function getMenuStore()
   const decoded = jwt.decode(token);
 
   const storeName = await axios.get(baseUrl+'/manager/getStoreName');
-  
+
   return axios.get(baseUrl+'/store/'+storeName.data+'/getAllMenu');
 
 }
 
 
 export {changePriceManager}
-function changePriceManager(id,new_price)
-{
+async function changePriceManager(id,new_price){
   return axios.post(baseUrl+'/manager/changePrice',
     {
         "id":id,
@@ -35,6 +34,7 @@ function changePriceManager(id,new_price)
   )
 
 }
+
 
 export {getAllRegisteredCustomers}
 function  getAllRegisteredCustomers()
