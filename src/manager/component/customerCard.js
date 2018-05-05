@@ -38,7 +38,7 @@ export default class  CustomerCard extends Component{
 
   render(){
   	const button = (this.props.isBlacklist) ?
-  		 null: (<div><FlatButton label="Approve" onClick={this.approve}  />
+  		 null: (<div><FlatButton label="Approve" onClick={this.approve}/>
   		 	<FlatButton label="Blacklist" onClick={this.blackList}/></div>);
   	return(
 		<Card>

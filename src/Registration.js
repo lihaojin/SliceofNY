@@ -38,6 +38,7 @@ class Registration extends Component {
       password : "",
       typeOfUser : "",
       store_affiliated_with : "",
+      location:"",
       value: 1};
       this.handleFormChange = this.handleFormChange.bind(this);
       this.onSignUp = this.onSignUp.bind(this);
@@ -54,7 +55,8 @@ class Registration extends Component {
 
 //Handles post req for signu
 onSignUp(){
-  signUp(this.state.email,this.state.password, this.state.typeOfUser,this.state.name, this.state.store_affiliated_with)
+  signUp(this.state.email,this.state.password, this.state.typeOfUser,
+    this.state.name, this.state.store_affiliated_with,this.state.location)
   .then(response => {
     alert("Success" + response.data);
     this.props.history.push('/login');
@@ -79,6 +81,17 @@ onSignUp(){
                           floatingLabelStyle ={style.floatingLabelStyle}
                           floatingLabelFocusStyle={style.floatingLabelFocusStyle}
                           inputStyle={style.inputStyle}/>: null;
+      const storeLocation = (this.state.typeOfUser==="Manager") ? 
+                           <TextValidator
+                          value={this.state.location}
+                          name="location"
+                          validators={['required']}
+                          errorMessages={['this field is required']}
+                          onChange={this.handleFormChange}
+                          floatingLabelText="Location "
+                          floatingLabelStyle ={style.floatingLabelStyle}
+                          floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+                          inputStyle={style.inputStyle}/>: null;           
 
                         
 
@@ -146,6 +159,8 @@ onSignUp(){
 
     {storeName}
     <br />
+    {storeLocation}
+    <br/>
 
         <br/><br />
 
