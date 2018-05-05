@@ -41,6 +41,7 @@ componentDidMount(){
        <TableHeaderColumn>Name</TableHeaderColumn>
        <TableHeaderColumn>Rating</TableHeaderColumn>
        <TableHeaderColumn></TableHeaderColumn>
+       <TableHeaderColumn></TableHeaderColumn>
      </TableRow>
    </TableHeader>
    <TableBody>

@@ -9,6 +9,10 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import jwt from 'jsonwebtoken';
+import axios from 'axios';
+
+const baseURL = "http://localhost:3001";
 
 class Top3tableRow extends Component {
   constructor(props){
@@ -26,6 +30,26 @@ class Top3tableRow extends Component {
           this.setState({[name]: value})
       }
 
+  handleSignUp(){
+    const token = localStorage.getItem('token');
+    const decoded = jwt.decode(token);
+
+    if(decoded !== null){
+    alert(this.props.store.name)
+    axios.post(baseURL + '/store/signup/' + this.props.store.name)
+    .then((result) => {
+      alert("success");
+    }).catch((error) =>{
+      alert(error);
+    })
+  }
+  else{
+    alert("Sign In First");
+  }
+
+    
+  }
+
     render() {
       return(
         <TableRow>
@@ -38,6 +62,11 @@ class Top3tableRow extends Component {
             Visit
            </RaisedButton>
           </Link>
+          </TableRowColumn>
+          <TableRowColumn>
+           <RaisedButton onClick={this.handleSignUp.bind(this)}>
+            Sign Up
+           </RaisedButton>
           </TableRowColumn>
         </TableRow>
       )

@@ -12,6 +12,8 @@ const btn_style={
   padding:'10px'
 }
 
+const baseURL = "http://localhost:3001";
+
 export default class MapContainer extends Component {
   constructor(props){
     super(props);
@@ -23,7 +25,6 @@ export default class MapContainer extends Component {
   //creates marker array and other state variables
   componentDidMount(){
     this.setState({
-      markers: [{lat: 40.758896, lng: -73.985130,img_src: pizza, storeName: "Hello Pizza", currentLocation: false}],
       currentLocationMarkerIndex: -1,
       addedCurrent: false,
       showPrompt: true
@@ -33,13 +34,14 @@ export default class MapContainer extends Component {
   //Adds current location marker
   addMarker(lati,long){
     if(!this.state.addedCurrent){
-      this.setState({currentLocationMarkerIndex: this.state.markers.length});
       var joined = this.state.markers.concat({lat: lati, lng: long,img_src:pink_circle , currentLocation: true});
       this.setState({
-        markers: joined
+        currentLocationMarkerIndex: this.state.markers.length,
+        markers: joined,
+        addedCurrent: true,
+        showPrompt: false
       });  
-      this.setState({addedCurrent: true});
-      this.setState({showPrompt: false});
+  
       this.forceUpdate();
       
     }
@@ -77,27 +79,50 @@ export default class MapContainer extends Component {
     );
   }
 
-
-  //In development should eventually return three best matches
-  returnRelevantMarker(){
+  //In development should eventually return three best matches, makes two calls to two different apis
+  //Takes in end of api route as argument so can be used for both show all and relevant
+  returnRelevantMarker(ext){
+    Geocode.enableDebug();
     var x = this.state.markers;
-    var update, coord;
-    console.log('hello');
-    axios.get('http://localhost:3001/store/getAllStore').then(response => {
+    var update, coords,name,address;
+    axios.get('http://localhost:3001/store/' + ext).then(response => {
       for(var i = 0; i < response.data.length; i++){
-          var update = this.state.markers;
-          update = update.concat({lat: 40.73, lng: -73.8, img_src: pizza, storeName: response.data[i].name, currentLocation: false});
-          this.setState({markers:update});
-        
-      }
+        var j = i
+          Geocode.fromAddress(response.data[i].location).then ( loc => {
+            var update = this.state.markers;
+            var coords =  [loc.results[0].geometry.location.lat,loc.results[0].geometry.location.lng];
+            if(typeof response.data[j].name === undefined){
+              name = 'default'
+            }
+            else{
+              name = response.data[j].name
+            }
+            if(typeof response.data[j].location === undefined){
+              address = 'default';
+            }
+            else{
+              address = response.data[j].location
+            }
+            
+            if(coords !== null){
+              update = update.concat({lat: coords[0], lng: coords[1], img_src: pizza, address: address, storeName: name, currentLocation: false});
+            }
+            this.setState({markers:update});
+            this.forceUpdate();
+
+        }).
+          catch(error => {
+            console.log(error)
+          });
       
-    })
+    }})
     .catch(error => {
       console.log('Error fetching and parsing data', error);
     });
-    this.forceUpdate();
+    
   }
   
+  returnAll(){}
 
 
   static defaultProps = {
@@ -110,6 +135,7 @@ export default class MapContainer extends Component {
     return (
       <div>
       {this.state.showPrompt && (<div className="InitialPrompt" style={{color:"white"}}>Please Click Your Current Location </div>)}
+      {!this.state.showPrompt && (<div className="InitialPrompt" style={{color:"white"}}>Current Location is Pink!</div> )}
       <div style={{width: '100%', height: '400px', border: '5px solid white'}}> 
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyAIQZMVYWhDwlR9mqBRL-dOGxW3LwLV-ds' }}
@@ -124,6 +150,7 @@ export default class MapContainer extends Component {
                   key={i}
                   lat={marker.lat}
                   lng={marker.lng}
+                  address={marker.address}
                   img_src={marker.img_src}
                   onClick={() => this.handleToggleClose()}
                   name = {marker.storeName}
@@ -137,8 +164,8 @@ export default class MapContainer extends Component {
       </GoogleMapReact>
       </div>
       <div className="text-center">
-        <RaisedButton className="button" primary={true} onClick = {this.returnRelevantMarker.bind(this)}> Show All </RaisedButton>
-        <RaisedButton className="button" > Show Relevant </RaisedButton>
+        <RaisedButton className="button" primary={true} onClick = {() => this.returnRelevantMarker('getTop')}> Show Relevant </RaisedButton>
+        <RaisedButton className="button" > Show All </RaisedButton>
         <RaisedButton className="button" secondary={true} onClick = {this.removeCurrent.bind(this)}> Reset Current </RaisedButton>
         </div>
       </div>
