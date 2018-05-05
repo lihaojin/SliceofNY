@@ -97,7 +97,7 @@ class App extends Component {
       <Table>
       <TableBody>
       {this.state.cart.map(function(recipe){
-     return <ListRow recipe={recipe} removeItem={this.removeItem.bind(this)} />
+     return <ListRow recipe={recipe} />
       })}
       </TableBody>
       </Table><br />
@@ -112,7 +112,7 @@ class App extends Component {
       </div>
       </Drawer>
 
-      <RoutePaths addItem={this.addItem}/>
+      <RoutePaths addItem={this.addItem} cart={this.props.cart} subtotal={this.props.subtotal}/>
       </MuiThemeProvider>
     );
   }

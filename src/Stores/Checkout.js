@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import Paper from 'material-ui/Paper';
+import {OrderRequest} from '../Utils/Requests/OrderRequest';
 
 class Checkout extends Component {
   constructor(props) {
@@ -17,6 +18,18 @@ class Checkout extends Component {
     const value = e.target.value;
     const name = e.target.name;
     this.setState({[name]: value})
+  }
+
+  onSubmitOrder(){
+    OrderRequest(this.props.cart)
+    .then(response => {
+      alert("Order Processed" + response.data);
+      this.props.history.push('/Homepage');
+      return;
+    })
+    .catch(error => {
+      alert("Error " + error);
+    })
   }
 
     render() {
@@ -44,8 +57,10 @@ class Checkout extends Component {
          <div>
          <Paper style={style} zDepth={3}>
          <br />
+         <div>
          Your Total: $
-         {this.state.subtotal}
+         {this.props.subtotal}
+         </div>
          <br />
 
          <TextField
@@ -64,7 +79,7 @@ class Checkout extends Component {
        inputStyle={style.inputStyle}
      /><br />
 
-      <RaisedButton label="Submit Order" primary={true} fullWidth={true}/>
+      <RaisedButton label="Submit Order" primary={true} fullWidth={true} onClick = {this.onSubmitOrder}/>
 
         </Paper>
          </div>
