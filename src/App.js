@@ -29,29 +29,9 @@ class App extends Component {
     open2:false,
     cart:[],
     subtotal:0,
-    recipe: this.props.recipe,
-    alreadyLoggedIn: false
+    recipe: this.props.recipe
     };
     this.addItem = this.addItem.bind(this);
-  }
-
-  checkForLogIn(){
-    
-    if(localStorage.getItem('token')!==null){
-      this.setState({
-        alreadyLoggedIn: false
-      })
-    }
-    else{
-      this.setState({
-        alreadyLoggedIn: true
-      })
-    }
-    
-  }
-
-  componentDidMount(){
-    this.checkForLogIn();
   }
 
   addItem(item,price){
@@ -62,16 +42,16 @@ class App extends Component {
     this.setState({subtotal: this.state.subtotal + price});
   }
 
+  removeItem(item){
+    var cart = this.state.cart;
+    this.state.cart.splice(cart.indexOf(item),item);
+  }
 
   handleToggle = () => this.setState({open: !this.state.open});
   handleToggle2 = () => this.setState({open2: !this.state.open2});
   handleSignOut = () =>
   {
-    this.setState({
-      open:!this.state.open,
-      alreadyLoggedIn: false
-
-    });
+    this.setState({open:!this.state.open});
     if(localStorage.getItem("token")!=null)
     {
       localStorage.removeItem("token");
@@ -82,8 +62,6 @@ class App extends Component {
       return alert("You have not logged in yet!");
 
   }
-
-  
 
   render() {
     const style = {
@@ -103,9 +81,9 @@ class App extends Component {
         open={this.state.open}
         onRequestChange={(open) => this.setState({open})}>
         <MenuItem onClick={this.handleToggle} href="/Homepage">Home</MenuItem>
-        {!this.state.alreadyLoggedIn && (<MenuItem onClick={this.handleToggle} href="/Login">Log In</MenuItem>)}
-        {!this.state.alreadyLoggedIn && (<MenuItem onClick={this.handleToggle} href="/Registration">Sign Up</MenuItem>)}
-        {!this.state.alreadyLoggedIn && (<MenuItem onClick={this.handleSignOut}>Sign Out</MenuItem>)}
+        <MenuItem onClick={this.handleToggle} href="/Login">Log In</MenuItem>
+        <MenuItem onClick={this.handleToggle} href="/Registration">Sign Up</MenuItem>
+        <MenuItem onClick={this.handleSignOut}>Sign Out</MenuItem>
       </Drawer>
 
 
@@ -119,7 +97,7 @@ class App extends Component {
       <Table>
       <TableBody>
       {this.state.cart.map(function(recipe){
-     return <ListRow recipe={recipe}/>
+     return <ListRow recipe={recipe} removeItem={this.removeItem.bind(this)} />
       })}
       </TableBody>
       </Table><br />
@@ -130,7 +108,7 @@ class App extends Component {
       </div>
 
       <div className="checkout">
-      <RaisedButton label="Checkout" primary={true} fullWidth={true}/>
+      <RaisedButton label="Checkout" primary={true} fullWidth={true} href="/Checkout"/>
       </div>
       </Drawer>
 

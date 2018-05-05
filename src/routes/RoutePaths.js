@@ -9,7 +9,7 @@ import Delivery from '../Users/Delivery/Delivery';
 import Chef from '../chef/container/chefContainer'
 import MapPage from '../MapComponents/CustomerMap/MapPage';
 import StorePage from '../Stores/StorePage';
-
+import Checkout from '../Stores/Checkout';
 
 // const RoutePaths= (props) => (
 //
@@ -36,6 +36,7 @@ class RoutePaths extends Component{
       <Route path = '/Chef' component = {Chef}/>
       <Route path = '/MapPage' component = {MapPage}/>
       <Route path = '/:name/StorePage' addItem={this.props.addItem} component ={(props) => <StorePage  {...props} addItem={this.props.addItem} />} />
+      <Route path = '/Checkout' component = {Checkout}/>
       </Switch>
       </Router>
     )
