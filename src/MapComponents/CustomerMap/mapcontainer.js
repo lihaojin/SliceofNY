@@ -80,10 +80,11 @@ export default class MapContainer extends Component {
   }
 
   //In development should eventually return three best matches, makes two calls to two different apis
+  //Takes in end of api route as argument so can be used for both show all and relevant
   returnRelevantMarker(ext){
     Geocode.enableDebug();
     var x = this.state.markers;
-    var update, coords,name;
+    var update, coords,name,address;
     axios.get('http://localhost:3001/store/' + ext).then(response => {
       for(var i = 0; i < response.data.length; i++){
         var j = i
@@ -96,10 +97,16 @@ export default class MapContainer extends Component {
             else{
               name = response.data[j].name
             }
-            if(coords !== null){
-              update = update.concat({lat: coords[0], lng: coords[1], img_src: pizza, storeName: name, currentLocation: false});
+            if(typeof response.data[j].location === undefined){
+              address = 'default';
             }
-            console.log(coords);
+            else{
+              address = response.data[j].location
+            }
+            
+            if(coords !== null){
+              update = update.concat({lat: coords[0], lng: coords[1], img_src: pizza, address: address, storeName: name, currentLocation: false});
+            }
             this.setState({markers:update});
             this.forceUpdate();
 
@@ -143,6 +150,7 @@ export default class MapContainer extends Component {
                   key={i}
                   lat={marker.lat}
                   lng={marker.lng}
+                  address={marker.address}
                   img_src={marker.img_src}
                   onClick={() => this.handleToggleClose()}
                   name = {marker.storeName}

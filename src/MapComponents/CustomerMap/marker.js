@@ -4,12 +4,12 @@ import InfoWindow from './InfoWindow'
 export default class PizzaMarker extends Component{
   constructor(props){
       super(props)
-      console.log(this.props.name);
+      console.log(this.props.address);
       this.state = {
           showInfo: false,
           link: "youtube",
           name: this.props.name,
-          location: [this.props.lat,this.props.lng]
+          address: this.props.address
 
       }
     }
@@ -25,7 +25,7 @@ export default class PizzaMarker extends Component{
                 <div><InfoWindow 
                 link= {this.state.link}
                 name= {this.state.name}
-                location = {this.state.location}
+                address = {this.state.address}
                 />
                 </div>
               </div>
