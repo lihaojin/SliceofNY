@@ -81,9 +81,9 @@ class App extends Component {
         open={this.state.open}
         onRequestChange={(open) => this.setState({open})}>
         <MenuItem onClick={this.handleToggle} href="/Homepage">Home</MenuItem>
-        <MenuItem onClick={this.handleToggle} href="/Login">Log In</MenuItem>
-        <MenuItem onClick={this.handleToggle} href="/Registration">Sign Up</MenuItem>
-        <MenuItem onClick={this.handleSignOut}>Sign Out</MenuItem>
+        {(localStorage.getItem('token')===null) && <MenuItem onClick={this.handleToggle} href="/Login">Log In</MenuItem>}
+        {(localStorage.getItem('token')===null) &&<MenuItem onClick={this.handleToggle} href="/Registration">Sign Up</MenuItem>}
+        {!(localStorage.getItem('token')===null) &&<MenuItem onClick={this.handleSignOut}>Sign Out</MenuItem>}
       </Drawer>
 
 

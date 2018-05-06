@@ -9,6 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField';
 import Ratings from '../../ratings/ratings'
 import Popup from "reactjs-popup";
+import axios from 'axios'
 import {
   Table,
   TableBody,
@@ -49,6 +50,9 @@ const style_textField = {
       }
     }
 
+
+
+
 class Delivery extends Component {
 
   constructor(props) {
@@ -57,6 +61,7 @@ class Delivery extends Component {
     this.state = {
       value: 1,
       enterOrigin: false,
+      sentTexts: false,
       origin: '',
       destination: '',
       map: false,
@@ -67,6 +72,12 @@ class Delivery extends Component {
       orders: orders_temp,
       alreadySelected: false
     };
+  }
+
+  componentDidMount(){
+    if(!this.state.sentTexts){
+
+    }
   }
 
   deleteRow(address){
@@ -99,7 +110,19 @@ class Delivery extends Component {
     })
   }
 
+  sendText(num){
+    axios.post('http://localhost:3001/sendsms')
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  }
+
+
   getSelectedOrder(order){
+    this.sendText('1');
     if(order.address!=this.state.destination && this.state.map){
       return false;
     }
