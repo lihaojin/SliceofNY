@@ -68,6 +68,11 @@ class Top3tableRow extends Component {
             Sign Up
            </RaisedButton>
           </TableRowColumn>
+          <TableRowColumn>
+            <RaisedButton onClick={this.handleSignUp.bind(this)}>
+            Comment/Complaints
+           </RaisedButton>
+          </TableRowColumn>
         </TableRow>
       )
     }
