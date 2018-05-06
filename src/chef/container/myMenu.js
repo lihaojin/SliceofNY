@@ -52,16 +52,16 @@ export default class MyMenu extends Component
 							{
 								for(let j = 0; j<result.data[i].length;++j)
 								{
-									console.log("Data Present in i,j : ",result.data[i][j])
+									// console.log("Data Present in i,j : ",result.data[i][j])
 									allMenu.push(result.data[i][j]);
 								}
 							}
 						}
 					}
 					
-					console.log(allMenu);
+					// console.log(allMenu);
 
-				 console.log("Manager Menu result: "+result);
+				 // console.log("Manager Menu result: "+result);
 			  	 this.setState({
 			  		recipes: allMenu,
 			  		redirect:false
