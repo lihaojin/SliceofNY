@@ -78,13 +78,15 @@ class Delivery extends Component {
   componentDidMount(){
     axios.get(baseURL + 'delivery/getAll')
     .then(function (response) {
-      var ordersTemp = [];
+      var ordersTemp = [{id: '125423', address: '3147 Broadway NY, NY', contents: '80 mush pizza'},{id: '125423123', address: '4510 5th ave Brooklyn, NY', contents: '40 mush pizza'},{id: '12542231343', address: '248 W 105 st NY, NY', contents: '10 pizza'}]
+      /*
       for(var i = 0; i < response.data[0].current_orders.length; i++){
         var raw = response.data[0].current_orders[i];
         console.log(raw);
         var order = {id: raw._id ,address: raw.destination, contents: raw.items[0].quantity + ' ' + raw.items[0].name}
         ordersTemp.push(order);
       }
+      */
       this.setState({
         orders: ordersTemp
       })
@@ -220,6 +222,9 @@ class Delivery extends Component {
       ratingsOn: false
     })
     this.complete(true);
+
+    ;axios.get(baseURL + '/completeOrder/' + this.state.toBeDeleted);
+    //rating call with value
     this.deleteRow(this.state.toBeDeleted)
     
 

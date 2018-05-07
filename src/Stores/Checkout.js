@@ -64,7 +64,7 @@ class Checkout extends Component {
          <br />
 
          <TextField
-         onChange={this.handleFormChange}
+         onChange={this.handleFormChange.bind(this)}
          floatingLabelText="Payment Info"
          floatingLabelStyle ={style.floatingLabelStyle}
          floatingLabelFocusStyle={style.floatingLabelFocusStyle}
@@ -72,14 +72,14 @@ class Checkout extends Component {
        /><br />
 
        <TextField
-       onChange={this.handleFormChange}
+       onChange={this.handleFormChange.bind(this)}
        floatingLabelText="Delivery Address"
        floatingLabelStyle ={style.floatingLabelStyle}
        floatingLabelFocusStyle={style.floatingLabelFocusStyle}
        inputStyle={style.inputStyle}
      /><br />
 
-      <RaisedButton label="Submit Order" primary={true} fullWidth={true} onClick = {this.onSubmitOrder}/>
+      <RaisedButton label="Submit Order" primary={true} fullWidth={true} onClick = {this.onSubmitOrder.bind(this)}/>
 
         </Paper>
          </div>

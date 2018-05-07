@@ -52,6 +52,11 @@ class Login extends Component {
            this.props.history.push('/Homepage');
            return;
       }
+            if(decoded.typeOfUser==="Delivery")
+            {
+              this.props.history.push('/Delivery')
+              return;
+            }
     })
     .catch(error => {
       alert("Error " + error.toString());

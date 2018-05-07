@@ -51,6 +51,7 @@ class App extends Component {
   handleToggle2 = () => this.setState({open2: !this.state.open2});
   handleSignOut = () =>
   {
+    console.log(localStorage.getItem('token'))
     this.setState({open:!this.state.open});
     if(localStorage.getItem("token")!=null)
     {
@@ -72,7 +73,7 @@ class App extends Component {
       <MuiThemeProvider>
       <AppBar title='Slice of NY'
       style={style}
-      iconElementRight={<FlatButton label="My Cart" onClick={this.handleToggle2}/>}
+      iconElementRight={(localStorage.getItem('token') === null || localStorage.getItem('token') === 'Customer') && <FlatButton label="My Cart" onClick={this.handleToggle2}/>}
       onLeftIconButtonClick={this.handleToggle}/>
 
       <Drawer

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MyMenu from '../../chef/container/myMenu'; 
 import Customers from './customer';
-import Delivery from './delivery';
-import Orders from './orders';
+import Delivery from '../../Users/Delivery/Delivery';
+//import Orders from './orders';
 export default class ManagerContainer extends Component
 {
 
