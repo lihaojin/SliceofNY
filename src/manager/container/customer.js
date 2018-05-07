@@ -29,7 +29,7 @@ export default class Customers extends Component
 		else
 		{
 			getAllPendingCustomers().then( result=>{
-				console.log("Pending Customer Result ",result);
+	
 				const cusomters = result.data.pending_customers.email;
 				if(cusomters.length!=0)
 				{
@@ -46,7 +46,7 @@ export default class Customers extends Component
 		  	});
 
 		  	getAllRegisteredCustomers().then( result=>{
-				console.log("registered Customer Result ",result);
+
 				const customers = result.data.registered_customers.email
 				if(customers.length!=0)
 				{
@@ -61,7 +61,7 @@ export default class Customers extends Component
 		  	});
 
 		  	getAllBlacklistedCustomers().then( result=>{
-		  		console.log("blackListed Customer Result ",result);
+
 		  		const customers = result.data.blacklisted_customers.email
 				if(customers.length!=0)
 				{
