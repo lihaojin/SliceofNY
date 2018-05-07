@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MyMenu from '../../chef/container/myMenu'; 
 import Customers from './customer';
-import Delivery from '../../Users/Delivery/Delivery';
-//import Orders from './orders';
+import Delivery from './delivery';
+import Orders from './orders';
+import Complaints from './complaint';
 export default class ManagerContainer extends Component
 {
 
@@ -24,7 +25,7 @@ export default class ManagerContainer extends Component
 						<Customers />
 					</Tab>
 					<Tab label="Complaints/Comments">
-
+						<Complaints/>
 					</Tab>
 					<Tab label="Pay Chef/Delivery">
 

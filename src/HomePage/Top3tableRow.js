@@ -11,6 +11,7 @@ import {
 } from 'material-ui/Table';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
+import {sendComplaint} from '../manager/Util/managerDBUtil';
 
 const baseURL = "http://localhost:3001";
 
@@ -21,6 +22,7 @@ class Top3tableRow extends Component {
       name: "",
     }
     this.handleFormChange = this.handleFormChange.bind(this);
+    this.handleComplaintEasy= this.handleComplaintEasy.bind(this);
   }
 
   
@@ -49,7 +51,20 @@ class Top3tableRow extends Component {
 
     
   }
+  handleComplaintEasy(){
+    const complaint = prompt("Please enter your complaint: ");
+    sendComplaint(this.props.store.name,complaint)
+    .then(result=>
+    {
+      alert("Success\n",result.data.message);
+      window.location.reload();
+    })
+    .catch(err=>
+    {
+      alert("Failed!");
+    });
 
+  }
     render() {
       return(
         <TableRow>
@@ -69,7 +84,7 @@ class Top3tableRow extends Component {
            </RaisedButton>
           </TableRowColumn>
           <TableRowColumn>
-            <RaisedButton onClick={this.handleSignUp.bind(this)}>
+            <RaisedButton onClick={this.handleComplaintEasy}>
             Comment/Complaints
            </RaisedButton>
           </TableRowColumn>
