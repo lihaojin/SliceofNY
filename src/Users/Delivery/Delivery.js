@@ -51,13 +51,12 @@ const style_textField = {
     }
 
 
-
+const baseURL = 'http://localhost:3001/'
 
 class Delivery extends Component {
 
   constructor(props) {
     super(props);
-    var orders_temp = [{address: "3147 Broadway Apt. 3", contents:"1 pizza"},{address: "18 St Nicholas Place Apt. 3B", contents:"2 pizza"},{address: "4510 5th Avenue", contents:"800 pizzas"}];
     this.state = {
       value: 1,
       enterOrigin: false,
@@ -69,25 +68,42 @@ class Delivery extends Component {
       ratingsOn: false,
       color: 'red',
       toBeDeleted: '',
-      orders: orders_temp,
+      orders: [],
       alreadySelected: false
     };
   }
 
+
+
   componentDidMount(){
-    if(!this.state.sentTexts){
-
-    }
+    axios.get(baseURL + 'delivery/getAll')
+    .then(function (response) {
+      var ordersTemp = [];
+      for(var i = 0; i < response.data[0].current_orders.length; i++){
+        var raw = response.data[0].current_orders[i];
+        console.log(raw);
+        var order = {id: raw._id ,address: raw.destination, contents: raw.items[0].quantity + ' ' + raw.items[0].name}
+        ordersTemp.push(order);
+      }
+      this.setState({
+        orders: ordersTemp
+      })
+      console.log(this.state.orders)
+    }.bind(this))
+    .catch(function (error) {
+      console.log(error);
+    });
   }
+  
 
-  deleteRow(address){
+  deleteRow(id){
     var update = this.state.orders;
     for(var i = 0; i < update.length; i++){
-      if(update[i].address == address){
+      if(update[i].id == id){
+        console.log('deleted');
         update.splice(i,1)
       }
     }
-    
     this.setState({
       orders: update,
     });
@@ -104,25 +120,25 @@ class Delivery extends Component {
     });
   }
 
-  setToBeDeleted(address){
+  setToBeDeleted(id){
     this.setState({
-      toBeDeleted: address
+      toBeDeleted: id
     })
   }
 
   sendText(num){
     axios.post('http://localhost:3001/sendsms')
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
 
   getSelectedOrder(order){
-    this.sendText('1');
+    //this.sendText('1');
     if(order.address!=this.state.destination && this.state.map){
       return false;
     }
@@ -205,7 +221,7 @@ class Delivery extends Component {
     })
     this.complete(true);
     this.deleteRow(this.state.toBeDeleted)
-    console.log(value);
+    
 
   }
 
