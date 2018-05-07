@@ -54,7 +54,7 @@ export default class DeliveryTable extends Component{
   }
   else{
     return(
-      <div style={{color:'white',background:'green'}}>
+      <div style={{color:'white'}}>
         <div> NICE WORK! </div>
         <div> NO MORE DELIVERIES </div>
 

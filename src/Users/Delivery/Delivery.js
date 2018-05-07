@@ -76,13 +76,13 @@ class Delivery extends Component {
 
 
   componentDidMount(){
-    axios.get(baseURL + 'delivery/getAll')
+    axios.get(baseURL + 'delivery/myOrders')
     .then(function (response) {
       var ordersTemp = [{id: '125423', address: '3147 Broadway NY, NY', contents: '80 mush pizza'},{id: '125423123', address: '4510 5th ave Brooklyn, NY', contents: '40 mush pizza'},{id: '12542231343', address: '248 W 105 st NY, NY', contents: '10 pizza'}]
+      //var ordersTemp = [];
       /*
       for(var i = 0; i < response.data[0].current_orders.length; i++){
         var raw = response.data[0].current_orders[i];
-        console.log(raw);
         var order = {id: raw._id ,address: raw.destination, contents: raw.items[0].quantity + ' ' + raw.items[0].name}
         ordersTemp.push(order);
       }
@@ -90,7 +90,6 @@ class Delivery extends Component {
       this.setState({
         orders: ordersTemp
       })
-      console.log(this.state.orders)
     }.bind(this))
     .catch(function (error) {
       console.log(error);
@@ -102,15 +101,12 @@ class Delivery extends Component {
     var update = this.state.orders;
     for(var i = 0; i < update.length; i++){
       if(update[i].id == id){
-        console.log('deleted');
         update.splice(i,1)
       }
     }
     this.setState({
       orders: update,
     });
-
-    console.log(this.state.orders)
     this.forceUpdate();
   }
 
@@ -129,7 +125,8 @@ class Delivery extends Component {
   }
 
   sendText(num){
-    axios.post('http://localhost:3001/sendsms')
+    console.log(num);
+    axios.post('http://localhost:3001/sendsms/' + num)
     .then(function (response) {
       console.log(response);
     })
@@ -140,7 +137,7 @@ class Delivery extends Component {
 
 
   getSelectedOrder(order){
-    //this.sendText('1');
+    //this.sendText('+19144716528');  //Only activate once we need to demo
     if(order.address!=this.state.destination && this.state.map){
       return false;
     }
@@ -223,7 +220,7 @@ class Delivery extends Component {
     })
     this.complete(true);
 
-    ;axios.get(baseURL + '/completeOrder/' + this.state.toBeDeleted);
+    //;axios.get(baseURL + '/completeOrder/' + this.state.toBeDeleted);
     //rating call with value
     this.deleteRow(this.state.toBeDeleted)
     

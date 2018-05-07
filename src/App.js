@@ -60,7 +60,9 @@ class App extends Component {
       window.location.reload();
     }
     else
-      return alert("You have not logged in yet!");
+      alert("You have not logged in yet!");
+    this.props.history.push('/Login');
+    return;
 
   }
 
@@ -84,7 +86,7 @@ class App extends Component {
         <MenuItem onClick={this.handleToggle} href="/Homepage">Home</MenuItem>
         {(localStorage.getItem('token')===null) && <MenuItem onClick={this.handleToggle} href="/Login">Log In</MenuItem>}
         {(localStorage.getItem('token')===null) &&<MenuItem onClick={this.handleToggle} href="/Registration">Sign Up</MenuItem>}
-        {!(localStorage.getItem('token')===null) &&<MenuItem onClick={this.handleSignOut}>Sign Out</MenuItem>}
+        {!(localStorage.getItem('token')===null) &&<MenuItem onClick={this.handleSignOut.bind(this)}>Sign Out</MenuItem>}
       </Drawer>
 
 
