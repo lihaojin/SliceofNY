@@ -21,8 +21,8 @@ export default class DeliveryTable extends Component{
 		}
 	}
 
-  complete(address){
-    this.props.setToBeDeleted(address);
+  complete(id){
+    this.props.setToBeDeleted(id);
     this.props.triggerRating();
   }
 
