@@ -93,4 +93,27 @@ function getStore()
   return axios.get(baseUrl+'/store/getAllStore');
 }
 
+export{getMyInfo}
+function getMyInfo()
+{
+  return axios.get(baseUrl+'/manager/getMyInfo');
+}
 
+export{handleComplaint}
+function handleComplaint(id)
+{
+  return axios.post(baseUrl+'/manager/handleComplaint',{
+    "id":id
+  })
+}
+
+
+// This is for customer. I didn't wanted to create new file so I placed it here.
+export {sendComplaint}
+function sendComplaint(name,complaint)
+{
+  return axios.post(baseUrl+'/customer/sendComplaint',{
+    "name":name,
+    "complaint":complaint
+  });
+}
