@@ -87,15 +87,17 @@ class App extends Component {
   {
     console.log(localStorage.getItem('token'))
     this.setState({open:!this.state.open});
+    this.props.history.push('/Login');
     if(localStorage.getItem("token")!=null)
     {
       localStorage.removeItem("token");
       alert("Success!");
+
       window.location.reload();
     }
     else
       alert("You have not logged in yet!");
-    this.props.history.push('/Login');
+    
     return;
 
   }

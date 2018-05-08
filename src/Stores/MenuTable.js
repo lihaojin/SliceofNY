@@ -34,7 +34,7 @@ render() {
  </TableHeader>
 
  <TableBody>
- {this.props.menu.map(function(recipe){
+ {(typeof this.props.menu !== 'undefined') && this.props.menu.map(function(recipe){
    return <MenuTableRow  addItem={addItem} recipe = {recipe}/>
  })}
 

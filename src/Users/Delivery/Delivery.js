@@ -137,11 +137,12 @@ class Delivery extends Component {
 
 
   getSelectedOrder(order){
-    //this.sendText('+19144716528');  //Only activate once we need to demo
+      //Only activate once we need to demo
     if(order.address!=this.state.destination && this.state.map){
       return false;
     }
     if(!this.state.map){
+      this.sendText('+19144716528');
       this.setState({
         destination: order.address,
         map: true,
