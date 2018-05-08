@@ -9,8 +9,6 @@ class Checkout extends Component {
   constructor(props) {
   super(props);
   this.state = {
-    cart:this.props.cart,
-    subtotal:this.props.subtotal
     };
   }
 
@@ -21,7 +19,7 @@ class Checkout extends Component {
   }
 
   onSubmitOrder(){
-    OrderRequest(this.props.cart)
+    OrderRequest()
     .then(response => {
       alert("Order Processed" + response.data);
       this.props.history.push('/Homepage');
@@ -51,7 +49,6 @@ class Checkout extends Component {
         color: 'white',
       }
     }
-
        return (
          <center>
          <div>

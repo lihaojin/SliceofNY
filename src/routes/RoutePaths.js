@@ -35,8 +35,8 @@ class RoutePaths extends Component{
       <Route path = '/Delivery' component = {Delivery}/>
       <Route path = '/Chef' component = {Chef}/>
       <Route path = '/MapPage' component = {MapPage}/>
-      <Route path = '/:name/StorePage' addItem={this.props.addItem} component ={(props) => <StorePage  {...props} addItem={this.props.addItem} />} />
-      <Route path = '/Checkout' cart={this.props.cart} subtotal={this.props.subtotal} component = {Checkout}/>
+      <Route path = '/:name/StorePage' component ={(props) => <StorePage  {...props} addItem={this.props.addItem} />} />
+      <Route path = '/Checkout' cart={this.props.cart} subtotal={this.props.subtotal} component = {(props) => <Checkout {...props} cart={this.props.cart} subtotal={this.props.subtotal} />}/>
       </Switch>
       </Router>
     )

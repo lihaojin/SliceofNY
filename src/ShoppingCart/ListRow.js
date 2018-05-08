@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 import {
   Table,
   TableBody,
@@ -18,6 +19,9 @@ class ListRow extends Component {
     render() {
       return(
         <TableRow>
+          <TableRowColumn>
+          <RaisedButton onClick={() => {this.props.removeItem(this.state.recipe)}} label='Remove' secondary={true}></RaisedButton>
+          </TableRowColumn>
           <TableRowColumn>{this.props.recipe.name}</TableRowColumn>
           <TableRowColumn>{this.props.recipe.price}</TableRowColumn>
         </TableRow>
