@@ -23,15 +23,15 @@ class Checkout extends Component {
 
   onSubmitOrder(){
     var reqObj ={
-      name: this.props.storeName,
+      name: "UncleRuckus",
       items: [
         this.props.cart.map(function(item){
           return {name: item.name, quantity: 1}
         })
       ],
-      destination : this.state.destination
+      destination : this.state.address
     }
-    
+
     OrderRequest(reqObj)
     .then(response => {
       alert("Order Processed" + response.data);
