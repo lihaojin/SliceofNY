@@ -20,7 +20,7 @@ class ListRow extends Component {
       return(
         <TableRow>
           <TableRowColumn>
-          <RaisedButton onClick={() => {this.props.removeItem(this.state.recipe)}} label='Remove' secondary={true}></RaisedButton>
+          <RaisedButton onClick={() => {this.props.removeItem(this.props.recipe)}} label='Remove' secondary={true}></RaisedButton>
           </TableRowColumn>
           <TableRowColumn>{this.props.recipe.name}</TableRowColumn>
           <TableRowColumn>{this.props.recipe.price}</TableRowColumn>

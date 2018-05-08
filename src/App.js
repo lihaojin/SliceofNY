@@ -66,10 +66,16 @@ class App extends Component {
   removeItem(item){
     var index = this.state.cart.indexOf(item);
     var price = item.price;
+
     this.state.subtotal -= price;
+    if(this.state.subtotal < 0){
+      this.state.subtotal = 0;
+    }
+
     if(index > -1){
       this.state.cart.splice(index,1)
     }
+
     this.setState({cart:this.state.cart, subtotal:this.state.subtotal})
     localStorage.setItem('cart', JSON.stringify(this.state.cart))
     localStorage.setItem('subtotal', this.state.subtotal)
