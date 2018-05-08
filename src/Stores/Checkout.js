@@ -9,7 +9,10 @@ class Checkout extends Component {
   constructor(props) {
   super(props);
   this.state = {
+    address:""
     };
+    this.onSubmitOrder = this.onSubmitOrder.bind(this)
+    this.handleFormChange = this.handleFormChange.bind(this)
   }
 
   handleFormChange(e){
@@ -19,7 +22,17 @@ class Checkout extends Component {
   }
 
   onSubmitOrder(){
-    OrderRequest()
+    var reqObj ={
+      name: this.props.storeName,
+      items: [
+        this.props.cart.map(function(item){
+          return {name: item.name, quantity: 1}
+        })
+      ],
+      destination : this.state.destination
+    }
+    
+    OrderRequest(reqObj)
     .then(response => {
       alert("Order Processed" + response.data);
       this.props.history.push('/Homepage');
@@ -60,16 +73,11 @@ class Checkout extends Component {
          </div>
          <br />
 
-         <TextField
-         onChange={this.handleFormChange}
-         floatingLabelText="Payment Info"
-         floatingLabelStyle ={style.floatingLabelStyle}
-         floatingLabelFocusStyle={style.floatingLabelFocusStyle}
-         inputStyle={style.inputStyle}
-       /><br />
 
        <TextField
        onChange={this.handleFormChange}
+       name="address"
+       value={this.state.address}
        floatingLabelText="Delivery Address"
        floatingLabelStyle ={style.floatingLabelStyle}
        floatingLabelFocusStyle={style.floatingLabelFocusStyle}

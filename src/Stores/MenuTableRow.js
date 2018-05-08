@@ -16,7 +16,7 @@ class MenuTableRow extends Component {
     constructor(props){
       super(props);
       this.state={
-        recipe :this.props.recipe
+        recipe :this.props.recipe,
       }
     }
 
@@ -25,7 +25,7 @@ class MenuTableRow extends Component {
       return(
         <TableRow>
         <TableRowColumn>
-        <FloatingActionButton onClick={() => this.props.addItem(this.props.recipe,this.props.recipe.price)} mini={true}>
+        <FloatingActionButton onClick={() => this.props.addItem(this.props.recipe,this.props.recipe.price,"UncleRuckus")} mini={true}>
           <ContentAdd />
         </FloatingActionButton>
         </TableRowColumn>

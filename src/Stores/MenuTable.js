@@ -14,7 +14,7 @@ class MenuTable extends Component {
     super(props)
     this.state = {
       menu:this.props.menu,
-      addItem: this.props.addItem
+      addItem: this.props.addItem,
     }
 
   }

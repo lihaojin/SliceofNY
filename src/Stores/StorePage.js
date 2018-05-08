@@ -7,7 +7,8 @@ class StorePage extends Component {
   constructor(props){
     super(props);
     this.state = {
-      menu : []
+      menu : [],
+      storeName : this.props.match.params.name
     }
   }
   componentDidMount(){

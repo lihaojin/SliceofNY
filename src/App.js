@@ -29,11 +29,13 @@ class App extends Component {
     open2:false,
     cart:[],
     subtotal:0,
+    storeName:"",
     recipe: this.props.recipe,
     };
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
   }
+
   componentWillMount(){
     if(localStorage.getItem('cart') == undefined || localStorage.getItem('subtotal') == undefined){
 
@@ -42,24 +44,30 @@ class App extends Component {
     this.setState({cart: JSON.parse(localStorage.getItem('cart')),subtotal:parseInt(localStorage.getItem('subtotal'))})
   }
   }
-  addItem(item,price){
+
+  addItem(item,price,storeName){
     var cart = this.state.cart;
     var subtotal = this.state.subtotal;
+    if(storeName == this.state.storeName || this.state.storeName == ""){
     subtotal = subtotal + price
     cart.push(item);
     this.setState({cart: cart});
     this.setState({subtotal: subtotal});
+    this.setState({storeName:storeName});
     localStorage.setItem('cart',JSON.stringify(cart));
     localStorage.setItem('subtotal',subtotal);
+    localStorage.setItem('storeName',storeName)
+  }else{
+    alert("You cant add an item from another store");
+  }
   }
 
 
   removeItem(item){
-    alert("REMOVING ITEM")
     var index = this.state.cart.indexOf(item);
     var price = item.price;
     this.state.subtotal -= price;
-    if(index> -1){
+    if(index > -1){
       this.state.cart.splice(index,1)
     }
     this.setState({cart:this.state.cart, subtotal:this.state.subtotal})
@@ -117,7 +125,7 @@ class App extends Component {
       <Table>
       <TableBody>
       {this.state.cart.map((recipe)=> {
-     return <ListRow recipe={recipe} removeItem={this.removeItem} />
+     return <ListRow recipe={recipe}  removeItem={this.removeItem} />
       })}
       </TableBody>
       </Table><br />
@@ -132,7 +140,7 @@ class App extends Component {
       </div>
       </Drawer>
 
-      <RoutePaths addItem={this.addItem} cart={this.state.cart} subtotal={this.state.subtotal}/>
+      <RoutePaths addItem={this.addItem} cart={this.state.cart} subtotal={this.state.subtotal} storeName={this.state.storeName}/>
       </MuiThemeProvider>
     );
   }
