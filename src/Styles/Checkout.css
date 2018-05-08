@@ -2,3 +2,15 @@
   color: white;
   font-size: 25px;
 }
+
+
+.container{
+  background-image: url("../pizzabackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 1450px;
+}
+
+h2{
+  margin-top: 0px;
+}

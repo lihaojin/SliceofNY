@@ -67,6 +67,7 @@ class Checkout extends Component {
          <Paper style={style} zDepth={3}>
          <br />
          <div className="total">
+         <h2>Order Review</h2>
          Your Total: $
          {this.props.subtotal}
          </div>
