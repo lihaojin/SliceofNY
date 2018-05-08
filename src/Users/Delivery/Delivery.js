@@ -142,7 +142,7 @@ class Delivery extends Component {
       return false;
     }
     if(!this.state.map){
-      this.sendText('+19144716528');
+      //this.sendText('+19144716528');
       this.setState({
         destination: order.address,
         map: true,

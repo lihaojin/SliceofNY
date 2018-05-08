@@ -8,6 +8,8 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {List, ListItem} from 'material-ui/List';
 import ListRow from './ShoppingCart/ListRow';
+import {loginUser} from './Utils/Requests/auth';
+import { Redirect } from 'react-router';
 import {
   Table,
   TableBody,
@@ -86,8 +88,9 @@ class App extends Component {
   handleSignOut = () =>
   {
     console.log(localStorage.getItem('token'))
+    //this.props.history.push('/Login')
     this.setState({open:!this.state.open});
-    this.props.history.push('/Login');
+    
     if(localStorage.getItem("token")!=null)
     {
       localStorage.removeItem("token");
