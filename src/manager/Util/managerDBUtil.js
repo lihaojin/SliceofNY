@@ -75,4 +75,45 @@ function blacklistCustomer(email)
   })
 }
 
+export{getDelivery}
+function getDelivery()
+{
+  return axios.get(baseUrl+'/delivery/getAll');
+}
 
+export{sendDeliveryOrder}
+function sendDeliveryOrder(email)
+{
+  return axios.get(baseUrl+'/manager/makeDelivery/'+email);
+}
+
+export{getStore}
+function getStore()
+{
+  return axios.get(baseUrl+'/store/getAllStore');
+}
+
+export{getMyInfo}
+function getMyInfo()
+{
+  return axios.get(baseUrl+'/manager/getMyInfo');
+}
+
+export{handleComplaint}
+function handleComplaint(id)
+{
+  return axios.post(baseUrl+'/manager/handleComplaint',{
+    "id":id
+  })
+}
+
+
+// This is for customer. I didn't wanted to create new file so I placed it here.
+export {sendComplaint}
+function sendComplaint(name,complaint)
+{
+  return axios.post(baseUrl+'/customer/sendComplaint',{
+    "name":name,
+    "complaint":complaint
+  });
+}

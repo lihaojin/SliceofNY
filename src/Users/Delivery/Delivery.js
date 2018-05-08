@@ -9,6 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField';
 import Ratings from '../../ratings/ratings'
 import Popup from "reactjs-popup";
+import axios from 'axios'
 import {
   Table,
   TableBody,
@@ -49,14 +50,17 @@ const style_textField = {
       }
     }
 
+
+const baseURL = 'http://localhost:3001/'
+
 class Delivery extends Component {
 
   constructor(props) {
     super(props);
-    var orders_temp = [{address: "3147 Broadway Apt. 3", contents:"1 pizza"},{address: "18 St Nicholas Place Apt. 3B", contents:"2 pizza"},{address: "4510 5th Avenue", contents:"800 pizzas"}];
     this.state = {
       value: 1,
       enterOrigin: false,
+      sentTexts: false,
       origin: '',
       destination: '',
       map: false,
@@ -64,24 +68,45 @@ class Delivery extends Component {
       ratingsOn: false,
       color: 'red',
       toBeDeleted: '',
-      orders: orders_temp,
+      orders: [],
       alreadySelected: false
     };
   }
 
-  deleteRow(address){
+
+
+  componentDidMount(){
+    axios.get(baseURL + 'delivery/myOrders')
+    .then(function (response) {
+      var ordersTemp = [{id: '125423', address: '3147 Broadway NY, NY', contents: '80 mush pizza'},{id: '125423123', address: '4510 5th ave Brooklyn, NY', contents: '40 mush pizza'},{id: '12542231343', address: '248 W 105 st NY, NY', contents: '10 pizza'}]
+      //var ordersTemp = [];
+      /*
+      for(var i = 0; i < response.data[0].current_orders.length; i++){
+        var raw = response.data[0].current_orders[i];
+        var order = {id: raw._id ,address: raw.destination, contents: raw.items[0].quantity + ' ' + raw.items[0].name}
+        ordersTemp.push(order);
+      }
+      */
+      this.setState({
+        orders: ordersTemp
+      })
+    }.bind(this))
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  
+
+  deleteRow(id){
     var update = this.state.orders;
     for(var i = 0; i < update.length; i++){
-      if(update[i].address == address){
+      if(update[i].id == id){
         update.splice(i,1)
       }
     }
-    
     this.setState({
       orders: update,
     });
-
-    console.log(this.state.orders)
     this.forceUpdate();
   }
 
@@ -93,13 +118,26 @@ class Delivery extends Component {
     });
   }
 
-  setToBeDeleted(address){
+  setToBeDeleted(id){
     this.setState({
-      toBeDeleted: address
+      toBeDeleted: id
     })
   }
 
+  sendText(num){
+    console.log(num);
+    axios.post('http://localhost:3001/sendsms/' + num)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+
   getSelectedOrder(order){
+    //this.sendText('+19144716528');  //Only activate once we need to demo
     if(order.address!=this.state.destination && this.state.map){
       return false;
     }
@@ -181,8 +219,11 @@ class Delivery extends Component {
       ratingsOn: false
     })
     this.complete(true);
+
+    //;axios.get(baseURL + '/completeOrder/' + this.state.toBeDeleted);
+    //rating call with value
     this.deleteRow(this.state.toBeDeleted)
-    console.log(value);
+    
 
   }
 

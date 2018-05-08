@@ -21,8 +21,8 @@ export default class DeliveryTable extends Component{
 		}
 	}
 
-  complete(address){
-    this.props.setToBeDeleted(address);
+  complete(id){
+    this.props.setToBeDeleted(id);
     this.props.triggerRating();
   }
 
@@ -54,7 +54,7 @@ export default class DeliveryTable extends Component{
   }
   else{
     return(
-      <div style={{color:'white',background:'green'}}>
+      <div style={{color:'white'}}>
         <div> NICE WORK! </div>
         <div> NO MORE DELIVERIES </div>
 

@@ -37,7 +37,6 @@ class Login extends Component {
       let token = response.data.token;
       let decoded = jwt.decode(token);
       localStorage.setItem("token",token);
-      alert(decoded.typeOfUser);
       if(decoded.typeOfUser==="Chef")
       {  
         this.props.history.push('/chef');
@@ -53,6 +52,11 @@ class Login extends Component {
            this.props.history.push('/Homepage');
            return;
       }
+            if(decoded.typeOfUser==="Delivery")
+            {
+              this.props.history.push('/Delivery')
+              return;
+            }
     })
     .catch(error => {
       alert("Error " + error.toString());
@@ -85,39 +89,41 @@ class Login extends Component {
         color: 'white',
       }
     }
-    return (
-      <div className = 'container'>
-      <center>
-      <Paper style={style} zDepth={3}>
-      <h2>LOG IN</h2>
+      return (
+        <div className = 'container'>
+        <center>
+        <Paper style={style} zDepth={3}>
+        <h2>LOG IN</h2>
 
-      <TextField
-      value={this.state.email}
-      name="email"
-      onChange={this.handleFormChange}
-      floatingLabelText="E-mail"
-      floatingLabelStyle ={style.floatingLabelStyle}
-      floatingLabelFocusStyle={style.floatingLabelFocusStyle}
-      inputStyle={style.inputStyle}
-    /><br />
+        <TextField
+        value={this.state.email}
+        name="email"
+        onChange={this.handleFormChange}
+        floatingLabelText="E-mail"
+        floatingLabelStyle ={style.floatingLabelStyle}
+        floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+        inputStyle={style.inputStyle}
+      /><br />
 
-      <TextField
-      value={this.state.password}
-      name="password"
-      onChange={this.handleFormChange}
-      floatingLabelText="Password"
-      type="password"
-      floatingLabelStyle ={style.floatingLabelStyle}
-      floatingLabelFocusStyle={style.floatingLabelFocusStyle}
-      inputStyle={style.inputStyle}
-    /><br />
+        <TextField
+        value={this.state.password}
+        name="password"
+        onChange={this.handleFormChange}
+        floatingLabelText="Password"
+        type="password"
+        floatingLabelStyle ={style.floatingLabelStyle}
+        floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+        inputStyle={style.inputStyle}
+      /><br />
 
 
-      <RaisedButton onClick = {this.onLogin} label="Log In"/>
-      </Paper>
-      </center>
-      </div>
-    );
+        <RaisedButton onClick = {this.onLogin} label="Log In"/>
+        </Paper>
+        </center>
+        </div>
+      );
+    
+    
   }
 }
 

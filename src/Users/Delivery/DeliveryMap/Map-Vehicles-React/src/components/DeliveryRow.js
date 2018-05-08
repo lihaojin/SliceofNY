@@ -61,10 +61,10 @@ export default class DeliveryRow extends Component{
 				selected: {background: 'white'},
 				selectedYet: false
 			})
-			this.props.complete(this.state.order.address);
+			this.props.complete(this.state.order.id);
 		}
 		else{
-			alert('You fuck')
+			alert('Yo')
 		}
 	}
 

@@ -79,6 +79,7 @@ class App extends Component {
   handleToggle2 = () => this.setState({open2: !this.state.open2});
   handleSignOut = () =>
   {
+    console.log(localStorage.getItem('token'))
     this.setState({open:!this.state.open});
     if(localStorage.getItem("token")!=null)
     {
@@ -87,7 +88,9 @@ class App extends Component {
       window.location.reload();
     }
     else
-      return alert("You have not logged in yet!");
+      alert("You have not logged in yet!");
+    this.props.history.push('/Login');
+    return;
 
   }
 
@@ -100,7 +103,7 @@ class App extends Component {
       <MuiThemeProvider>
       <AppBar title='Slice of NY'
       style={style}
-      iconElementRight={<FlatButton label="My Cart" onClick={this.handleToggle2}/>}
+      iconElementRight={(localStorage.getItem('token') === null || localStorage.getItem('token') === 'Customer') && <FlatButton label="My Cart" onClick={this.handleToggle2}/>}
       onLeftIconButtonClick={this.handleToggle}/>
 
       <Drawer
@@ -109,9 +112,9 @@ class App extends Component {
         open={this.state.open}
         onRequestChange={(open) => this.setState({open})}>
         <MenuItem onClick={this.handleToggle} href="/Homepage">Home</MenuItem>
-        <MenuItem onClick={this.handleToggle} href="/Login">Log In</MenuItem>
-        <MenuItem onClick={this.handleToggle} href="/Registration">Sign Up</MenuItem>
-        <MenuItem onClick={this.handleSignOut}>Sign Out</MenuItem>
+        {(localStorage.getItem('token')===null) && <MenuItem onClick={this.handleToggle} href="/Login">Log In</MenuItem>}
+        {(localStorage.getItem('token')===null) &&<MenuItem onClick={this.handleToggle} href="/Registration">Sign Up</MenuItem>}
+        {!(localStorage.getItem('token')===null) &&<MenuItem onClick={this.handleSignOut.bind(this)}>Sign Out</MenuItem>}
       </Drawer>
 
 

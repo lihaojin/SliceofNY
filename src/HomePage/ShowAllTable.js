@@ -34,7 +34,7 @@ componentDidMount(){
   render() {
 
     return (
-      <div style={{border: '10px double white'}}>
+      <div style={{border: '5px groove white'}}>
       <Table>
    <TableHeader>
      <TableRow>
