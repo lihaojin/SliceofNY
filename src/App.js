@@ -149,7 +149,7 @@ class App extends Component {
       </div>
       </Drawer>
 
-      <RoutePaths addItem={this.addItem} cart={this.state.cart} subtotal={this.state.subtotal} storeName={this.state.storeName}/>
+      <RoutePaths addItem={this.addItem} cart={this.state.cart} subtotal={this.state.subtotal}/>
       </MuiThemeProvider>
     );
   }

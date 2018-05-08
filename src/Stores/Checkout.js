@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import Paper from 'material-ui/Paper';
 import {OrderRequest} from '../Utils/Requests/OrderRequest';
-
+import '../Styles/Checkout.css'
 class Checkout extends Component {
   constructor(props) {
   super(props);
@@ -22,17 +22,15 @@ class Checkout extends Component {
   }
 
   onSubmitOrder(){
-    var reqObj ={
-      name: "UncleRuckus",
-      items: [
+      var name = "UncleRuckus";
+      var items = [
         this.props.cart.map(function(item){
           return {name: item.name, quantity: 1}
         })
-      ],
-      destination : this.state.address
-    }
+      ];
+      var destination = this.state.address;
 
-    OrderRequest(reqObj)
+    OrderRequest(name,items,destination)
     .then(response => {
       alert("Order Processed" + response.data);
       this.props.history.push('/Homepage');
@@ -63,11 +61,12 @@ class Checkout extends Component {
       }
     }
        return (
+         <div className="container">
          <center>
          <div>
          <Paper style={style} zDepth={3}>
          <br />
-         <div>
+         <div className="total">
          Your Total: $
          {this.props.subtotal}
          </div>
@@ -89,6 +88,7 @@ class Checkout extends Component {
         </Paper>
          </div>
          </center>
+         </div>
        );
        }
 
