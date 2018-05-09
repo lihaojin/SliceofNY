@@ -17,15 +17,18 @@ class MenuTableRow extends Component {
       super(props);
       this.state={
         recipe :this.props.recipe,
+        storeName: this.props.storeName
+
       }
     }
 
     render() {
       var addItem = this.props.addItem;
       return(
+
         <TableRow>
         <TableRowColumn>
-        <FloatingActionButton onClick={() => this.props.addItem(this.props.recipe,this.props.recipe.price,"UncleRuckus")} mini={true}>
+        <FloatingActionButton onClick={() => this.props.addItem(this.props.recipe,this.props.recipe.price,this.props.storeName)} mini={true}>
           <ContentAdd />
         </FloatingActionButton>
         </TableRowColumn>
@@ -34,6 +37,7 @@ class MenuTableRow extends Component {
           <TableRowColumn>{this.props.recipe.rating}</TableRowColumn>
           <TableRowColumn>{this.props.recipe.description}</TableRowColumn>
         </TableRow>
+
       )
     }
 }

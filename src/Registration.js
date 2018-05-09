@@ -70,7 +70,7 @@ onSignUp(){
 
 
   render() {
-    const storeName = (this.state.typeOfUser==="Manager" || this.state.typeOfUser==="Chef") ? 
+    const storeName = (this.state.typeOfUser==="Manager" || this.state.typeOfUser==="Chef") ?
                            <TextValidator
                           value={this.state.store_affiliated_with}
                           name="store_affiliated_with"
@@ -81,7 +81,7 @@ onSignUp(){
                           floatingLabelStyle ={style.floatingLabelStyle}
                           floatingLabelFocusStyle={style.floatingLabelFocusStyle}
                           inputStyle={style.inputStyle}/>: null;
-      const storeLocation = (this.state.typeOfUser==="Manager") ? 
+      const storeLocation = (this.state.typeOfUser==="Manager") ?
                            <TextValidator
                           value={this.state.location}
                           name="location"
@@ -91,16 +91,16 @@ onSignUp(){
                           floatingLabelText="Location "
                           floatingLabelStyle ={style.floatingLabelStyle}
                           floatingLabelFocusStyle={style.floatingLabelFocusStyle}
-                          inputStyle={style.inputStyle}/>: null;           
+                          inputStyle={style.inputStyle}/>: null;
 
-                        
+
 
     return (
     <div className = "container" >
     <center>
-    <ValidatorForm 
+    <ValidatorForm
 
-                style={{backgroundColor:'rgba(20,20,20,0.7)',margin:20,
+                style={{backgroundColor:'rgba(20,20,20,0.85)',margin:20,
                 padding:40,display: 'inline-block',height: {flex:1},
                 width: {flex:2},textAlign: 'center'}}
                 ref="form"
@@ -108,6 +108,7 @@ onSignUp(){
                 onError={errors => console.log(errors)}
             >
 
+    <h2>Sign Up</h2>
     <TextValidator
     name="name"
     value={this.state.name}
