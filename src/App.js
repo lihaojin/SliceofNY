@@ -37,6 +37,7 @@ class App extends Component {
     };
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.clearCart = this.clearCart.bind(this);
   }
 
   componentWillMount(){
@@ -192,7 +193,7 @@ class App extends Component {
       </div>
       </Drawer>
 
-      <RoutePaths  addItem={this.addItem} cart={this.state.cart} subtotal={this.state.subtotal}/>
+      <RoutePaths  addItem={this.addItem} cart={this.state.cart} subtotal={this.state.subtotal} clearCart={this.clearCart}/>
       </MuiThemeProvider>
     );
   }

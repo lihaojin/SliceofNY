@@ -23,6 +23,7 @@ class Checkout extends Component {
     this.setState({[name]: value})
   }
 
+
   onSubmitOrder(){
       var quantity = 1;
       var name = localStorage.getItem('storeName');
@@ -44,6 +45,7 @@ class Checkout extends Component {
     .catch(error => {
       alert("Error " + error);
     })
+    this.props.clearCart();
     }
     else{
       customerOrder(name,items,destination,phone_number)

@@ -27,12 +27,11 @@ render() {
   return (
     <Table>
  <TableHeader>
-   <TableRow>
+      <TableHeaderColumn></TableHeaderColumn>
      <TableHeaderColumn>Name</TableHeaderColumn>
      <TableHeaderColumn>Price</TableHeaderColumn>
      <TableHeaderColumn>Rating</TableHeaderColumn>
      <TableHeaderColumn>Description</TableHeaderColumn>
-   </TableRow>
  </TableHeader>
 
  <TableBody>
