@@ -121,8 +121,6 @@ export default class MapContainer extends Component {
     });
     
   }
-  
-  returnAll(){}
 
 
   static defaultProps = {
@@ -165,7 +163,7 @@ export default class MapContainer extends Component {
       </div>
       <div className="text-center">
         <RaisedButton className="button" primary={true} onClick = {() => this.returnRelevantMarker('getTop')}> Show Relevant </RaisedButton>
-        <RaisedButton className="button" > Show All </RaisedButton>
+        <RaisedButton className="button" onClick = {() => this.returnRelevantMarker('getAll')} > Show All </RaisedButton>
         <RaisedButton className="button" secondary={true} onClick = {this.removeCurrent.bind(this)}> Reset Current </RaisedButton>
         </div>
       </div>

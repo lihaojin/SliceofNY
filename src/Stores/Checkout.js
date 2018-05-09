@@ -70,6 +70,11 @@ class Checkout extends Component {
          <h2>Order Review</h2>
          Your Total: $
          {this.props.subtotal}
+         <br />
+         Your Order: 
+         {this.props.cart.map(function(item){
+          return <Paper zDepth={3}> {item.name} , quantity: 1 </Paper>
+        })}
          </div>
          <br />
 
