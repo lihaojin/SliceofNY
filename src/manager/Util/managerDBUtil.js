@@ -117,3 +117,10 @@ function sendComplaint(name,complaint)
     "complaint":complaint
   });
 }
+
+
+export{getMyStoreInfo}
+function getMyStoreInfo()
+{
+  return axios.get(baseUrl+'/manager/getMyStoreInfo');
+}

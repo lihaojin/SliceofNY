@@ -4,7 +4,7 @@ import CustomerCard from '../component/customerCard';
 import {getAllRegisteredCustomers} from '../Util/managerDBUtil';
 import {getAllPendingCustomers} from '../Util/managerDBUtil';
 import {getAllBlacklistedCustomers} from '../Util/managerDBUtil';
-
+import { Redirect } from 'react-router';
 
 export default class Customers extends Component
 {
@@ -82,7 +82,12 @@ export default class Customers extends Component
  
 	render()
 	{
-
+		if(this.state.redirect)
+				{
+					return(
+						<Redirect to='/login'/>
+						)
+				}
 		const pending = this.state.pending.map((customer)=>
 
 			<div key={customer.toString()}>

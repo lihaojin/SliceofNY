@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import ComplaintCard from '../component/complaintCard';
 import {getMyInfo} from '../Util/managerDBUtil';
-
+import { Redirect } from 'react-router';
 
 export default class Complaints extends Component
 {
@@ -20,7 +20,6 @@ export default class Complaints extends Component
 		if(localStorage.getItem('token')==null)
 		{	
 			this.setState({redirect:true});
-			alert("You are not logged in!");
 		}
 		else
 		{

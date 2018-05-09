@@ -87,7 +87,6 @@ class App extends Component {
   {
     console.log(localStorage.getItem('token'))
     this.setState({open:!this.state.open});
-    this.props.history.push('/Login');
     if(localStorage.getItem("token")!=null)
     {
       localStorage.removeItem("token");
