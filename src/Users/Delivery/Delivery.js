@@ -127,33 +127,15 @@ class Delivery extends Component {
     })
   }
 
-  haversineDistance(coords1, coords2, isMiles) {
-    console.log('coords ' + coords1 + ', ' + coords2);
-    function toRad(x) {
-      return x * Math.PI / 180;
-    }
+  haversineDistance(coords1, coords2) {
+    var distance =  geolib.getDistance(
+      {latitude: coords1[0], longitude: coords1[1]},
+      {latitude: coords2[0], longitude: coords2[1]}
+    );
+    //console.log({latitude: coords1[0], longitude: coords1[1]});
+    //console.log({latitude: coords2[0], longitude: coords2[1]})
+    return distance;
 
-    var lon1 = coords1[0];
-    var lat1 = coords1[1];
-
-    var lon2 = coords2[0];
-    var lat2 = coords2[1];
-
-    var R = 6371; // km
-
-    var x1 = lat2 - lat1;
-    var dLat = toRad(x1);
-    var x2 = lon2 - lon1;
-    var dLon = toRad(x2)
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-      Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c;
-
-    if(isMiles) d /= 1.60934;
-    console.log(d);
-    return d;
 }
 
 
@@ -165,8 +147,8 @@ class Delivery extends Component {
         //console.log('origin: ' + orig + ' destination: ' + des)
         var coordsOrig =  [orig.results[0].geometry.location.lat,orig.results[0].geometry.location.lng];
         var coordsDes = [des.results[0].geometry.location.lat,des.results[0].geometry.location.lng];
-        var distance = this.haversineDistance(coordsOrig,coordsDes,true);
-        var time = Math.floor((distance / 15) * 60); //distance over 15 miles per hour on average
+        var distance = this.haversineDistance(coordsOrig,coordsDes);
+        var time = Math.floor(distance / 1500); //distance over 15 miles per hour on average
         axios.post('http://localhost:3001/sendsms/' + num + '/' + time)
         .then(function (response) {
           console.log('yeehaw');
