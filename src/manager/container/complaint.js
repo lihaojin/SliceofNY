@@ -10,7 +10,7 @@ export default class Complaints extends Component
 	{
 		super(props)
 		this.state = {
-			complaints:[],
+			complaints:[''],
 			redirect:false
 		}
 	}

@@ -18,7 +18,7 @@ export default class Delivery extends Component
 
 	componentDidMount(){
 
-		if(localStorage.getItem('token')==null)
+		if(localStorage.getItem('token')===null)
 		{	
 			this.setState({redirect:true});
 		}

@@ -39,7 +39,7 @@ class Login extends Component {
       localStorage.setItem("token",token);
       this.forceUpdate();
       if(decoded.typeOfUser==="Chef")
-      {  
+      {
         this.props.history.push('/chef');
         return;
       }
@@ -79,7 +79,7 @@ class Login extends Component {
       margin: 20,
       padding: 40,
       textAlign: 'center',
-      backgroundColor:'rgba(20,20,20,0.7)',
+      backgroundColor:'rgba(20,20,20,0.85)',
       floatingLabelStyle: {
         color: 'white',
       },
@@ -123,8 +123,8 @@ class Login extends Component {
         </center>
         </div>
       );
-    
-    
+
+
   }
 }
 

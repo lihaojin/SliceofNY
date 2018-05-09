@@ -19,7 +19,7 @@ export default class  Orders extends Component{
 	}
 
 	componentDidMount(){
-	if(localStorage.getItem('token')==null)
+	if(localStorage.getItem('token')===null)
 		{	
 			this.setState({redirect:true});
 		}
@@ -27,11 +27,8 @@ export default class  Orders extends Component{
 
 			 getMyStoreInfo().then(result=>
 			{
-				let orders = []
-				for(let i=0; i<result.data.current_orders.length;++i)
-					 orders.push(result.data.current_orders[i])
 				this.setState({
-					"currentOrder":orders
+					"currentOrder":result.data.current_orders
 				})
 			}).catch(err=>{
 				alert("Error Occured getting store from getOrder!");
@@ -41,7 +38,8 @@ export default class  Orders extends Component{
 
   render()
   {
-		console.log("Result: ",this.state.currentOrder)
+  	console.log("run!")
+		 console.log("Result: ",this.state.currentOrder)
 	  	if(this.state.redirect)
 		{
 				return(
@@ -49,28 +47,31 @@ export default class  Orders extends Component{
 					)
 		}
 
-	  const tmp = this.state.currentOrder.length
-	  let orders = null;
-	  if(tmp!=0)
-	  {
-	    orders = this.state.currentOrder.map((order)=>
-	  	{
+	  // const tmp = this.state.currentOrder.length
+	  // let orders = null;
+	  // if(tmp!=0)
+	  // {
+	    const orders = this.state.currentOrder.map(order=>
+	  	
 	  		<div key={order.toString()}>
 				<Card>
 			    <CardHeader
-			      title={this.state.currentOrder.confirmation}
+			      title={"Order Destination: "+order.destination}
+			      subtitle={"Confirmation #: "+order.confirmation}
 			    />
 			  </Card>
 		
 			</div>
 
-	  	})
-		}
+	  	)
+		// }
 
 	  	return(
-	  		<p>
-	  		
-	  		</p>	
+	  		<div>
+	  		<br/>
+	  		{orders}
+	  		<br/>
+	  		</div>	
 	  		)
 	  }
 	};
