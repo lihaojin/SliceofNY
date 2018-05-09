@@ -4,12 +4,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import Paper from 'material-ui/Paper';
 import {OrderRequest} from '../Utils/Requests/OrderRequest';
+import {customerOrder} from '../Utils/Requests/OrderRequest';
 import '../Styles/Checkout.css'
 class Checkout extends Component {
   constructor(props) {
   super(props);
   this.state = {
     address:"",
+    phone_number:""
     };
     this.onSubmitOrder = this.onSubmitOrder.bind(this)
     this.handleFormChange = this.handleFormChange.bind(this)
@@ -24,6 +26,7 @@ class Checkout extends Component {
   onSubmitOrder(){
       var quantity = 1;
       var name = localStorage.getItem('storeName');
+      var phone_number = parseInt(this.state.phone_number);
       var items = [
         this.props.cart.map(function(item){
           return {name: item.name}
@@ -31,8 +34,8 @@ class Checkout extends Component {
         quantity
       ];
       var destination = this.state.address;
-
-    OrderRequest(name,items,destination)
+    if(localStorage.getItem('token') === null){
+    OrderRequest(name,items,destination,phone_number)
     .then(response => {
       alert("Order Processed" + response.data);
       this.props.history.push('/Homepage');
@@ -41,6 +44,18 @@ class Checkout extends Component {
     .catch(error => {
       alert("Error " + error);
     })
+    }
+    else{
+      customerOrder(name,items,destination,phone_number)
+      .then(response => {
+        alert("Order Processed" + response.data);
+        this.props.history.push('/Homepage');
+        return;
+      })
+      .catch(error => {
+        alert("Error " + error);
+      })
+    }
   }
 
     render() {
@@ -94,6 +109,16 @@ class Checkout extends Component {
        floatingLabelFocusStyle={style.floatingLabelFocusStyle}
        inputStyle={style.inputStyle}
      /><br />
+
+     <TextField
+     onChange={this.handleFormChange}
+     name="phone_number"
+     value={this.state.phone_number}
+     floatingLabelText="Phone Number"
+     floatingLabelStyle ={style.floatingLabelStyle}
+     floatingLabelFocusStyle={style.floatingLabelFocusStyle}
+     inputStyle={style.inputStyle}
+   /><br />
 
       <RaisedButton label="Submit Order" primary={true} fullWidth={true} onClick = {this.onSubmitOrder.bind(this)}/>
 
