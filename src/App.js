@@ -125,7 +125,7 @@ class App extends Component {
     else if(decoded.typeOfUser === 'Customer'){
       return ( <MenuItem onClick={this.handleToggle} href= '/Homepage'>Home</MenuItem>)
     }
-    
+
     else if(decoded.typeOfUser === 'Chef'){
       return (<MenuItem onClick={this.handleToggle} href= '/Chef'>Home</MenuItem>)
     }
