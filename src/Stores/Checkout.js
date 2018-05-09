@@ -9,7 +9,7 @@ class Checkout extends Component {
   constructor(props) {
   super(props);
   this.state = {
-    address:""
+    address:"",
     };
     this.onSubmitOrder = this.onSubmitOrder.bind(this)
     this.handleFormChange = this.handleFormChange.bind(this)
@@ -22,11 +22,13 @@ class Checkout extends Component {
   }
 
   onSubmitOrder(){
-      var name = "UncleRuckus";
+      var quantity = 1;
+      var name = localStorage.getItem('storeName');
       var items = [
         this.props.cart.map(function(item){
-          return {name: item.name, quantity: 1}
-        })
+          return {name: item.name}
+        }),
+        quantity
       ];
       var destination = this.state.address;
 
@@ -49,7 +51,7 @@ class Checkout extends Component {
       margin: 20,
       padding: 40,
       textAlign: 'center',
-      backgroundColor:'rgba(20,20,20,0.7)',
+      backgroundColor:'rgba(20,20,20,0.85)',
       floatingLabelStyle: {
         color: 'white',
       },

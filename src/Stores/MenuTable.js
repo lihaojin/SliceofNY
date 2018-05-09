@@ -15,6 +15,7 @@ class MenuTable extends Component {
     this.state = {
       menu:this.props.menu,
       addItem: this.props.addItem,
+      storeName: this.props.storeName
     }
 
   }
@@ -22,6 +23,7 @@ class MenuTable extends Component {
 
 render() {
   const addItem = this.state.addItem
+  const storeName = this.state.storeName
   return (
     <Table>
  <TableHeader>
@@ -35,7 +37,7 @@ render() {
 
  <TableBody>
  {this.props.menu.map(function(recipe){
-   return <MenuTableRow  addItem={addItem} recipe = {recipe}/>
+   return <MenuTableRow  addItem={addItem} recipe = {recipe} storeName = {storeName}/>
  })}
 
  </TableBody>

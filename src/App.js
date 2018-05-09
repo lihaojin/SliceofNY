@@ -30,7 +30,7 @@ class App extends Component {
     cart:[],
     subtotal:0,
     storeName:"",
-    recipe: this.props.recipe,
+    recipe: this.props.recipe
     };
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
@@ -48,7 +48,8 @@ class App extends Component {
   addItem(item,price,storeName){
     var cart = this.state.cart;
     var subtotal = this.state.subtotal;
-    if(storeName == this.state.storeName || this.state.storeName == ""){
+    var getStoreName = localStorage.getItem('storeName');
+    if(getStoreName == storeName || getStoreName == null){
     subtotal = subtotal + price
     cart.push(item);
     this.setState({cart: cart});
@@ -134,7 +135,7 @@ class App extends Component {
       <Table>
       <TableBody>
       {this.state.cart.map((recipe)=> {
-     return <ListRow recipe={recipe}  removeItem={this.removeItem} />
+     return <ListRow recipe={recipe} removeItem={this.removeItem} />
       })}
       </TableBody>
       </Table><br />
