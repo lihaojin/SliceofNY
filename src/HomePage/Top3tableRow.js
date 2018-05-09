@@ -53,6 +53,9 @@ class Top3tableRow extends Component {
   }
   handleComplaintEasy(){
     const complaint = prompt("Please enter your complaint: ");
+     if (complaint === null) {
+        return; //break out of the function early
+    }
     sendComplaint(this.props.store.name,complaint)
     .then(result=>
     {
