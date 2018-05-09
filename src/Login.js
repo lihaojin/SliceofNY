@@ -37,6 +37,7 @@ class Login extends Component {
       let token = response.data.token;
       let decoded = jwt.decode(token);
       localStorage.setItem("token",token);
+      this.forceUpdate();
       if(decoded.typeOfUser==="Chef")
       {  
         this.props.history.push('/chef');
