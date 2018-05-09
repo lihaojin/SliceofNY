@@ -51,7 +51,8 @@ class App extends Component {
     var cart = this.state.cart;
     var subtotal = this.state.subtotal;
     var getStoreName = localStorage.getItem('storeName');
-    if(getStoreName == storeName || getStoreName == null){
+    var getSubtotal = localStorage.getItem('subtotal');
+    if(getStoreName == storeName || getStoreName == null || getSubtotal == 0){
     subtotal = subtotal + price
     cart.push(item);
     this.setState({cart: cart});
@@ -101,7 +102,7 @@ class App extends Component {
     }
     else
       alert("You have not logged in yet!");
-    
+
     return;
 
   }
