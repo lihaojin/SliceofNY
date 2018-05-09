@@ -84,41 +84,50 @@ export default class MapContainer extends Component {
   returnRelevantMarker(ext){
     Geocode.enableDebug();
     var x = this.state.markers;
-    var update, coords,name,address;
+    var update = []
+    var coords,name,address;
     axios.get('http://localhost:3001/store/' + ext).then(response => {
       for(var i = 0; i < response.data.length; i++){
         var j = i
-          Geocode.fromAddress(response.data[i].location).then ( loc => {
-            var update = this.state.markers;
+          Geocode.fromAddress(response.data[j].location).then ( loc => {
             var coords =  [loc.results[0].geometry.location.lat,loc.results[0].geometry.location.lng];
+            address = ''
+            name = ''
+            console.log('j: ' + j)
             if(typeof response.data[j].name === undefined){
               name = 'default'
             }
             else{
               name = response.data[j].name
+              console.log(name);
             }
             if(typeof response.data[j].location === undefined){
               address = 'default';
             }
             else{
               address = response.data[j].location
+              console.log(address);
             }
-            
+            //console.log('woo: ' + address)
             if(coords !== null){
               update = update.concat({lat: coords[0], lng: coords[1], img_src: pizza, address: address, storeName: name, currentLocation: false});
             }
             this.setState({markers:update});
             this.forceUpdate();
 
+
         }).
           catch(error => {
             console.log(error)
           });
       
-    }})
+    }
+    console.log(update);
+  })
     .catch(error => {
       console.log('Error fetching and parsing data', error);
     });
+
     
   }
 

@@ -148,7 +148,8 @@ class Delivery extends Component {
         var coordsOrig =  [orig.results[0].geometry.location.lat,orig.results[0].geometry.location.lng];
         var coordsDes = [des.results[0].geometry.location.lat,des.results[0].geometry.location.lng];
         var distance = this.haversineDistance(coordsOrig,coordsDes);
-        var time = Math.floor(distance / 1500); //distance over 15 miles per hour on average
+        //console.log(distance);
+        var time = Math.floor(distance / 15000) * 60; //distance over 15 miles per hour on average
         axios.post('http://localhost:3001/sendsms/' + num + '/' + time)
         .then(function (response) {
           console.log('yeehaw');
