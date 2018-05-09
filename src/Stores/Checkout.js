@@ -79,8 +79,8 @@ class Checkout extends Component {
         color: 'white',
       },
       orderRowStyle:{
-        color: 'black',
-        backgroundColor:'white'
+        color: 'white',
+        backgroundColor:'rgba(20,20,20,0.1)'
       }
     }
        return (
