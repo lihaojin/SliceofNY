@@ -77,8 +77,8 @@ class Checkout extends Component {
         color: 'white',
       },
       orderRowStyle:{
-        color: 'white',
-        backgroundColor:'rgba(20,20,20,0.00)'
+        color: 'black',
+        backgroundColor:'white'
       }
     }
        return (
@@ -94,7 +94,7 @@ class Checkout extends Component {
          <br /><br />
          Your Order:
          {this.props.cart.map(function(item){
-          return <Paper style = {style.orderRowStyle} zDepth={3}> {item.name}  Quantity: 1 </Paper>
+          return <Paper style = {style.orderRowStyle} zDepth={3}> {item.name}</Paper>
         })}
          </div>
          <br />
