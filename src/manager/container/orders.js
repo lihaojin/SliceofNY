@@ -3,7 +3,8 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
-import {getStore} from '../Util/managerDBUtil';
+import {getMyStoreInfo} from '../Util/managerDBUtil';
+import { Redirect } from 'react-router';
 
 export default class  Orders extends Component{
 	
@@ -11,35 +12,66 @@ export default class  Orders extends Component{
 	{
 		super(props);
 		this.state = {
-			currentOrder: []
+			currentOrder: [],
+			redirect:false
 		}
 
 	}
 
-	getOrder = (email)=>
-	{
-		getStore().then(result=>
-		{
-			// currentOrder = []
-			// for(let i = 0; i< result.data.length; ++i)
-			// {
-			// 	if(result.data[i].manager_email === email)
-			// 		result.data[i].currentOrder	
-			// }
-			window.location.reload();
-		}).catch(err=>{
-			alert("Error Occured getting store from getOrder!");
-		})
+	componentDidMount(){
+	if(localStorage.getItem('token')==null)
+		{	
+			this.setState({redirect:true});
+		}
+	else{
+
+			 getMyStoreInfo().then(result=>
+			{
+				let orders = []
+				for(let i=0; i<result.data.current_orders.length;++i)
+					 orders.push(result.data.current_orders[i])
+				this.setState({
+					"currentOrder":orders
+				})
+			}).catch(err=>{
+				alert("Error Occured getting store from getOrder!");
+			})
+		}
 	}
 
-  render(){
-  	return(
-		<Card>
-		    <CardHeader
-		      title="Sample Order Here"
-		    />
-		  </Card>
-  		)
-  };
+  render()
+  {
+		console.log("Result: ",this.state.currentOrder)
+	  	if(this.state.redirect)
+		{
+				return(
+					<Redirect to='/login'/>
+					)
+		}
+
+	  const tmp = this.state.currentOrder.length
+	  let orders = null;
+	  if(tmp!=0)
+	  {
+	    orders = this.state.currentOrder.map((order)=>
+	  	{
+	  		<div key={order.toString()}>
+				<Card>
+			    <CardHeader
+			      title={this.state.currentOrder.confirmation}
+			    />
+			  </Card>
+		
+			</div>
+
+	  	})
+		}
+
+	  	return(
+	  		<p>
+	  		
+	  		</p>	
+	  		)
+	  }
+	};
   
-};

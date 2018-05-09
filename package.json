@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "geolib": "^2.0.24",
+    "google-distance": "^1.0.1",
     "google-map-react": "^0.34.0",
     "google-maps-react": "^2.0.0",
     "googlemaps": "^1.12.0",

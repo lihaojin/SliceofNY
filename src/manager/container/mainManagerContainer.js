@@ -14,6 +14,7 @@ export default class ManagerContainer extends Component
 			<div>
 				<Tabs>
 					<Tab label="Current Orders">
+					<Orders/>
 					</Tab>
 					<Tab label="Pick Delivery">
 						<Delivery/>

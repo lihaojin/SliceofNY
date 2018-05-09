@@ -10,6 +10,8 @@ import TextField from 'material-ui/TextField';
 import Ratings from '../../ratings/ratings'
 import Popup from "reactjs-popup";
 import axios from 'axios'
+import Geocode from "react-geocode";
+import geolib from 'geolib'
 import {
   Table,
   TableBody,
@@ -78,15 +80,16 @@ class Delivery extends Component {
   componentDidMount(){
     axios.get(baseURL + 'delivery/myOrders')
     .then(function (response) {
-      var ordersTemp = [{id: '125423', address: '3147 Broadway NY, NY', contents: '80 mush pizza'},{id: '125423123', address: '4510 5th ave Brooklyn, NY', contents: '40 mush pizza'},{id: '12542231343', address: '248 W 105 st NY, NY', contents: '10 pizza'}]
-      //var ordersTemp = [];
-      /*
+      var ordersTemp = [{id: '125423', address: '3147 Broadway New York, NY', contents: '80 mush pizza'},{id: '125423123', address: '4510 5th ave Brooklyn, NY', contents: '40 mush pizza'},{id: '12542231343', address: '248 W 105 st NY, NY', contents: '10 pizza'}]
+      /*var ordersTemp = [];
+      
       for(var i = 0; i < response.data[0].current_orders.length; i++){
         var raw = response.data[0].current_orders[i];
         var order = {id: raw._id ,address: raw.destination, contents: raw.items[0].quantity + ' ' + raw.items[0].name}
         ordersTemp.push(order);
       }
       */
+      
       this.setState({
         orders: ordersTemp
       })
@@ -124,24 +127,69 @@ class Delivery extends Component {
     })
   }
 
-  sendText(num){
-    console.log(num);
-    axios.post('http://localhost:3001/sendsms/' + num)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
+  haversineDistance(coords1, coords2, isMiles) {
+    console.log('coords ' + coords1 + ', ' + coords2);
+    function toRad(x) {
+      return x * Math.PI / 180;
+    }
+
+    var lon1 = coords1[0];
+    var lat1 = coords1[1];
+
+    var lon2 = coords2[0];
+    var lat2 = coords2[1];
+
+    var R = 6371; // km
+
+    var x1 = lat2 - lat1;
+    var dLat = toRad(x1);
+    var x2 = lon2 - lon1;
+    var dLon = toRad(x2)
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+
+    if(isMiles) d /= 1.60934;
+    console.log(d);
+    return d;
+}
+
+
+
+  sendText(order,num){
+    Geocode.enableDebug();
+    Geocode.fromAddress(order.address).then ( des => {
+      Geocode.fromAddress(this.state.origin + 'Dobbs Ferry, NY').then ( orig => {
+        //console.log('origin: ' + orig + ' destination: ' + des)
+        var coordsOrig =  [orig.results[0].geometry.location.lat,orig.results[0].geometry.location.lng];
+        var coordsDes = [des.results[0].geometry.location.lat,des.results[0].geometry.location.lng];
+        var distance = this.haversineDistance(coordsOrig,coordsDes,true);
+        var time = Math.floor((distance / 15) * 60); //distance over 15 miles per hour on average
+        axios.post('http://localhost:3001/sendsms/' + num + '/' + time)
+        .then(function (response) {
+          console.log('yeehaw');
+        })
+        .catch(function (error) {
+          console.log('eror');
+       });
+      }).catch(function (error){
+        console.log(1);
+      });
+    }).catch(function (error){
+      console.log(2);
     });
   }
 
 
   getSelectedOrder(order){
-    //this.sendText('+19144716528');  //Only activate once we need to demo
+      //Only activate once we need to demo
     if(order.address!=this.state.destination && this.state.map){
       return false;
     }
     if(!this.state.map){
+      this.sendText(order,'+19144716528');
       this.setState({
         destination: order.address,
         map: true,
@@ -201,7 +249,7 @@ class Delivery extends Component {
   handleChangeOrigin(event){
     const value = event.target.value;
     this.setState({
-      origin: value
+      origin: value 
     })
   }
 

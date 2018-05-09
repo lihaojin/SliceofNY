@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import DeliveryCard from '../component/deliveryCard';
 import {getDelivery} from '../Util/managerDBUtil';
+import { Redirect } from 'react-router';
 
 
 export default class Delivery extends Component
@@ -20,7 +21,6 @@ export default class Delivery extends Component
 		if(localStorage.getItem('token')==null)
 		{	
 			this.setState({redirect:true});
-			alert("You are not logged in!");
 		}
 		else
 		{
@@ -42,6 +42,12 @@ export default class Delivery extends Component
  
 	render()
 	{
+		if(this.state.redirect)
+		{
+			return(
+				<Redirect to='/login'/>
+				)
+		}
 
 		const delivery = this.state.deliveryPeople.map((person)=>
 
