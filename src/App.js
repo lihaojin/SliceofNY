@@ -115,11 +115,7 @@ class App extends Component {
       cart: [],
       subtotal: 0,
       storeName: ''
-<<<<<<< HEAD
     })
-=======
-    });
->>>>>>> e5f4b82b45a11cea4bfddf1ef504d43661e62755
     localStorage.setItem('cart',JSON.stringify([]));
     localStorage.setItem('subtotal',0);
     localStorage.setItem('storeName','');
@@ -192,8 +188,8 @@ class App extends Component {
       </div>
 
       <div className="checkout">
-      <RaisedButton label="Checkout" primary={true} fullWidth={true} href="/Checkout"/>
-      <RaisedButton label="Clear Cart" onClick={this.clearCart.bind(this)} secondary={true} fullWidth={true}/>
+      {!(this.state.cart.length === 0) && <RaisedButton label="Checkout" primary={true} fullWidth={true} href="/Checkout"/>}
+      {!(this.state.cart.length === 0) && <RaisedButton label="Clear Cart" onClick={this.clearCart.bind(this)} secondary={true} fullWidth={true}/>}
       </div>
       </Drawer>
 

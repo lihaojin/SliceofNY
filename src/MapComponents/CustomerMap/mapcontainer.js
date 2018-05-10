@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import PizzaMarker from './marker'
 import pizza from './images/pizza.png'
-import pink_circle from './images/pink-circle.png'
+import grey_marker from './images/marker.png'
 import Geocode from "react-geocode";
 import axios from 'axios'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -35,7 +35,7 @@ export default class MapContainer extends Component {
   //Adds current location marker
   addMarker(lati,long){
     if(!this.state.addedCurrent){
-      var joined = this.state.markers.concat({lat: lati, lng: long,img_src:pink_circle , currentLocation: true});
+      var joined = this.state.markers.concat({lat: lati, lng: long,img_src:grey_marker , currentLocation: true});
       this.setState({
         currentLocationMarkerIndex: this.state.markers.length,
         markers: joined,
@@ -121,35 +121,69 @@ export default class MapContainer extends Component {
 
   //Rewrite !!
   async returnRelevantMarker(){
-    Geocode.enableDebug();
-    var x = this.state.markers;
-    var y = x[this.state.currentLocationMarkerIndex];
-    this.setState({
-      currentLocationMarkerIndex: 0
-    })
-    var update = [y]
-    var coords,name,address;
-    var list_coords = []
-    var response = await axios.get('http://localhost:3001/store/getTop')
-      for(var i = 0; i < response.data.length; i++){
-        var loc = await Geocode.fromAddress(response.data[i].location)
-        var coords =  [loc.results[0].geometry.location.lat,loc.results[0].geometry.location.lng];
-        list_coords.push(coords)
+    if(this.state.addedCurrent){
+      Geocode.enableDebug();
+      var x = this.state.markers;
+      var y = x[this.state.currentLocationMarkerIndex];
+      this.setState({
+        currentLocationMarkerIndex: 0
+      })
+      var update = [y]
+      var coords,name,address;
+      var list_coords = []
+      var response = await axios.get('http://localhost:3001/store/getAllStore')
+        for(var i = 0; i < response.data.length; i++){
+          var loc = await Geocode.fromAddress(response.data[i].location)
+          var coords =  [loc.results[0].geometry.location.lat,loc.results[0].geometry.location.lng];
+          list_coords.push(coords)
 
+        }
+      console.log('ready');
+      var topThree = await this.sortTopThree(list_coords);
+      for(var i = 0; i < topThree.length; i++){
+        var newMarkerProto = response.data[topThree[i].index]
+        var coordsNew = list_coords[topThree[i].index]
+        var newMarker = {lat: coordsNew[0], lng: coordsNew[1],address: newMarkerProto.location, name: newMarkerProto.name,img_src:pizza , currentLocation: false}
+        update.push(newMarker)
       }
-    console.log('ready');
-    var topThree = await this.sortTopThree(list_coords);
-    for(var i = 0; i < topThree.length; i++){
-      var newMarkerProto = response.data[topThree[i].index]
-      var coordsNew = list_coords[topThree[i].index]
-      var newMarker = {lat: coordsNew[0], lng: coordsNew[1],address: newMarkerProto.location, name: newMarkerProto.name,img_src:pizza , currentLocation: false}
-      update.push(newMarker)
+       await this.setState({
+        markers: update
+      })
+      console.log(this.state.markers)
     }
-     await this.setState({
-      markers: update
-    })
-    console.log(this.state.markers)
+    else{
+      alert('Please Click Your Location on the Map!')
+    }
     
+  }
+
+  async returnAll(){
+    if(this.state.addedCurrent){
+      Geocode.enableDebug();
+      var x = this.state.markers;
+      var y = x[this.state.currentLocationMarkerIndex];
+      this.setState({
+        currentLocationMarkerIndex: 0
+      })
+      var update = [y]
+      var coords,name,address;
+      var list_coords = []
+      var response = await axios.get('http://localhost:3001/store/getAllStore')
+        for(var i = 0; i < response.data.length; i++){
+          var loc = await Geocode.fromAddress(response.data[i].location)
+          var coords =  [loc.results[0].geometry.location.lat,loc.results[0].geometry.location.lng];
+          var data = response.data[i]
+          var newMarker = {lat: coords[0], lng: coords[1],address: data.location, name: data.name,img_src:pizza , currentLocation: false}
+          update.push(newMarker)
+
+        }
+      this.setState({
+        markers: update
+      })
+    }
+    else{
+      alert('Please Click Your Location on the Map!')
+    }
   }
 
 
@@ -194,7 +228,7 @@ export default class MapContainer extends Component {
       </div>
       <div className="text-center">
         <RaisedButton className="button" primary={true} onClick = {() => this.returnRelevantMarker()}> Show Relevant </RaisedButton>
-        <RaisedButton className="button" onClick = {() => this.returnRelevantMarker('getAll')} > Show All </RaisedButton>
+        <RaisedButton className="button" onClick = {() => this.returnAll()} > Show All </RaisedButton>
         <RaisedButton className="button" secondary={true} onClick = {this.removeCurrent.bind(this)}> Reset </RaisedButton>
         </div>
       </div>
