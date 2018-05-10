@@ -76,19 +76,14 @@ class Top3tableRow extends Component {
           <TableRowColumn>{this.props.store.rating}</TableRowColumn>
           <TableRowColumn>
           <Link to={'/'+ this.props.store.name +'/StorePage'} >
-           <RaisedButton>
+           <RaisedButton primary={true}>
             Visit
            </RaisedButton>
           </Link>
           </TableRowColumn>
           <TableRowColumn>
-           <RaisedButton onClick={this.handleSignUp.bind(this)}>
+           <RaisedButton secondary={true} onClick={this.handleSignUp.bind(this)}>
             Sign Up
-           </RaisedButton>
-          </TableRowColumn>
-          <TableRowColumn>
-            <RaisedButton onClick={this.handleComplaintEasy}>
-            Comment/Complaints
            </RaisedButton>
           </TableRowColumn>
         </TableRow>

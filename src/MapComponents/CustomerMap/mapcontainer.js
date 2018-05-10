@@ -196,8 +196,8 @@ export default class MapContainer extends Component {
   render() {
     return (
       <div>
-      {this.state.showPrompt && (<div className="InitialPrompt" style={{color:"white"}}>Please Click Your Current Location </div>)}
-      {!this.state.showPrompt && (<div className="InitialPrompt" style={{color:"white"}}>Current Location is Pink!</div> )}
+      {this.state.showPrompt && (<h1 className="InitialPrompt" style={{color:"white"}}>Please Click Your Current Location </h1>)}
+      {!this.state.showPrompt && (<h1 className="InitialPrompt" style={{color:"white"}}>Current Location is Pink!</h1> )}
       <div style={{width: '100%', height: '400px', border: '5px groove white'}}> 
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyAIQZMVYWhDwlR9mqBRL-dOGxW3LwLV-ds' }}

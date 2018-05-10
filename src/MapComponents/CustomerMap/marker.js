@@ -19,7 +19,7 @@ export default class PizzaMarker extends Component{
 
   render(){
     return(
-      <div onClick={this.onClickMarker.bind(this)}><img src={this.props.img_src} className="PizzaMarker"  width = "20" height = "20" style={{}} /> {this.state.showInfo && (
+      <div onMouseUp={this.onClickMarker.bind(this)}><img src={this.props.img_src} className="PizzaMarker"  width = "20" height = "20" style={{}} /> {this.state.showInfo && (
               <div>
                 {!this.props.isCurrent && (<div><InfoWindow 
                 name= {this.state.name}

@@ -37,12 +37,11 @@ componentDidMount(){
       <div style={{border: '5px groove white'}}>
       <Table>
    <TableHeader>
-     <TableRow>
        <TableHeaderColumn>Name</TableHeaderColumn>
+       <TableHeaderColumn/>
        <TableHeaderColumn>Rating</TableHeaderColumn>
-       <TableHeaderColumn></TableHeaderColumn>
-       <TableHeaderColumn></TableHeaderColumn>
-     </TableRow>
+       <TableHeaderColumn>Visit</TableHeaderColumn>
+       <TableHeaderColumn>Sign Up</TableHeaderColumn>
    </TableHeader>
    <TableBody>
    {this.state.stores.map(function(store){
