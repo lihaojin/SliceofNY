@@ -7,6 +7,7 @@ import Geocode from "react-geocode";
 import axios from 'axios'
 import RaisedButton from 'material-ui/RaisedButton'
 import './Map.css'
+import geolib from 'geolib';
 
 const btn_style={
   padding:'10px'
@@ -49,10 +50,9 @@ export default class MapContainer extends Component {
 
   //Removes current location marker
   removeCurrent(){
+    console.log(this.state.markers)
     if(this.state.addedCurrent){
-      var remove = this.state.markers
-      remove.splice(this.state.currentLocationMarkerIndex);
-      this.setState({markers: remove});
+      this.setState({markers: []});
       this.setState({addedCurrent: false});
       this.setState({showPrompt: true});
       this.forceUpdate();
@@ -79,55 +79,76 @@ export default class MapContainer extends Component {
     );
   }
 
-  //In development should eventually return three best matches, makes two calls to two different apis
-  //Takes in end of api route as argument so can be used for both show all and relevant
-  returnRelevantMarker(ext){
-    Geocode.enableDebug();
-    var x = this.state.markers;
-    var update = []
-    var coords,name,address;
-    axios.get('http://localhost:3001/store/' + ext).then(response => {
-      for(var i = 0; i < response.data.length; i++){
-        var j = i
-          Geocode.fromAddress(response.data[j].location).then ( loc => {
-            var coords =  [loc.results[0].geometry.location.lat,loc.results[0].geometry.location.lng];
-            address = ''
-            name = ''
-            console.log('j: ' + j)
-            if(typeof response.data[j].name === undefined){
-              name = 'default'
-            }
-            else{
-              name = response.data[j].name
-              console.log(name);
-            }
-            if(typeof response.data[j].location === undefined){
-              address = 'default';
-            }
-            else{
-              address = response.data[j].location
-              console.log(address);
-            }
-            //console.log('woo: ' + address)
-            if(coords !== null){
-              update = update.concat({lat: coords[0], lng: coords[1], img_src: pizza, address: address, storeName: name, currentLocation: false});
-            }
-            this.setState({markers:update});
-            this.forceUpdate();
+  haversineDistance(coords1, coords2) {
+    var distance =  geolib.getDistance(
+      {latitude: coords1[0], longitude: coords1[1]},
+      {latitude: coords2[0], longitude: coords2[1]}
+    );
+    //console.log({latitude: coords1[0], longitude: coords1[1]});
+    //console.log({latitude: coords2[0], longitude: coords2[1]})
+    return distance;
 
+  }
 
-        }).
-          catch(error => {
-            console.log(error)
-          });
+  compare(a,b) {
+    //console.log(a.distance,b.distance);
+  if (a.distance < b.distance)
+    return -1;
+  if (a.distance >b.distance)
+    return 1;
+  return 0;
+}
+  
+
+  async sortTopThree(update){
+    var mark = this.state.markers[this.state.currentLocationMarkerIndex];
+    var current = [mark.lat, mark.lng]
+    var indices_sorted = []
+    var list = []
+    for(var i = 0; i < update.length; i++){
+      var distance = await this.haversineDistance(current,update[i]);
+      console.log(distance);
+      list.push({distance: distance, index: i})
       
     }
-    console.log(update);
-  })
-    .catch(error => {
-      console.log('Error fetching and parsing data', error);
-    });
 
+    var sorted = list.sort(this.compare);
+    return sorted.slice(0,3)      // bar,me,you,foo
+
+  }
+  //In development should eventually return three best matches, makes two calls to two different apis
+  //Takes in end of api route as argument so can be used for both show all and relevant
+
+  //Rewrite !!
+  async returnRelevantMarker(){
+    Geocode.enableDebug();
+    var x = this.state.markers;
+    var y = x[this.state.currentLocationMarkerIndex];
+    this.setState({
+      currentLocationMarkerIndex: 0
+    })
+    var update = [y]
+    var coords,name,address;
+    var list_coords = []
+    var response = await axios.get('http://localhost:3001/store/getTop')
+      for(var i = 0; i < response.data.length; i++){
+        var loc = await Geocode.fromAddress(response.data[i].location)
+        var coords =  [loc.results[0].geometry.location.lat,loc.results[0].geometry.location.lng];
+        list_coords.push(coords)
+
+      }
+    console.log('ready');
+    var topThree = await this.sortTopThree(list_coords);
+    for(var i = 0; i < topThree.length; i++){
+      var newMarkerProto = response.data[topThree[i].index]
+      var coordsNew = list_coords[topThree[i].index]
+      var newMarker = {lat: coordsNew[0], lng: coordsNew[1],address: newMarkerProto.location, name: newMarkerProto.name,img_src:pizza , currentLocation: false}
+      update.push(newMarker)
+    }
+     await this.setState({
+      markers: update
+    })
+    console.log(this.state.markers)
     
   }
 
@@ -160,7 +181,8 @@ export default class MapContainer extends Component {
                   address={marker.address}
                   img_src={marker.img_src}
                   onClick={() => this.handleToggleClose()}
-                  name = {marker.storeName}
+                  name = {marker.name}
+                  isCurrent = {marker.currentLocation}
                 >
 
                 </PizzaMarker>
@@ -171,9 +193,9 @@ export default class MapContainer extends Component {
       </GoogleMapReact>
       </div>
       <div className="text-center">
-        <RaisedButton className="button" primary={true} onClick = {() => this.returnRelevantMarker('getTop')}> Show Relevant </RaisedButton>
+        <RaisedButton className="button" primary={true} onClick = {() => this.returnRelevantMarker()}> Show Relevant </RaisedButton>
         <RaisedButton className="button" onClick = {() => this.returnRelevantMarker('getAll')} > Show All </RaisedButton>
-        <RaisedButton className="button" secondary={true} onClick = {this.removeCurrent.bind(this)}> Reset Current </RaisedButton>
+        <RaisedButton className="button" secondary={true} onClick = {this.removeCurrent.bind(this)}> Reset </RaisedButton>
         </div>
       </div>
 

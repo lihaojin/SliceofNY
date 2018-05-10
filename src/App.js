@@ -110,6 +110,11 @@ class App extends Component {
   }
 
   clearCart(){
+    this.setState({
+      cart: [],
+      subtotal: 0,
+      storeName: ''
+    })
     localStorage.setItem('cart',JSON.stringify([]));
     localStorage.setItem('subtotal',0);
     localStorage.setItem('storeName','');

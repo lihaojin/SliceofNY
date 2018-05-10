@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
+import { Link } from 'react-router-dom'
+import RaisedButton from 'material-ui/RaisedButton'
 
 const style = {
       display: 'inline-block',
-      height: {flex:1},
-      width: {flex:2},
+      height: {flex:3},
+      width: {flex:3},
       margin: 20,
-      padding: 40,
+      padding: 10,
       textAlign: 'center',
       backgroundColor:'rgba(20,20,20,0.7)',
       floatingLabelStyle: {
@@ -19,6 +21,8 @@ const style = {
         color: 'white',
       }
     }
+
+
 
 export default class InfoWindow extends Component{
 	constructor(props){
@@ -35,10 +39,14 @@ export default class InfoWindow extends Component{
 	render(){
 		return(
 			<Paper style={style} zDepth={3}>
-			<div class="city">
-			{this.props.link} <br/>
+			<div style = {{color: 'white'}}>
 			{this.props.name} <br/>
 			{this.props.address} <br/>
+			<Link to={this.props.link} >
+           <RaisedButton>
+            Visit
+           </RaisedButton>
+          </Link>
 			</div>
 			</Paper>
 			

@@ -7,7 +7,6 @@ export default class PizzaMarker extends Component{
       console.log(this.props.address);
       this.state = {
           showInfo: false,
-          link: "youtube",
           name: this.props.name,
           address: this.props.address
 
@@ -22,12 +21,13 @@ export default class PizzaMarker extends Component{
     return(
       <div onClick={this.onClickMarker.bind(this)}><img src={this.props.img_src} className="PizzaMarker"  width = "20" height = "20" style={{}} /> {this.state.showInfo && (
               <div>
-                <div><InfoWindow 
-                link= {this.state.link}
+                {!this.props.isCurrent && (<div><InfoWindow 
                 name= {this.state.name}
                 address = {this.state.address}
+                link = {'/' + this.state.name + '/StorePage'}
                 />
-                </div>
+                
+                </div>)}
               </div>
             )} 
       </div>
