@@ -37,6 +37,7 @@ class App extends Component {
     };
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.clearCart = this.clearCart.bind(this);
   }
 
   componentWillMount(){
@@ -114,7 +115,11 @@ class App extends Component {
       cart: [],
       subtotal: 0,
       storeName: ''
+<<<<<<< HEAD
     })
+=======
+    });
+>>>>>>> e5f4b82b45a11cea4bfddf1ef504d43661e62755
     localStorage.setItem('cart',JSON.stringify([]));
     localStorage.setItem('subtotal',0);
     localStorage.setItem('storeName','');
@@ -192,7 +197,7 @@ class App extends Component {
       </div>
       </Drawer>
 
-      <RoutePaths  addItem={this.addItem} cart={this.state.cart} subtotal={this.state.subtotal}/>
+      <RoutePaths  addItem={this.addItem} cart={this.state.cart} subtotal={this.state.subtotal} clearCart={this.clearCart}/>
       </MuiThemeProvider>
     );
   }
