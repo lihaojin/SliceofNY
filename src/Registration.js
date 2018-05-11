@@ -38,20 +38,29 @@ class Registration extends Component {
       password : "",
       typeOfUser : "",
       store_affiliated_with : "",
-      location:"",
-      value: 1};
+      value:3,
+      location:""};
       this.handleFormChange = this.handleFormChange.bind(this);
       this.onSignUp = this.onSignUp.bind(this);
+      this.handleDrowDown = this.handleDrowDown.bind(this);
   }
 
 //Set state for textfields
   handleFormChange(e){
           const value = e.target.value;
           const name = e.target.name;
+
           this.setState({[name]: value})
       }
 
-
+  handleDrowDown(e,index,value){
+    const val = e.target.textContent;
+    const map = {"Manager":1,"Chef":2,"Customer":3,"Delivery":4}
+    this.setState({
+      typeOfUser:val,
+      value:map[val]
+    })
+  }
 
 //Handles post req for signu
 onSignUp(){
@@ -145,18 +154,15 @@ onSignUp(){
     floatingLabelFocusStyle={style.floatingLabelFocusStyle}
     inputStyle={style.inputStyle}
     /><br />
-
-    <TextValidator
-    value={this.state.typeOfUser}
-    name="typeOfUser"
-    validators={['required']}
-    errorMessages={['this field is required']}
-    onChange={this.handleFormChange}
-    floatingLabelText="User Type"
-    floatingLabelStyle ={style.floatingLabelStyle}
-    floatingLabelFocusStyle={style.floatingLabelFocusStyle}
-    inputStyle={style.inputStyle}
-    /><br />
+    <DropDownMenu value={this.state.value} style={{backgroundColor:'white',color:'white'}} onChange={this.handleDrowDown}>
+          <MenuItem value={1} primaryText="Manager" />
+          <MenuItem value={2} primaryText="Chef" />
+          <MenuItem value={3} primaryText="Customer" />
+          <MenuItem value={4} primaryText="Delivery" />
+        
+        </DropDownMenu>
+  
+    <br />
 
     {storeName}
     <br />

@@ -124,3 +124,29 @@ function getMyStoreInfo()
 {
   return axios.get(baseUrl+'/manager/getMyStoreInfo');
 }
+
+
+export{payDelivery}
+function payDelivery(email,amount)
+{
+  return axios.post(baseUrl+'/manager/payDelivery',{  
+    "email":email,
+    "amount":amount
+  })
+}
+
+export{getChef}
+function getChef()
+{
+  return axios.get(baseUrl+'/manager/getMyChefs')
+}
+
+
+export{payChef}
+function payChef(email,amount)
+{
+  return axios.post(baseUrl+'/manager/payChef',{  
+    "email":email,
+    "amount":amount
+  })
+}
