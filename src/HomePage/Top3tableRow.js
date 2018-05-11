@@ -25,7 +25,7 @@ class Top3tableRow extends Component {
     this.handleComplaintEasy= this.handleComplaintEasy.bind(this);
   }
 
-  
+
   handleFormChange(e){
           const value = e.target.value;
           const name = e.target.name;
@@ -49,7 +49,7 @@ class Top3tableRow extends Component {
     alert("Sign In First");
   }
 
-    
+
   }
   handleComplaintEasy(){
     const complaint = prompt("Please enter your complaint: ");
@@ -76,18 +76,18 @@ class Top3tableRow extends Component {
           <TableRowColumn>{this.props.store.rating}</TableRowColumn>
           <TableRowColumn>
           <Link to={'/'+ this.props.store.name +'/StorePage'} >
-           <RaisedButton>
+           <RaisedButton primary={true}>
             Visit
            </RaisedButton>
           </Link>
           </TableRowColumn>
           <TableRowColumn>
-           <RaisedButton onClick={this.handleSignUp.bind(this)}>
+           <RaisedButton primary={true} onClick={this.handleSignUp.bind(this)}>
             Sign Up
            </RaisedButton>
           </TableRowColumn>
           <TableRowColumn>
-            <RaisedButton onClick={this.handleComplaintEasy}>
+            <RaisedButton secondary={true} onClick={this.handleComplaintEasy}>
             Comment/Complaints
            </RaisedButton>
           </TableRowColumn>

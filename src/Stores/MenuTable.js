@@ -27,11 +27,11 @@ render() {
   return (
     <Table>
  <TableHeader>
-      <TableHeaderColumn></TableHeaderColumn>
-     <TableHeaderColumn>Name</TableHeaderColumn>
-     <TableHeaderColumn>Price</TableHeaderColumn>
-     <TableHeaderColumn>Rating</TableHeaderColumn>
-     <TableHeaderColumn>Description</TableHeaderColumn>
+      <TableRowColumn></TableRowColumn>
+     <TableRowColumn>Name</TableRowColumn>
+     <TableRowColumn>Price</TableRowColumn>
+     <TableRowColumn>Rating</TableRowColumn>
+     <TableRowColumn>Description</TableRowColumn>
  </TableHeader>
 
  <TableBody>

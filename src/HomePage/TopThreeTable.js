@@ -38,10 +38,10 @@ componentDidMount(){
       <Table>
    <TableHeader>
      <TableRow>
-       <TableHeaderColumn>Name</TableHeaderColumn>
-       <TableHeaderColumn>Rating</TableHeaderColumn>
-       <TableHeaderColumn></TableHeaderColumn>
-       <TableHeaderColumn></TableHeaderColumn>
+       <TableRowColumn>Name</TableRowColumn>
+       <TableRowColumn>Rating</TableRowColumn>
+       <TableRowColumn></TableRowColumn>
+       <TableRowColumn></TableRowColumn>
      </TableRow>
    </TableHeader>
    <TableBody>
