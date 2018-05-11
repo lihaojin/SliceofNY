@@ -5,6 +5,7 @@ import Customers from './customer';
 import Delivery from './delivery';
 import Orders from './orders';
 import Complaints from './complaint';
+import ChefControl from './chef';
 export default class ManagerContainer extends Component
 {
 
@@ -14,9 +15,9 @@ export default class ManagerContainer extends Component
 			<div>
 				<Tabs>
 					<Tab label="Current Orders">
-					<Orders/>
+						<Orders/>
 					</Tab>
-					<Tab label="Pick Delivery">
+					<Tab label="Delivery">
 						<Delivery/>
 					</Tab>
 					<Tab label="Menu Serving">
@@ -28,8 +29,8 @@ export default class ManagerContainer extends Component
 					<Tab label="Complaints/Comments">
 						<Complaints/>
 					</Tab>
-					<Tab label="Pay Chef/Delivery">
-
+					<Tab label="Chef">
+						<ChefControl/>
 					</Tab>
 
 				</Tabs>

@@ -28,40 +28,95 @@ class Login extends Component {
     this.setState({[name]: value})
   }
 
-
+  clearCart(){
+    this.setState({
+      cart: [],
+      subtotal: 0,
+      storeName: ''
+    })
+    localStorage.setItem('cart',JSON.stringify([]));
+    localStorage.setItem('subtotal',0);
+    localStorage.setItem('storeName','');
+    this.forceUpdate();
+  }
 
   onLogin(){
-    loginUser(this.state.email,this.state.password)
-    .then(response => {
-      alert("Success" + response.data)
-      let token = response.data.token;
-      let decoded = jwt.decode(token);
-      localStorage.setItem("token",token);
-      this.forceUpdate();
-      if(decoded.typeOfUser==="Chef")
-      {
-        this.props.history.push('/chef');
-        return;
-      }
-      if(decoded.typeOfUser==="Manager")
-      {
-           this.props.history.push('/Manager');
-           return;
-      }
-            if(decoded.typeOfUser==="Customer")
-      {
-           this.props.history.push('/Homepage');
-           return;
-      }
-            if(decoded.typeOfUser==="Delivery")
-            {
-              this.props.history.push('/Delivery')
-              return;
-            }
-    })
-    .catch(error => {
-      alert("Error " + error.toString());
-    })
+    this.clearCart();
+    // loginUser(this.state.email,this.state.password)
+    // .then(response => {
+    //   alert("Success" + response.data)
+    //   let token = response.data.token;
+    //   let decoded = jwt.decode(token);
+    //   localStorage.setItem("token",token);
+    //   this.forceUpdate();
+    //   if(decoded.typeOfUser==="Chef")
+    //   {
+    //     this.props.history.push('/chef');
+    //     return;
+    //   }
+    //   if(decoded.typeOfUser==="Manager")
+    //   {
+    //        this.props.history.push('/Manager');
+    //        return;
+    //   }
+    //         if(decoded.typeOfUser==="Customer")
+    //   {
+    //        this.props.history.push('/Homepage');
+    //        return;
+    //   }
+    //         if(decoded.typeOfUser==="Delivery")
+    //         {
+    //           this.props.history.push('/Delivery')
+    //           return;
+    //         }
+    // })
+    // .catch(error => {
+    //   alert("Error " + error.toString());
+    // })
+
+
+    if(this.state.email==="" && this.state.password==="")
+    {
+      this.props.history.push('/Homepage')
+      return;
+    }
+    else
+    {
+
+
+      loginUser(this.state.email,this.state.password)
+      .then(response => {
+        alert("Success" + response.data)
+        let token = response.data.token;
+        let decoded = jwt.decode(token);
+        localStorage.setItem("token",token);
+        this.forceUpdate();
+        if(decoded.typeOfUser==="Chef")
+        {
+          this.props.history.push('/chef');
+          return;
+        }
+        if(decoded.typeOfUser==="Manager")
+        {
+             this.props.history.push('/Manager');
+             return;
+        }
+              if(decoded.typeOfUser==="Customer")
+        {
+             this.props.history.push('/Homepage');
+             return;
+        }
+              if(decoded.typeOfUser==="Delivery")
+              {
+                this.props.history.push('/Delivery')
+                return;
+              }
+      })
+      .catch(error => {
+        alert("Error " + error.toString());
+      })
+    }
+
   }
 
  //handleChange = (event, index, value) => this.setState({value,typeOfUser:event.target.name});

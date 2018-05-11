@@ -59,7 +59,7 @@ class App extends Component {
     cart.push(item);
     this.setState({cart: cart});
     this.setState({subtotal: subtotal});
-    this.setState({storeName:storeName});
+    this.setState({storeName: storeName});
     localStorage.setItem('cart',JSON.stringify(cart));
     localStorage.setItem('subtotal',subtotal);
     localStorage.setItem('storeName',storeName)

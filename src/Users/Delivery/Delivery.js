@@ -280,7 +280,7 @@ class Delivery extends Component {
                     <h2>To Deliver</h2>
                     <div style={{border: '2px solid ' + color}}>
                       <Popup  style={{width:'100px',height: '100px',color:'black'}} open={this.state.ratingsOn}> 
-                        <Ratings handleRating = {this.handleCustomerRating.bind(this)}/> 
+                        <Ratings title = {'Please Rate the Customer'} handleRating = {this.handleCustomerRating.bind(this)}/> 
                         <RaisedButton onClick = {this.handleCancel.bind(this)}> Cancel </RaisedButton>
                       </Popup>
                       <DeliveryTable  setToBeDeleted={this.setToBeDeleted.bind(this)} orders = {this.state.orders} getSelectedOrder={this.getSelectedOrder.bind(this)} triggerRating={this.triggerRating.bind(this)}/>

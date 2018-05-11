@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MenuTable from './MenuTable'
 import {GetMenu} from '../Utils/Requests/GetStoreInfo';
+import RaisedButton from 'material-ui/RaisedButton'
 
 class StorePage extends Component {
 
@@ -28,6 +29,9 @@ class StorePage extends Component {
       <center><h1>Menu</h1></center>
       <br />
       <MenuTable addItem={this.props.addItem} menu={this.state.menu} storeName = {this.state.storeName}/>
+      <br />
+      <br />
+      <RaisedButton href='/Homepage' labelColor='white' label='Go Back' primary={true} style={{display: 'flex',justifyContent: 'center'}}/>
       </div>
     );
   }

@@ -5,13 +5,19 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import Paper from 'material-ui/Paper';
 import {OrderRequest} from '../Utils/Requests/OrderRequest';
 import {customerOrder} from '../Utils/Requests/OrderRequest';
+import Ratings from '../ratings/ratings'
+import jwt from 'jsonwebtoken';
 import '../Styles/Checkout.css'
+import Popup from "reactjs-popup";
 class Checkout extends Component {
   constructor(props) {
   super(props);
   this.state = {
     address:"",
-    phone_number:""
+    phone_number:"",
+    rating: false,
+    cancel: false,
+    currIndex: 0
     };
     this.onSubmitOrder = this.onSubmitOrder.bind(this)
     this.handleFormChange = this.handleFormChange.bind(this)
@@ -23,32 +29,57 @@ class Checkout extends Component {
     this.setState({[name]: value})
   }
 
-
-  onSubmitOrder(){
-      var quantity = 1;
-      var name = localStorage.getItem('storeName');
-      var phone_number = parseInt(this.state.phone_number);
-      var items = [
-        this.props.cart.map(function(item){
-          return {name: item.name}
-        }),
-        quantity
-      ];
-      var destination = this.state.address;
-    if(localStorage.getItem('token') === null){
-    OrderRequest(name,items,destination,phone_number)
-    .then(response => {
-      alert("Order Processed" + response.data);
-      this.props.history.push('/Homepage');
-      return;
+  handleRating(value){
+    console.log(this.state.cart[this.state.currIndex].name + ' rated ' + value)
+    this.setState({
+      currIndex: ++this.state.currIndex,
     })
-    .catch(error => {
-      alert("Error " + error);
-    })
-    this.props.clearCart();
+    if(this.state.currIndex > this.props.cart.length){
+      this.setState({
+        ratings:false
+      })
+      this.onSubmitOrder();
     }
     else{
-      customerOrder(name,items,destination,phone_number)
+      this.setState({
+        currName: this.state.cart[this.state.currIndex].name
+      })
+    }
+  }
+
+  handleCancel(){
+    this.setState({
+      rating: false
+    })
+  }
+
+  async getRatings(){
+    var rating = true;
+    await this.setState({
+      rating: rating,
+      cart: this.props.cart,
+      currName: this.props.cart[this.state.currIndex].name
+    })
+    
+    this.forceUpdate();
+
+  }
+
+  async onSubmitOrder(){
+      var quantity = 1;
+      console.log("cleared")
+      
+        var name = localStorage.getItem('storeName');
+        var phone_number = parseInt(this.state.phone_number);
+        var items = [
+          this.props.cart.map(function(item){
+            return {name: item.name}
+          }),
+          quantity
+        ];
+        var destination = this.state.address;
+      if(localStorage.getItem('token') === null){
+      OrderRequest(name,items,destination,phone_number)
       .then(response => {
         alert("Order Processed" + response.data);
         this.props.history.push('/Homepage');
@@ -57,7 +88,20 @@ class Checkout extends Component {
       .catch(error => {
         alert("Error " + error);
       })
-    }
+      this.props.clearCart();
+      }
+      else{
+        customerOrder(name,items,destination,phone_number)
+        .then(response => {
+          alert("Order Processed" + response.data);
+          this.props.history.push('/Homepage');
+          return;
+        })
+        .catch(error => {
+          alert("Error " + error);
+        })
+      }
+   
   }
 
     render() {
@@ -91,12 +135,16 @@ class Checkout extends Component {
          <br />
          <div className="total">
          <h2>Order Review</h2>
+         <Popup  style={{width:'400px',height: '300px',color:'black'}} open={this.state.rating}> 
+              <Ratings title={this.state.currName} handleRating={this.handleRating.bind(this)} />
+            <RaisedButton onClick = {this.handleCancel.bind(this)}> Cancel </RaisedButton>
+        </Popup>
          Your Total: $
          {this.props.subtotal}
          <br /><br />
-         Your Order:
+         <div style={{fontweight:'bold'}}> Your Order: </div>
          {this.props.cart.map(function(item){
-          return <Paper style = {style.orderRowStyle} zDepth={3}> {item.name}</Paper>
+          return <div> {item.name}</div>
         })}
          </div>
          <br />
@@ -122,7 +170,7 @@ class Checkout extends Component {
      inputStyle={style.inputStyle}
    /><br />
 
-      <RaisedButton label="Submit Order" primary={true} fullWidth={true} onClick = {this.onSubmitOrder.bind(this)}/>
+      <RaisedButton label="Submit Order" primary={true} fullWidth={true} onClick = {this.getRatings.bind(this)}/>
 
         </Paper>
          </div>

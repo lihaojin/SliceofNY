@@ -16,7 +16,7 @@ export {OrderRequest}
   export {customerOrder}
     function customerOrder(name,items,destination,phone_number){
       return axios.post(baseUrl + '/customer/makeOrder',{
-        name: name,
+        store_name: name,
         items: items,
         destination: destination,
         phone_number: phone_number
