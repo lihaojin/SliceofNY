@@ -49,6 +49,7 @@ class App extends Component {
   }
   }
 
+
   addItem(item,price,storeName){
     var cart = this.state.cart;
     var subtotal = this.state.subtotal;

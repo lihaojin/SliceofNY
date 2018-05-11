@@ -29,8 +29,6 @@ class Checkout extends Component {
     this.setState({[name]: value})
   }
 
-<<<<<<< HEAD
-=======
   handleRatingHelper(name,itemOrStore, value){
     if (!itemOrStore){
       alert(name + ' item api call ' + value)
@@ -45,7 +43,7 @@ class Checkout extends Component {
     this.setState({
       currIndex: ++this.state.currIndex,
     })
-    
+
     if(this.state.currIndex === this.props.cart.length){
       this.setState({
         currName: localStorage.getItem('storeName'),
@@ -83,11 +81,10 @@ class Checkout extends Component {
       cart: this.props.cart,
       currName: this.props.cart[this.state.currIndex].name
     })
-    
+
     this.forceUpdate();
 
   }
->>>>>>> 3378954d4b2521ccbff9e5d396e4219ee821c36e
 
   async onSubmitOrder(value){
       //this.handleRatingHelper(this.state.currName,this.state.storeRating,value)
@@ -98,7 +95,7 @@ class Checkout extends Component {
         var phone_number = parseInt(this.state.phone_number);
         var items = [
           this.props.cart.map(function(item){
-            return {name: item.name}
+            return {name:item.name}
           }),
           quantity
         ];
