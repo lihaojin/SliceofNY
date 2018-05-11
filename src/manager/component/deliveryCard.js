@@ -3,13 +3,13 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
-import {sendDeliveryOrder} from '../Util/managerDBUtil';
+import {sendDeliveryOrder,payDelivery} from '../Util/managerDBUtil';
+
 export default class  DeliveryCard extends Component{
 	
 	constructor(props)
 	{
 		super(props);
-
 
 	}
 
@@ -26,6 +26,29 @@ export default class  DeliveryCard extends Component{
 		})
 	}
 
+	payPerson =()=>
+	{
+		const amount = prompt("Please enter your complaint: ");
+	     if (amount === null) {
+	        return; //break out of the function early
+	    }
+	    if (amount==="")
+	    {
+	    	alert("Can't be blank!");
+	    	return;
+	    }
+
+		payDelivery(this.props.title,amount)
+		.then(result=>
+		{
+			alert("Delivery Person Paid!");
+			window.location.reload();
+		}).catch(err=>
+		{
+			alert("Paying Delivery Person Failed!");
+		})
+	}
+
   render(){
 
   	return(
@@ -34,7 +57,8 @@ export default class  DeliveryCard extends Component{
 		      title={this.props.title}
 		    />
 		    <CardActions>
-			<FlatButton label="Send Order" onClick={this.sendOrder}/>     
+			<FlatButton label="Send Order" onClick={this.sendOrder}/>  
+			<FlatButton label="Pay This Person" onClick={this.payPerson}/>   
 		    </CardActions>
 		  </Card>
   		)
