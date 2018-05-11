@@ -17,7 +17,8 @@ class Checkout extends Component {
     phone_number:"",
     rating: false,
     cancel: false,
-    currIndex: 0
+    currIndex: 0,
+    storeRating: false
     };
     this.onSubmitOrder = this.onSubmitOrder.bind(this)
     this.handleFormChange = this.handleFormChange.bind(this)
@@ -29,16 +30,37 @@ class Checkout extends Component {
     this.setState({[name]: value})
   }
 
+  handleRatingHelper(name,itemOrStore, value){
+    if (!itemOrStore){
+      alert(name + ' item api call ' + value)
+    }
+    else{
+      alert(name + ' store api call ' + value)
+    }
+  }
+
   handleRating(value){
-    console.log(this.state.cart[this.state.currIndex].name + ' rated ' + value)
+    this.handleRatingHelper(this.state.currName,this.state.storeRating,value)
     this.setState({
       currIndex: ++this.state.currIndex,
     })
-    if(this.state.currIndex > this.props.cart.length){
+    
+    if(this.state.currIndex === this.props.cart.length){
       this.setState({
-        ratings:false
+        currName: localStorage.getItem('storeName'),
+        storeRating: true
+
       })
-      this.onSubmitOrder();
+
+    }
+    else if(this.state.currIndex > this.props.cart.length){
+      this.setState({
+        ratings:false,
+        currIndex: 0,
+        storeRating: false
+      })
+
+      this.onSubmitOrder(value);
     }
     else{
       this.setState({
@@ -65,7 +87,8 @@ class Checkout extends Component {
 
   }
 
-  async onSubmitOrder(){
+  async onSubmitOrder(value){
+      //this.handleRatingHelper(this.state.currName,this.state.storeRating,value)
       var quantity = 1;
       console.log("cleared")
       
