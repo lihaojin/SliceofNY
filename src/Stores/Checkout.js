@@ -34,10 +34,7 @@ class Checkout extends Component {
     this.setState({
       currIndex: ++this.state.currIndex,
     })
-    if(){
-      
-    }
-    else if(this.state.currIndex > this.props.cart.length){
+    if(this.state.currIndex > this.props.cart.length){
       this.setState({
         ratings:false
       })
