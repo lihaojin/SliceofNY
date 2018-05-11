@@ -41,7 +41,6 @@ class Login extends Component {
   }
 
   onLogin(){
-<<<<<<< HEAD
     this.clearCart();
     loginUser(this.state.email,this.state.password)
     .then(response => {
@@ -74,7 +73,7 @@ class Login extends Component {
     .catch(error => {
       alert("Error " + error.toString());
     })
-=======
+
 
     if(this.state.email==="" && this.state.password==="")
     {
@@ -117,7 +116,7 @@ class Login extends Component {
         alert("Error " + error.toString());
       })
     }
->>>>>>> 4e97f96ae548eb0cea17300b529f5540da11258f
+
   }
 
  //handleChange = (event, index, value) => this.setState({value,typeOfUser:event.target.name});

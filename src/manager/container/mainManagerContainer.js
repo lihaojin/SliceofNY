@@ -5,7 +5,7 @@ import Customers from './customer';
 import Delivery from './delivery';
 import Orders from './orders';
 import Complaints from './complaint';
-import Chefs from './chef';
+import Chefs from '../../chef/container/chefContainer';
 export default class ManagerContainer extends Component
 {
 
