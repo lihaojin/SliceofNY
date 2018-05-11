@@ -94,7 +94,7 @@ class Checkout extends Component {
         var name = localStorage.getItem('storeName');
         var phone_number = parseInt(this.state.phone_number);
         var items = [
-          this.props.cart.map(function(item){
+          this.props.cart.map((item) => {
             return {name:item.name}
           }),
           quantity

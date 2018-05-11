@@ -27,7 +27,7 @@ class RoutePaths extends Component{
     return(
       <Router history = {History}>
       <Switch>
-      <Route path = '/' component = {Homepage}/>
+      <Route path = '/ '  component = {Homepage}/>
       <Route path = '/Homepage' component = {Homepage}/>
       <Route path = '/Login' component = {Login}/>
       <Route path = '/Registration' component = {Registration}/>
