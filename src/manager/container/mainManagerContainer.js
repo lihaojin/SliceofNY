@@ -5,7 +5,7 @@ import Customers from './customer';
 import Delivery from './delivery';
 import Orders from './orders';
 import Complaints from './complaint';
-import Chefs from '../../chef/container/chefContainer';
+import ChefControl from './chef';
 export default class ManagerContainer extends Component
 {
 
@@ -30,7 +30,7 @@ export default class ManagerContainer extends Component
 						<Complaints/>
 					</Tab>
 					<Tab label="Chef">
-						<Chefs/>
+						<ChefControl/>
 					</Tab>
 
 				</Tabs>
