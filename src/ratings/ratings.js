@@ -18,6 +18,9 @@ const style = {
 export default class Ratings extends Component{
 	constructor(props){
 		super(props)
+    this.setState({
+      title: this.props.title
+    })
 	}
 
 	handleRating(value){
@@ -27,7 +30,7 @@ export default class Ratings extends Component{
 	render(){
 		return(
         		<Paper style={style.formStyle} zDepth={3}>
-        			<h1 style={{color:'white'}}> Please Rate the Customer! </h1>
+        			<h1 style={{color:'white'}}> {this.props.title} </h1>
           			<Rating onChange={this.handleRating.bind(this)}/>
           		</Paper>
 			);

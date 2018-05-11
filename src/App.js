@@ -55,16 +55,16 @@ class App extends Component {
     var getStoreName = localStorage.getItem('storeName');
     var getSubtotal = localStorage.getItem('subtotal');
     if(getStoreName == storeName || getStoreName == null || getSubtotal == 0){
-    subtotal = subtotal + price
-    cart.push(item);
-    this.setState({cart: cart});
-    this.setState({subtotal: subtotal});
-    this.setState({storeName:storeName});
-    localStorage.setItem('cart',JSON.stringify(cart));
-    localStorage.setItem('subtotal',subtotal);
-    localStorage.setItem('storeName',storeName)
+      subtotal = subtotal + price
+      cart.push(item);
+      this.setState({cart: cart});
+      this.setState({subtotal: subtotal});
+      this.setState({storeName:storeName});
+      localStorage.setItem('cart',JSON.stringify(cart));
+      localStorage.setItem('subtotal',subtotal);
+      localStorage.setItem('storeName',storeName)
   }else{
-    alert("You cant add an item from another store");
+    alert("You can't add an item from another store");
   }
   }
 
@@ -95,6 +95,7 @@ class App extends Component {
     let token = localStorage.getItem('token');
     let decoded = jwt.decode(token);
     this.setState({open:!this.state.open});
+    this.clearCart();
 
     if(decoded != null)
     {

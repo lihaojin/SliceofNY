@@ -31,7 +31,7 @@ class StorePage extends Component {
       <MenuTable addItem={this.props.addItem} menu={this.state.menu} storeName = {this.state.storeName}/>
       <br />
       <br />
-      <RaisedButton href='/Homepage' labelColor='white' label='Go Back' primary={true} style={{justifyContent: 'center'}}/>
+      <RaisedButton href='/Homepage' labelColor='white' label='Go Back' primary={true} style={{display: 'flex',justifyContent: 'center'}}/>
       </div>
     );
   }

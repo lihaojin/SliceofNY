@@ -28,9 +28,20 @@ class Login extends Component {
     this.setState({[name]: value})
   }
 
-
+  clearCart(){
+    this.setState({
+      cart: [],
+      subtotal: 0,
+      storeName: ''
+    })
+    localStorage.setItem('cart',JSON.stringify([]));
+    localStorage.setItem('subtotal',0);
+    localStorage.setItem('storeName','');
+    this.forceUpdate();
+  }
 
   onLogin(){
+    this.clearCart();
     loginUser(this.state.email,this.state.password)
     .then(response => {
       alert("Success" + response.data)
