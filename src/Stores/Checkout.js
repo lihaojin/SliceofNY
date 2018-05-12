@@ -88,17 +88,15 @@ class Checkout extends Component {
 
   async onSubmitOrder(value){
       //this.handleRatingHelper(this.state.currName,this.state.storeRating,value)
-      var quantity = 1;
+      var quantity = parseInt(1);
       console.log("cleared")
 
         var name = localStorage.getItem('storeName');
         var phone_number = parseInt(this.state.phone_number);
-        var items = [
-          this.props.cart.map((item) => {
-            return {name:item.name}
-          }),
-          quantity
-        ];
+        var items =
+          this.props.cart.map(function(item){
+            return {name:item.name,quantity:quantity}
+          });
         var destination = this.state.address;
       if(localStorage.getItem('token') === null){
       OrderRequest(name,items,destination,phone_number)
