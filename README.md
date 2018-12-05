@@ -1,6 +1,6 @@
 # Project - *SliceofNY*
 
-**SliceofNY** is an e-commerce web app that allows users to order pizza from top rated local pizzerias near their area. Local pizzerias can register their stores while managing their staff within the application. There are user interfaces for the customer, manager of store, delivery staff, and chefs. The application handles order processing between customer and store as well.
+**SliceofNY** is an e-commerce web app that allows users to order pizza from top rated local pizzerias near their area. Local pizzerias can register their stores while managing their staff within the application. There are user interfaces for the customer, manager of store, delivery staff, and chefs. This web app was built to increase exposure to local pizzerias while providing means of communication between managers, employees, and customers. 
 
 ## How to Run
 1. Clone this repository
