@@ -7,7 +7,8 @@
 2. Clone the following back-end repository https://github.com/shravan097/pizzaAPI
 3. In your terminal, open two windows and go to the file path of each repository. Use "npm start" for both.
 
-
+##Login Screen
+<img src='https://github.com/lihaojin/SliceofNY/blob/master/login.png'>
 
 
 
