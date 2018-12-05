@@ -7,11 +7,30 @@
 2. Clone the following back-end repository https://github.com/shravan097/pizzaAPI
 3. In your terminal, open two windows and go to the file path of each repository. Use "npm start" for both.
 
-##Login Screen
+## Login Screen
 <img src='https://github.com/lihaojin/SliceofNY/blob/master/login.png'>
 
+## Home Page
+<img src='https://github.com/lihaojin/SliceofNY/blob/master/Maps.png'>
 
+## Store Interface
+<img src='https://github.com/lihaojin/SliceofNY/blob/master/stores.png'>
 
+## Shopping Cart
+<img src='https://github.com/lihaojin/SliceofNY/blob/master/shoppingcart.png'>
+
+## Check out
+<img src='https://github.com/lihaojin/SliceofNY/blob/master/checkout.png'>
+
+## Manager Interface
+<img src='https://github.com/lihaojin/SliceofNY/blob/master/manager.png'>
+
+## Chef Interface
+<img src='https://github.com/lihaojin/SliceofNY/blob/master/chef1.png'>
+<img src='https://github.com/lihaojin/SliceofNY/blob/master/chef2.png'>
+
+## Delivery Interface
+<img src='https://github.com/lihaojin/SliceofNY/blob/master/delivery.png'>
 ## License
 
     Copyright [2018] [Haojin Li]
